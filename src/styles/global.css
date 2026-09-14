@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+/* Tailwind v4 theme config lives in CSS, not tailwind.config.mjs. These
+   custom properties become usable utility classes, e.g. bg-brand-red, text-navy. */
+@theme {
+  --color-navy: #152056;
+  --color-brand-blue: #12557f;
+  --color-brand-blue-light: #2f8fc9;
+  --color-brand-red: #d81f2a;
+
+  --font-sans: "Signa", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Signa files aren't supplied yet — see public/fonts/README.md. Until they're
+   added these 404 silently and the fallback stack above is used instead. */
+@font-face {
+  font-family: "Signa";
+  src: url("/fonts/Signa-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Signa";
+  src: url("/fonts/Signa-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans text-navy;
+  /* fallback for before BackgroundTransition.astro's script runs, or if JS is disabled —
+     matches About's resting color so there's no flash on load */
+  background-color: #f8fafc;
+}
+
+/* shared entrance animation: Hero uses it directly on load (animate-fade-up),
+   everything else uses the same easing via the [data-reveal] transition classes
+   below, toggled by ScrollAnimations.astro's IntersectionObserver */
+@theme {
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal],
+  .animate-fade-up {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

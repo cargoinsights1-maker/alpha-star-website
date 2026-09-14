@@ -1,0 +1,68 @@
+---
+// Rotating dot-globe with pulsing markers at Dubai (origin) and major trade
+// regions. Pinned to cobe@0.6.x deliberately: cobe v2's rewritten shader has
+// a portability bug (relies on a reversed-edge smoothstep call that some
+// GPU/driver combos evaluate as always-zero) that leaves the dot map
+// invisible — confirmed by testing both versions side by side. v2's native
+// `arcs` feature isn't available on this version, so "trade routes" are
+// conveyed through the pulsing markers only, not connecting lines.
+---
+
+<!-- sizing is intentionally left to the parent (see About.astro) so the globe can be sized/bled off-screen differently per usage -->
+<div class="relative mx-auto aspect-square w-full">
+  <canvas id="trade-globe" class="h-full w-full" />
+</div>
+
+<script>
+  import createGlobe from "cobe";
+
+  const canvas = document.getElementById("trade-globe") as HTMLCanvasElement | null;
+  if (canvas) {
+    const dubai: [number, number] = [25.2048, 55.2708];
+    const destinations: [number, number][] = [
+      [51.5072, -0.1276], // London
+      [19.076, 72.8777], // Mumbai
+      [31.2304, 121.4737], // Shanghai
+      [40.7128, -74.006], // New York
+      [-1.2921, 36.8219], // Nairobi
+      [-33.8688, 151.2093], // Sydney
+    ];
+
+    const markers = [
+      { location: dubai, baseSize: 0.09, phase: 0 },
+      ...destinations.map((location, i) => ({ location, baseSize: 0.05, phase: i + 1 })),
+    ];
+
+    const width = canvas.offsetWidth || 420;
+    let phi = 0;
+    const start = performance.now();
+
+    const globe = createGlobe(canvas, {
+      devicePixelRatio: 2,
+      width: width * 2,
+      height: width * 2,
+      phi: 0,
+      theta: 0.3,
+      dark: 1,
+      diffuse: 1.2,
+      mapSamples: 16000,
+      mapBrightness: 8,
+      mapBaseBrightness: 0.35,
+      baseColor: [0.071, 0.333, 0.498],
+      markerColor: [0.847, 0.122, 0.165],
+      glowColor: [0.18, 0.56, 0.79],
+      markers,
+      onRender: (state) => {
+        const elapsed = (performance.now() - start) / 1000;
+        for (const marker of markers) {
+          marker.size = marker.baseSize + Math.sin(elapsed * 1.6 + marker.phase) * marker.baseSize * 0.4;
+        }
+        phi += 0.0045;
+        state.phi = phi;
+        state.markers = markers;
+      },
+    });
+
+    window.addEventListener("beforeunload", () => globe.destroy());
+  }
+</script>

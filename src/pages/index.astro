@@ -1,0 +1,44 @@
+---
+import "../styles/global.css";
+import Hero from "../components/Hero.astro";
+import Header from "../components/Header.astro";
+import About from "../components/About.astro";
+import Services from "../components/Services.astro";
+import Industries from "../components/Industries.astro";
+import ProjectsGallery from "../components/ProjectsGallery.astro";
+import HowItWorks from "../components/HowItWorks.astro";
+import TrustedBy from "../components/TrustedBy.astro";
+import Footer from "../components/Footer.astro";
+import ScrollAnimations from "../components/ScrollAnimations.astro";
+import BackgroundTransition from "../components/BackgroundTransition.astro";
+import SmoothScroll from "../components/SmoothScroll.astro";
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Alpha Star Shipping</title>
+	</head>
+	<body>
+		<!-- first, so window.__lenis exists before any other component's script (Header, BackgroundTransition) tries to use it -->
+		<SmoothScroll />
+		<Hero />
+		<!-- fixed + hidden until the hero scrolls past, then reveals already pinned at top
+		     (plain sticky would visibly slide up from the bottom as you approach it) -->
+		<Header revealOnScroll />
+		<About />
+		<Services />
+		<Industries />
+		<ProjectsGallery />
+		<HowItWorks />
+		<TrustedBy />
+		<!-- More sections built one at a time — see .claude/workflow.md -->
+		<Footer />
+		<ScrollAnimations />
+		<BackgroundTransition />
+	</body>
+</html>

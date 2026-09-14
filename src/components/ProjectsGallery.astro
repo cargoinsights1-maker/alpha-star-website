@@ -1,0 +1,153 @@
+---
+// Real project photography is pending (see public/projects/README.md). Same
+// graceful-placeholder pattern as Services.astro: each tile's CSS background
+// layers a photo URL over a brand-color gradient, so a missing .webp fails
+// silently and the gradient alone carries the tile.
+interface GalleryTile {
+  slug: string;
+  caption: string;
+  span: string;
+}
+
+const tiles: GalleryTile[] = [
+  { slug: "project-01", caption: "Project 01", span: "col-span-2 row-span-2" },
+  { slug: "project-02", caption: "Project 02", span: "col-span-1 row-span-1" },
+  { slug: "project-03", caption: "Project 03", span: "col-span-1 row-span-1" },
+  { slug: "project-04", caption: "Project 04", span: "col-span-1 row-span-2" },
+  { slug: "project-05", caption: "Project 05", span: "col-span-1 row-span-1" },
+  { slug: "project-06", caption: "Project 06", span: "col-span-2 row-span-1" },
+  { slug: "project-07", caption: "Project 07", span: "col-span-1 row-span-1" },
+];
+
+const gradients = [
+  "linear-gradient(135deg, #152056, #12557f)",
+  "linear-gradient(135deg, #12557f, #2f8fc9)",
+  "linear-gradient(135deg, #152056, #d81f2a)",
+  "linear-gradient(135deg, #2f8fc9, #12557f)",
+];
+---
+
+<section id="gallery-section" class="relative overflow-hidden py-20 sm:py-24">
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+      <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Our Work</p>
+      <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl lg:text-5xl">Projects We're Proud Of</h2>
+    </div>
+
+    <div
+      id="gallery-grid"
+      data-reveal
+      class="mt-12 grid translate-y-8 auto-rows-[160px] grid-cols-2 grid-flow-dense gap-4 opacity-0 transition-all delay-150 duration-700 ease-out sm:auto-rows-[190px] sm:grid-cols-4 sm:gap-5"
+    >
+      {
+        tiles.map((tile, i) => (
+          <button
+            type="button"
+            data-gallery-trigger
+            data-index={i}
+            style={`background: url('/projects/${tile.slug}.webp') center/cover no-repeat, ${gradients[i % gradients.length]};`}
+            class={`group relative overflow-hidden rounded-2xl text-left ${tile.span}`}
+            aria-label={`View ${tile.caption}`}
+          >
+            <div class="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
+            <span class="absolute inset-0 scale-100 transition-transform duration-500 group-hover:scale-105" />
+            <span class="absolute right-4 bottom-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/15 text-white opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
+            </span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<div
+  id="gallery-lightbox"
+  aria-hidden="true"
+  class="pointer-events-none fixed inset-0 z-[70] flex scale-95 items-center justify-center bg-black/90 opacity-0 backdrop-blur-sm transition-all duration-300 ease-out"
+>
+  <button id="gallery-close" type="button" aria-label="Close" class="absolute top-6 right-6 flex h-11 w-11 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+      <path d="M18 6 6 18M6 6l12 12" />
+    </svg>
+  </button>
+
+  <button id="gallery-prev" type="button" aria-label="Previous" class="absolute left-4 flex h-12 w-12 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 sm:left-8">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+      <path d="M19 12H5M12 19l-7-7 7-7" />
+    </svg>
+  </button>
+  <button id="gallery-next" type="button" aria-label="Next" class="absolute right-4 flex h-12 w-12 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 sm:right-8">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+      <path d="M5 12h14M12 5l7 7-7 7" />
+    </svg>
+  </button>
+
+  <div class="mx-auto flex w-full max-w-4xl flex-col items-center px-16">
+    <div id="gallery-image" class="aspect-[4/3] w-full rounded-2xl bg-center bg-cover" />
+    <p id="gallery-caption" class="mt-4 text-sm font-medium text-white/80" />
+  </div>
+</div>
+
+<script>
+  interface GalleryItem {
+    background: string;
+    caption: string;
+  }
+
+  const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-gallery-trigger]"));
+  const items: GalleryItem[] = triggers.map((trigger) => ({
+    background: trigger.style.background,
+    caption: trigger.getAttribute("aria-label")?.replace("View ", "") ?? "",
+  }));
+
+  const lightbox = document.getElementById("gallery-lightbox");
+  const imageEl = document.getElementById("gallery-image");
+  const captionEl = document.getElementById("gallery-caption");
+  const closeBtn = document.getElementById("gallery-close");
+  const prevBtn = document.getElementById("gallery-prev");
+  const nextBtn = document.getElementById("gallery-next");
+
+  let currentIndex = 0;
+
+  const render = () => {
+    const item = items[currentIndex];
+    if (imageEl && item) imageEl.style.background = item.background;
+    if (captionEl && item) captionEl.textContent = item.caption;
+  };
+
+  const open = (index: number) => {
+    currentIndex = index;
+    render();
+    lightbox?.classList.remove("opacity-0", "scale-95", "pointer-events-none");
+    lightbox?.classList.add("opacity-100", "scale-100", "pointer-events-auto");
+    lightbox?.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  };
+
+  const close = () => {
+    lightbox?.classList.add("opacity-0", "scale-95", "pointer-events-none");
+    lightbox?.classList.remove("opacity-100", "scale-100", "pointer-events-auto");
+    lightbox?.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  };
+
+  const step = (direction: number) => {
+    currentIndex = (currentIndex + direction + items.length) % items.length;
+    render();
+  };
+
+  triggers.forEach((trigger, i) => trigger.addEventListener("click", () => open(i)));
+  closeBtn?.addEventListener("click", close);
+  prevBtn?.addEventListener("click", () => step(-1));
+  nextBtn?.addEventListener("click", () => step(1));
+
+  window.addEventListener("keydown", (e) => {
+    if (lightbox?.getAttribute("aria-hidden") === "true") return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") step(-1);
+    if (e.key === "ArrowRight") step(1);
+  });
+</script>

@@ -1,0 +1,85 @@
+---
+// Morphs the page's actual background color across a sequence of section
+// boundaries as each one scrolls through the middle of the viewport — a
+// smooth, scroll-linked handoff instead of a hard cut. Every section listed
+// below renders with no bg-* class of its own (see About.astro / Services.astro
+// / ProjectsGallery.astro) so this shows through. Add a new { id, color } entry
+// whenever a future section needs to join this chain — the boundary between
+// each consecutive pair gets the same treatment automatically.
+---
+
+<script>
+  import { onScroll } from "../scripts/onScroll";
+
+  type RGB = [number, number, number];
+
+  const sequence: { id: string; color: RGB }[] = [
+    { id: "about-section", color: [248, 250, 252] }, // slate-50
+    { id: "services-section", color: [21, 32, 86] }, // navy
+    { id: "industries-section", color: [248, 250, 252] }, // slate-50
+    { id: "gallery-section", color: [248, 250, 252] }, // slate-50
+  ];
+
+  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+  const boundaries = sequence.slice(0, -1).map((from, i) => ({
+    el: document.getElementById(from.id),
+    toColor: sequence[i + 1].color,
+    documentBottom: 0, // filled in by measure(), avoids getBoundingClientRect() on every scroll frame
+  }));
+
+  if (boundaries.every((b) => b.el)) {
+    // absolute document-space positions, recomputed only on load/resize —
+    // reading getBoundingClientRect() inside the scroll handler itself forces
+    // a layout recalculation every frame and was the actual cause of scroll jank
+    const measure = () => {
+      for (const b of boundaries) {
+        b.documentBottom = b.el!.getBoundingClientRect().bottom + window.scrollY;
+      }
+    };
+
+    const update = () => {
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const zoneStart = viewportHeight * 0.9;
+      const zoneEnd = viewportHeight * 0.1;
+
+      let color = sequence[0].color;
+
+      for (const { documentBottom, toColor } of boundaries) {
+        const bottom = documentBottom - scrollY;
+        let progress = (zoneStart - bottom) / (zoneStart - zoneEnd);
+        progress = Math.min(1, Math.max(0, progress));
+
+        color = [
+          lerp(color[0], toColor[0], progress),
+          lerp(color[1], toColor[1], progress),
+          lerp(color[2], toColor[2], progress),
+        ];
+      }
+
+      const [r, g, b] = color.map(Math.round);
+      document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    };
+
+    let ticking = false;
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+    };
+
+    const onResize = () => {
+      measure();
+      update();
+    };
+
+    onScroll(handleScroll);
+    window.addEventListener("resize", onResize);
+    measure();
+    update();
+  }
+</script>

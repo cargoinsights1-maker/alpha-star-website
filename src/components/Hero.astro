@@ -1,0 +1,95 @@
+---
+import HeroHeader from "./HeroHeader.astro";
+---
+
+<section class="relative flex h-svh items-end overflow-hidden bg-navy pb-28 sm:items-center sm:pb-0">
+  <!-- brand gradient sits under the video so the hero still reads intentional before real footage/poster is dropped into public/hero/ -->
+  <div class="absolute inset-0 bg-gradient-to-br from-navy via-brand-blue/70 to-navy" />
+
+  <video id="hero-video" class="absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline preload="auto" poster="/hero/poster.jpg">
+    <source src="/hero/video.webm" type="video/webm" />
+    <source src="/hero/video.mp4" type="video/mp4" />
+  </video>
+
+  <!-- vignette: darker at top (nav legibility) and bottom (mobile headline legibility) -->
+  <div class="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/20 to-black/30" />
+  <!-- extra scrim on the left where the text block sits, fading out toward the right so the video still reads there -->
+  <div class="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-transparent" />
+
+  <HeroHeader />
+
+  <div class="relative z-10 mx-auto w-full max-w-7xl px-4 pt-16 sm:px-6 sm:pt-20 lg:px-8">
+    <div class="max-w-2xl">
+      <h1 class="animate-fade-up font-sans text-[2rem] leading-[1.1] font-bold text-white opacity-0 sm:text-[2.75rem] lg:text-[3.5rem]">
+        Moving Cargo From the GCC to Markets Across the World.
+      </h1>
+      <p class="animate-fade-up mt-6 max-w-xl text-base leading-relaxed text-white/80 opacity-0 [animation-delay:150ms] sm:text-lg">
+        Freight forwarding, warehousing and customs clearance since 2007. Air, sea and land handled by one team from collection to final delivery.
+      </p>
+      <div class="animate-fade-up mt-8 flex flex-wrap items-center gap-4 opacity-0 [animation-delay:300ms]">
+        <a
+          href="/quote"
+          class="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-red to-[#a3121c] px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-black/30 transition-shadow hover:shadow-xl"
+        >
+          Get a Quote
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-1">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+        <a href="/services" class="group inline-flex items-center gap-2 rounded-full border border-white/40 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10">
+          Our Services
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-1">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <button
+    id="hero-video-toggle"
+    type="button"
+    aria-label="Pause video"
+    class="absolute right-6 bottom-6 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20 sm:right-8 sm:bottom-8"
+  >
+    <svg id="hero-pause-icon" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
+      <rect x="6" y="4" width="4" height="16" rx="1" />
+      <rect x="14" y="4" width="4" height="16" rx="1" />
+    </svg>
+    <svg id="hero-play-icon" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4" hidden>
+      <path d="M8 5v14l11-7Z" />
+    </svg>
+  </button>
+</section>
+
+<script>
+  const video = document.getElementById("hero-video");
+  const toggle = document.getElementById("hero-video-toggle");
+  const pauseIcon = document.getElementById("hero-pause-icon");
+  const playIcon = document.getElementById("hero-play-icon");
+
+  if (video instanceof HTMLVideoElement) {
+    // if the video genuinely fails to load, hide it so the poster image/gradient underneath shows instead
+    video.addEventListener("error", () => video.classList.add("hidden"));
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      video.pause();
+      pauseIcon?.setAttribute("hidden", "");
+      playIcon?.removeAttribute("hidden");
+    }
+
+    toggle?.addEventListener("click", () => {
+      if (video.paused) {
+        video.play();
+        pauseIcon?.removeAttribute("hidden");
+        playIcon?.setAttribute("hidden", "");
+        toggle.setAttribute("aria-label", "Pause video");
+      } else {
+        video.pause();
+        pauseIcon?.setAttribute("hidden", "");
+        playIcon?.removeAttribute("hidden");
+        toggle.setAttribute("aria-label", "Play video");
+      }
+    });
+  }
+</script>

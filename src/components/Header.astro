@@ -1,0 +1,256 @@
+---
+// Style 2 of 3: the standard site navbar (rest-of-website). The hero-only
+// overlay variant and the dedicated mobile design come later as separate tasks —
+// the hamburger below is a functional-but-unstyled placeholder until then.
+import { Image } from "astro:assets";
+import mainLogo from "../assets/logos/main-logo.png";
+import starLogo from "../assets/logos/star-logo.png";
+import { navLinksBefore, navLinksAfter, serviceItems, industryItems } from "../data/nav";
+
+interface Props {
+  // when true, the header starts hidden above the viewport and only reveals
+  // itself (already pinned at top) once the page scrolls past one viewport
+  // height — used after a full-height Hero so it doesn't visibly slide up
+  // into view from the bottom the way plain `sticky` would. Default (false)
+  // is a normal always-visible sticky nav, for pages with no hero above it.
+  revealOnScroll?: boolean;
+}
+
+const { revealOnScroll = false } = Astro.props;
+---
+
+<header
+  id="site-header"
+  data-reveal-on-scroll={revealOnScroll}
+  class:list={[
+    "top-0 z-50 w-full border-b border-slate-200 bg-white",
+    revealOnScroll ? "fixed -translate-y-full transition-transform duration-300" : "sticky",
+  ]}
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-[72px] items-center justify-between">
+      <a href="/" class="shrink-0">
+        <Image src={mainLogo} alt="Alpha Star Shipping" width={170} class="h-9 w-auto sm:h-10" />
+      </a>
+
+      <nav aria-label="Primary" class="hidden items-center gap-5 lg:gap-6 md:flex">
+        {
+          navLinksBefore.map((link) => (
+            <a href={link.href} class="text-sm font-medium text-navy transition-colors hover:text-brand-red">
+              {link.label}
+            </a>
+          ))
+        }
+
+        <div class="group/services relative flex items-center">
+          <button type="button" aria-haspopup="menu" class="flex items-center gap-1 text-sm font-medium text-navy transition-colors hover:text-brand-red">
+            Services
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform group-hover/services:rotate-180">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+
+          <div class="invisible absolute top-full left-0 z-20 w-72 pt-3 opacity-0 transition-all duration-150 group-hover/services:visible group-hover/services:opacity-100 group-focus-within/services:visible group-focus-within/services:opacity-100">
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+              <div class="relative overflow-hidden bg-gradient-to-br from-navy via-brand-blue to-brand-blue-light px-5 py-5">
+                <Image
+                  src={starLogo}
+                  alt=""
+                  aria-hidden="true"
+                  width={160}
+                  class="pointer-events-none absolute -top-6 -right-6 w-28 mix-blend-overlay select-none opacity-40"
+                />
+                <p class="relative text-[11px] font-semibold tracking-wider text-white/70 uppercase">What We Move</p>
+                <p class="relative mt-0.5 text-base font-semibold text-white">Our Services</p>
+              </div>
+              <div class="p-2">
+                {
+                  serviceItems.map((item) => (
+                    <a href={item.href} class="group/item flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-navy transition-colors hover:bg-brand-red/5 hover:text-brand-red">
+                      <span>{item.label}</span>
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-150 group-hover/item:translate-x-0 group-hover/item:opacity-100"
+                      >
+                        <path d="M5 12h14M13 6l6 6-6 6" />
+                      </svg>
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group/industries relative flex items-center">
+          <button type="button" aria-haspopup="menu" class="flex items-center gap-1 text-sm font-medium text-navy transition-colors hover:text-brand-red">
+            Industries
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform group-hover/industries:rotate-180">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+
+          <div class="invisible absolute top-full left-0 z-20 w-72 pt-3 opacity-0 transition-all duration-150 group-hover/industries:visible group-hover/industries:opacity-100 group-focus-within/industries:visible group-focus-within/industries:opacity-100">
+            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+              <div class="relative overflow-hidden bg-gradient-to-br from-navy to-brand-red px-5 py-5">
+                <Image
+                  src={starLogo}
+                  alt=""
+                  aria-hidden="true"
+                  width={160}
+                  class="pointer-events-none absolute -top-6 -right-6 w-28 mix-blend-overlay select-none opacity-40"
+                />
+                <p class="relative text-[11px] font-semibold tracking-wider text-white/70 uppercase">Who We Serve</p>
+                <p class="relative mt-0.5 text-base font-semibold text-white">Our Industries</p>
+              </div>
+              <div class="p-2">
+                {
+                  industryItems.map((item) => (
+                    <a href={item.href} class="group/item flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-navy transition-colors hover:bg-brand-red/5 hover:text-brand-red">
+                      <span>{item.label}</span>
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all duration-150 group-hover/item:translate-x-0 group-hover/item:opacity-100"
+                      >
+                        <path d="M5 12h14M13 6l6 6-6 6" />
+                      </svg>
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {
+          navLinksAfter.map((link) => (
+            <a href={link.href} class="text-sm font-medium text-navy transition-colors hover:text-brand-red">
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <div class="hidden items-center gap-3 md:flex">
+        <a
+          href="/contact"
+          class="group inline-flex items-center gap-1.5 rounded-full bg-brand-red/10 px-4 py-2 text-sm font-semibold text-brand-red transition-colors hover:bg-brand-red/15"
+        >
+          Contact Us
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+        <a
+          href="/quote"
+          class="group inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-red to-[#a3121c] px-4 py-2 text-sm font-semibold text-white shadow-md shadow-black/10 transition-shadow hover:shadow-lg"
+        >
+          Get Quote
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      </div>
+
+      <button
+        id="mobile-nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Toggle menu"
+        class="flex h-9 w-9 items-center justify-center rounded-full text-navy md:hidden"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  {/* grid-rows-[0fr]→[1fr] trick animates to auto height smoothly, which a plain hidden toggle can't do */}
+  <div id="mobile-nav" class="grid grid-rows-[0fr] overflow-hidden opacity-0 transition-all duration-300 ease-out md:hidden">
+  <div class="overflow-hidden border-t border-slate-200 bg-white p-4">
+    {
+      navLinksBefore.map((link) => (
+        <a href={link.href} class="block rounded-lg px-3 py-2 text-sm font-medium text-navy hover:bg-brand-red/5 hover:text-brand-red">
+          {link.label}
+        </a>
+      ))
+    }
+
+    <p class="px-3 pt-3 pb-2 text-xs font-semibold tracking-wider text-navy/50 uppercase">Services</p>
+    {
+      serviceItems.map((item) => (
+        <a href={item.href} class="block rounded-lg px-3 py-2 text-sm text-navy/80 hover:bg-brand-red/5 hover:text-brand-red">
+          {item.label}
+        </a>
+      ))
+    }
+    <p class="px-3 pt-3 pb-2 text-xs font-semibold tracking-wider text-navy/50 uppercase">Industries</p>
+    {
+      industryItems.map((item) => (
+        <a href={item.href} class="block rounded-lg px-3 py-2 text-sm text-navy/80 hover:bg-brand-red/5 hover:text-brand-red">
+          {item.label}
+        </a>
+      ))
+    }
+    <div class="my-2 border-t border-slate-100" />
+    {
+      navLinksAfter.map((link) => (
+        <a href={link.href} class="block rounded-lg px-3 py-2 text-sm font-medium text-navy hover:bg-brand-red/5 hover:text-brand-red">
+          {link.label}
+        </a>
+      ))
+    }
+    <div class="mt-3 flex flex-col gap-2">
+      <a href="/contact" class="group inline-flex items-center justify-center gap-1.5 rounded-full bg-brand-red/10 px-4 py-2 text-sm font-semibold text-brand-red">
+        Contact Us
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+      <a href="/quote" class="group inline-flex items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-brand-red to-[#a3121c] px-4 py-2 text-sm font-semibold text-white">
+        Get Quote
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+    </div>
+  </div>
+  </div>
+</header>
+
+<script>
+  import { onScroll } from "../scripts/onScroll";
+
+  const toggle = document.getElementById("mobile-nav-toggle");
+  const panel = document.getElementById("mobile-nav");
+
+  toggle?.addEventListener("click", () => {
+    const willOpen = !panel?.classList.contains("grid-rows-[1fr]");
+    panel?.classList.toggle("grid-rows-[1fr]", willOpen);
+    panel?.classList.toggle("opacity-100", willOpen);
+    panel?.classList.toggle("grid-rows-[0fr]", !willOpen);
+    panel?.classList.toggle("opacity-0", !willOpen);
+    toggle.setAttribute("aria-expanded", String(willOpen));
+  });
+
+  const header = document.getElementById("site-header");
+  if (header?.dataset.revealOnScroll === "true") {
+    const updateVisibility = () => {
+      header.classList.toggle("-translate-y-full", window.scrollY < window.innerHeight - 4);
+    };
+    updateVisibility();
+    onScroll(updateVisibility);
+  }
+</script>

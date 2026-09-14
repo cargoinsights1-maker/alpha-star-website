@@ -1,0 +1,114 @@
+---
+// Real per-service photography is pending (see public/services/README.md).
+// Each card's background is a CSS image-layer + gradient-layer combo, so a
+// missing photo fails silently and the gradient alone carries the card until
+// the real photo lands underneath it — same pattern as the hero video poster.
+interface ServiceCard {
+  slug: string;
+  label: string;
+}
+
+const services: ServiceCard[] = [
+  { slug: "air-freight", label: "Air Freight" },
+  { slug: "sea-freight", label: "Sea Freight" },
+  { slug: "land-freight", label: "Land Freight (FTL/LTL)" },
+  { slug: "customs-clearance", label: "Customs Clearance" },
+  { slug: "warehousing", label: "Warehousing & 3PL" },
+  { slug: "value-added-services", label: "Value Added Services" },
+];
+
+const gradients = [
+  "linear-gradient(135deg, #152056, #12557f)",
+  "linear-gradient(135deg, #12557f, #2f8fc9)",
+  "linear-gradient(135deg, #152056, #d81f2a)",
+];
+---
+
+<section id="services-section" class="relative overflow-hidden py-20 sm:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-16">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Our Services</p>
+        <h2 class="mt-4 text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-5xl">What We Can Do For You</h2>
+      </div>
+
+      <div data-reveal class="translate-y-8 opacity-0 transition-all delay-100 duration-700 ease-out lg:pt-1">
+        <p class="leading-relaxed text-white/70">
+          From air and sea freight to customs clearance and warehousing, we handle every step of your shipment with
+          care.
+        </p>
+        <a
+          href="/services"
+          class="group mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-red to-[#a3121c] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-black/30 transition-shadow hover:shadow-xl"
+        >
+          See Our Services
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-1">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="relative mt-14">
+      <div id="services-track" data-reveal class="services-track flex translate-y-8 snap-x snap-mandatory gap-5 overflow-x-auto opacity-0 transition-all delay-200 duration-700 ease-out">
+        {
+          services.map((service, i) => (
+            <a
+              href={`/services#${service.slug}`}
+              style={`background: url('/services/${service.slug}.webp') center/cover no-repeat, ${gradients[i % gradients.length]};`}
+              class="group relative aspect-[3/4] w-[85%] flex-none snap-start overflow-hidden rounded-3xl sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-3.75rem)/4)]"
+            >
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              <span class="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur transition-all duration-300 group-hover:rotate-45 group-hover:bg-brand-red">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+                  <path d="M7 17 17 7M7 7h10v10" />
+                </svg>
+              </span>
+              <span class="absolute bottom-5 left-5 text-lg font-bold text-white">{service.label}</span>
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="mt-6 flex justify-end gap-3">
+        <button id="services-prev" type="button" aria-label="Previous services" class="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:border-brand-red hover:bg-brand-red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button id="services-next" type="button" aria-label="Next services" class="flex h-11 w-11 items-center justify-center rounded-full border border-white/25 text-white transition-colors hover:border-brand-red hover:bg-brand-red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById("services-track");
+  const prev = document.getElementById("services-prev");
+  const next = document.getElementById("services-next");
+
+  const scrollByCard = (direction: number) => {
+    if (!track) return;
+    const card = track.querySelector("a");
+    const gap = 20;
+    const cardWidth = card ? card.getBoundingClientRect().width + gap : 300;
+    track.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
+  };
+
+  prev?.addEventListener("click", () => scrollByCard(-1));
+  next?.addEventListener("click", () => scrollByCard(1));
+</script>
+
+<style>
+  .services-track {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .services-track::-webkit-scrollbar {
+    display: none;
+  }
+</style>

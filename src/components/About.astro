@@ -1,0 +1,138 @@
+---
+import Globe from "./Globe.astro";
+
+interface QuickStat {
+  value: string;
+  label: string;
+}
+
+// user-supplied placeholder figures, not invented by us
+const quickStats: QuickStat[] = [
+  { value: "200+", label: "Clients" },
+  { value: "1.5K+", label: "Shipments Daily" },
+  { value: "6+", label: "Modes Covered" },
+];
+
+interface WhyCard {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+// copy grounded in the real mission statement (quick, safe, competitive rates, proactive response)
+// icons: Heroicons v2 solid (globe-alt, clock, cube, currency-dollar)
+const whyCards: WhyCard[] = [
+  {
+    title: "Ship Worldwide",
+    description: "Reach markets across the GCC and beyond through our extensive freight network.",
+    icon: '<path d="M21.721 12.752a9.711 9.711 0 0 0-.945-5.003 12.754 12.754 0 0 1-4.339 2.708 18.991 18.991 0 0 1-.214 4.772 17.165 17.165 0 0 0 5.498-2.477ZM14.634 15.55a17.324 17.324 0 0 0 .332-4.647c-.952.227-1.945.347-2.966.347-1.021 0-2.014-.12-2.966-.347a17.515 17.515 0 0 0 .332 4.647 17.385 17.385 0 0 0 5.268 0ZM9.772 17.119a18.963 18.963 0 0 0 4.456 0A17.182 17.182 0 0 1 12 21.724a17.18 17.18 0 0 1-2.228-4.605ZM7.777 15.23a18.87 18.87 0 0 1-.214-4.774 12.753 12.753 0 0 1-4.34-2.708 9.711 9.711 0 0 0-.944 5.004 17.165 17.165 0 0 0 5.498 2.477ZM21.356 14.752a9.765 9.765 0 0 1-7.478 6.817 18.64 18.64 0 0 0 1.988-4.718 18.627 18.627 0 0 0 5.49-2.098ZM2.644 14.752c1.682.971 3.53 1.688 5.49 2.099a18.64 18.64 0 0 0 1.988 4.718 9.765 9.765 0 0 1-7.478-6.816ZM13.878 2.43a9.755 9.755 0 0 1 6.116 3.986 11.267 11.267 0 0 1-3.746 2.504 18.63 18.63 0 0 0-2.37-6.49ZM12 2.276a17.152 17.152 0 0 1 2.805 7.121c-.897.23-1.837.353-2.805.353-.968 0-1.908-.122-2.805-.353A17.151 17.151 0 0 1 12 2.276ZM10.122 2.43a18.629 18.629 0 0 0-2.37 6.49 11.266 11.266 0 0 1-3.746-2.504 9.754 9.754 0 0 1 6.116-3.985Z"/>',
+  },
+  {
+    title: "Ship Anytime",
+    description: "Proactive, round the clock support at every step of your shipment.",
+    icon: '<path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd"/>',
+  },
+  {
+    title: "Ship Anything",
+    description: "Air, sea and land freight covering DG cargo, perishables and more.",
+    icon: '<path d="M12.378 1.602a.75.75 0 0 0-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03ZM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 0 0 .372-.648V7.93ZM11.25 22.18v-9l-9-5.25v8.57a.75.75 0 0 0 .372.648l8.628 5.033Z"/>',
+  },
+  {
+    title: "Ship Within Budget",
+    description: "Competitive rates without compromising on speed or safety.",
+    icon: '<path d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 0 1-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004ZM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 0 1-.921.42Z"/><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v.816a3.836 3.836 0 0 0-1.72.756c-.712.566-1.112 1.35-1.112 2.178 0 .829.4 1.612 1.113 2.178.502.4 1.102.647 1.719.756v2.978a2.536 2.536 0 0 1-.921-.421l-.879-.66a.75.75 0 0 0-.9 1.2l.879.66c.533.4 1.169.645 1.821.75V18a.75.75 0 0 0 1.5 0v-.81a4.124 4.124 0 0 0 1.821-.749c.745-.559 1.179-1.344 1.179-2.191 0-.847-.434-1.632-1.179-2.191a4.122 4.122 0 0 0-1.821-.75V8.354c.29.082.559.213.786.393l.415.33a.75.75 0 0 0 .933-1.175l-.415-.33a3.836 3.836 0 0 0-1.719-.755V6Z" clip-rule="evenodd"/>',
+  },
+];
+---
+
+<section id="about-section" class="relative overflow-hidden py-16 sm:py-20">
+  <!-- subtle dot-grid texture across the section, echoing the globe's own dot motif -->
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.4]"
+    style="background-image: radial-gradient(rgba(18,85,127,0.12) 1px, transparent 1px); background-size: 22px 22px;"
+  >
+  </div>
+  <!-- soft color blobs so the right side doesn't read as empty once the globe has no card behind it -->
+  <div class="pointer-events-none absolute top-1/2 right-[-10%] h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-brand-blue-light/25 blur-3xl"></div>
+  <div class="pointer-events-none absolute right-[15%] bottom-0 h-64 w-64 rounded-full bg-brand-red/10 blur-3xl"></div>
+
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out lg:pt-8">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Who We Are</p>
+        <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">About Alpha Star Shipping</h2>
+        <p class="mt-6 leading-relaxed text-navy/70">
+          Alpha Star Shipping is a Dubai-based freight forwarder and the sister company of Network Logistics
+          Private Limited, Chennai. Since 2007 we have delivered fast and safe freight forwarding, warehousing and
+          customs clearance solutions across the GCC and beyond.
+        </p>
+
+        <div class="mt-8 grid grid-cols-3 gap-4 border-y border-slate-200 py-6">
+          {
+            quickStats.map((stat) => (
+              <div>
+                <p class="bg-gradient-to-br from-brand-red to-brand-blue bg-clip-text text-4xl font-extrabold tracking-tight text-transparent sm:text-5xl">
+                  {stat.value}
+                </p>
+                <p class="mt-1.5 text-xs font-semibold tracking-wide text-navy/60 uppercase">{stat.label}</p>
+              </div>
+            ))
+          }
+        </div>
+
+        <a
+          href="/about"
+          class="group mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-red to-[#a3121c] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-black/20 transition-shadow hover:shadow-xl"
+        >
+          Learn More About Us
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-1">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- bled larger than its column past lg, clipped only at the section's own edge (viewport width) for a premium "breaking the grid" feel -->
+      <div class="mx-auto aspect-square w-full max-w-[420px] sm:max-w-[480px] lg:mx-0 lg:ml-auto lg:aspect-auto lg:w-[640px] lg:max-w-none lg:-translate-y-12 lg:translate-x-16 xl:w-[760px] xl:-translate-y-16 xl:translate-x-28">
+        {/* nested so the fade-in never touches the wrapper's own bleed/positioning transforms above */}
+        <div data-reveal class="opacity-0 transition-opacity duration-700 ease-out delay-150">
+          <Globe />
+        </div>
+      </div>
+    </div>
+
+    <!-- pulled up to fill the empty space left under the (shorter) text column and deliberately overlap the globe's lower edge -->
+    <div class="relative z-20 mt-10 grid gap-6 sm:grid-cols-2 lg:-mt-32 lg:grid-cols-4 xl:-mt-48">
+      {
+        whyCards.map((card, i) => (
+          <div
+            data-reveal
+            style={`transition-delay: ${i * 120}ms`}
+            class="group relative translate-y-8 overflow-hidden rounded-3xl border border-slate-100 bg-white p-7 opacity-0 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-2 hover:border-brand-blue/20 hover:shadow-[0_25px_60px_-15px_rgba(18,85,127,0.35)]"
+          >
+            {/* faint numeral watermark, tints brand-blue on hover */}
+            <span class="pointer-events-none absolute top-5 right-6 font-sans text-5xl font-black text-slate-50 transition-colors duration-500 group-hover:text-brand-blue/[0.06]">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            {/* ambient glow, invisible at rest, blooms in on hover */}
+            <div class="pointer-events-none absolute -top-10 -right-10 h-32 w-32 rounded-full bg-brand-blue-light/0 blur-2xl transition-colors duration-500 group-hover:bg-brand-blue-light/25" />
+
+            <span class="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-blue to-brand-blue-light shadow-lg shadow-brand-blue/25 transition-transform duration-500 group-hover:scale-105">
+              <span class="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/25 to-transparent" />
+              <svg viewBox="0 0 24 24" fill="currentColor" class="relative h-7 w-7 text-white" set:html={card.icon} />
+            </span>
+
+            <h3 class="relative mt-6 font-sans text-xl font-bold text-navy transition-colors duration-300 group-hover:text-brand-blue">{card.title}</h3>
+            <p class="relative mt-2.5 font-sans text-sm leading-relaxed text-navy/60">{card.description}</p>
+
+            <div class="relative mt-5 flex items-center gap-1.5 text-xs font-semibold text-brand-red opacity-0 transition-all duration-300 group-hover:opacity-100">
+              Learn more
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3 -translate-x-1 transition-transform duration-300 group-hover:translate-x-0">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

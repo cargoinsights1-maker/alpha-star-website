@@ -1,0 +1,100 @@
+---
+import { Image } from "astro:assets";
+import starLogo from "../assets/logos/star-logo.png";
+
+// "Trusted by" client-logo wall. Ref: a bold blue section, big heading, white
+// rounded logo cards in a grid. No real client logos exist yet and displaying
+// invented company names/logos would misrepresent real client relationships,
+// so per the user's explicit "use placeholder logos for now", each tile shows
+// a plain abstract mark instead of a fabricated brand — swap in real logos
+// (as <img> tags) whenever they're supplied. "200+" reuses the same client
+// figure already shown in About.astro rather than inventing a new number.
+const initialCount = 12;
+const extraCount = 12;
+const placeholderCount = initialCount + extraCount;
+---
+
+<section class="relative overflow-hidden bg-navy py-20 sm:py-24">
+  <img
+    src="/how-it-works/ship-aerial.webp"
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 h-full w-full object-cover opacity-30"
+  />
+  <div class="absolute inset-0 bg-gradient-to-br from-navy/95 via-brand-blue/80 to-navy/95" />
+
+  <!-- same star-mark watermark idea as the footer, minus the engrave filter
+       (that drop-shadow combo was tuned for a white background — here the
+       mark's natural navy/red keeps a faint hint of color against the navy bg) -->
+  <Image
+    src={starLogo}
+    alt=""
+    aria-hidden="true"
+    width={280}
+    class="pointer-events-none absolute -top-6 -right-6 w-36 opacity-[0.18] select-none sm:w-48 md:-top-8 md:-right-8 md:w-72"
+  />
+
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div data-reveal class="translate-y-8 text-center opacity-0 transition-all duration-700 ease-out">
+      <h2 class="text-3xl leading-tight font-bold text-white sm:text-4xl lg:text-5xl">
+        200+ companies trust<br />Alpha Star Shipping for their business
+      </h2>
+      <p class="mx-auto mt-6 max-w-2xl text-white/85">
+        We offer complete, customized logistics solutions across the GCC, making cargo transportation and supply
+        chain management easier and stress-free.
+      </p>
+    </div>
+
+    <div
+      data-reveal
+      class="mt-14 grid translate-y-8 grid-cols-2 gap-4 opacity-0 transition-all delay-150 duration-700 ease-out sm:grid-cols-3 sm:gap-5 lg:grid-cols-6"
+    >
+      {
+        Array.from({ length: placeholderCount }).map((_, i) => (
+          <div
+            class={`client-tile flex aspect-[3/2] items-center justify-center rounded-2xl bg-white p-6 opacity-100 shadow-sm transition-opacity duration-500 ${i >= initialCount ? "hidden opacity-0" : ""}`}
+            aria-label={`Client logo placeholder ${i + 1}`}
+          >
+            <svg viewBox="0 0 48 24" class="h-6 w-auto text-navy/20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="12" r="8" fill="currentColor" />
+              <rect x="22" y="5" width="26" height="6" rx="3" fill="currentColor" />
+              <rect x="22" y="15" width="18" height="6" rx="3" fill="currentColor" />
+            </svg>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 text-center">
+      <button
+        id="clients-load-more"
+        type="button"
+        class="group inline-flex items-center gap-2 rounded-full border border-white/40 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+      >
+        Load More
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5">
+          <path d="M12 5v14m0 0-6-6m6 6 6-6" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const button = document.getElementById("clients-load-more");
+  const hiddenTiles = Array.from(document.querySelectorAll<HTMLElement>(".client-tile.hidden"));
+
+  if (button) {
+    if (hiddenTiles.length === 0) {
+      button.remove();
+    } else {
+      button.addEventListener("click", () => {
+        hiddenTiles.forEach((tile) => {
+          tile.classList.remove("hidden");
+          requestAnimationFrame(() => tile.classList.remove("opacity-0"));
+        });
+        button.remove();
+      });
+    }
+  }
+</script>

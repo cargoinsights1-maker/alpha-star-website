@@ -1,0 +1,18 @@
+---
+// Site-wide inertia/easing on regular wheel and touch scrolling. Lenis runs
+// on the browser's real scroll (not a transformed wrapper div), so
+// position:sticky/fixed elements, anchor links, and window.scrollY itself
+// keep working. The one thing it changes: it can suppress the native
+// `scroll` event, so anything reacting to scroll must go through
+// `src/scripts/onScroll.ts` (which prefers Lenis's own event when present)
+// rather than a raw `window.addEventListener("scroll", ...)`.
+// respectReducedMotion defaults to true in Lenis itself, so no manual
+// prefers-reduced-motion check is needed here.
+---
+
+<script>
+  import Lenis from "lenis";
+
+  const lenis = new Lenis({ autoRaf: true });
+  (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+</script>
