@@ -1,0 +1,98 @@
+---
+// Final CTA before the footer. Ref: a straight-on photo of a red shipping
+// container's corrugated side, with copy meant to read as if it were painted
+// directly onto the container itself. Rather than risk a mismatched or
+// missing stock photo, the container surface is built entirely in CSS —
+// brand-red corrugation ridges, darker structural rail bands top/bottom, and
+// small corner rivets — so it renders crisply at any size with zero asset
+// dependency, matching the graceful-degradation approach used everywhere
+// else on this site, just taken all the way rather than as a fallback.
+---
+
+<section class="container-panel relative overflow-hidden">
+  <span class="rivet rivet-tl" aria-hidden="true"></span>
+  <span class="rivet rivet-tr" aria-hidden="true"></span>
+  <span class="rivet rivet-bl" aria-hidden="true"></span>
+  <span class="rivet rivet-br" aria-hidden="true"></span>
+
+  <div class="relative mx-auto flex max-w-4xl flex-col items-center px-6 py-24 text-center sm:py-28">
+    <h2
+      data-reveal
+      class="translate-y-8 text-3xl leading-tight font-extrabold tracking-tight text-white uppercase opacity-0 [text-shadow:0_3px_10px_rgba(0,0,0,0.45)] transition-all duration-700 ease-out sm:text-4xl lg:text-5xl"
+    >
+      Let Us Take the Burden of Your Cargo
+    </h2>
+    <p
+      data-reveal
+      class="mt-6 max-w-xl translate-y-8 text-base leading-relaxed text-white/90 opacity-0 [text-shadow:0_2px_6px_rgba(0,0,0,0.4)] transition-all delay-150 duration-700 ease-out sm:text-lg"
+    >
+      Talk to our team and get a tailored freight solution built around your cargo, wherever it needs to go.
+    </p>
+
+    <a
+      href="/quote"
+      data-reveal
+      class="group mt-10 inline-flex translate-y-8 items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-brand-red opacity-0 shadow-lg shadow-black/20 transition-all delay-300 duration-700 ease-out hover:-translate-y-0.5 hover:shadow-xl"
+    >
+      Get a Quote
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1">
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .container-panel {
+    background-color: #a8151d;
+    background-image:
+      /* top + bottom structural rail bands */
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.4) 0%,
+        rgba(0, 0, 0, 0.4) 5%,
+        transparent 5%,
+        transparent 95%,
+        rgba(0, 0, 0, 0.4) 95%,
+        rgba(0, 0, 0, 0.4) 100%
+      ),
+      /* corrugation ridges */
+      repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.12) 0px,
+        rgba(255, 255, 255, 0.12) 2px,
+        rgba(0, 0, 0, 0.16) 2px,
+        rgba(0, 0, 0, 0.16) 4px,
+        transparent 4px,
+        transparent 15px
+      ),
+      /* overall lighting falloff, brighter center */
+      radial-gradient(ellipse at center, rgba(216, 31, 42, 0.25) 0%, transparent 70%);
+  }
+
+  .rivet {
+    position: absolute;
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.55), rgba(0, 0, 0, 0.55) 75%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .rivet-tl {
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+  .rivet-tr {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+  .rivet-bl {
+    bottom: 1.5rem;
+    left: 1.5rem;
+  }
+  .rivet-br {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+</style>
