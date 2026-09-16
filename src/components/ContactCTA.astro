@@ -1,53 +1,63 @@
 ---
 // Final CTA before the footer. Ref: a straight-on photo of a red shipping
 // container's corrugated side, with copy meant to read as if it were painted
-// directly onto the container itself. Rather than risk a mismatched or
-// missing stock photo, the container surface is built entirely in CSS —
-// so it renders crisply at any size with zero asset dependency. First pass
-// used hard-edged repeating-linear-gradient stripes, which read as flat/
-// plasticky rather than photographed metal — reworked with smooth multi-stop
-// ridge shading, a diagonal light sheen, and a corner vignette for real depth.
+// directly onto the container itself. Built the container surface in CSS
+// rather than risk a mismatched/missing stock photo — renders crisply at any
+// size with zero asset dependency. Two rounds of feedback so far: (1) the
+// texture itself read flat/plasticky with hard-edged stripes, fixed with
+// smooth multi-stop ridge shading + a light sheen + a vignette; (2) it was
+// filling the whole section edge-to-edge, losing the "here's a container
+// sitting in front of you" read entirely — fixed by putting it back on a
+// plain white section as a distinct rounded, shadowed card (like a product
+// photo), matching what the reference image actually showed.
 ---
 
-<section class="container-panel relative overflow-hidden">
-  <span class="rivet rivet-tl" aria-hidden="true"></span>
-  <span class="rivet rivet-tr" aria-hidden="true"></span>
-  <span class="rivet rivet-bl" aria-hidden="true"></span>
-  <span class="rivet rivet-br" aria-hidden="true"></span>
+<section class="relative overflow-hidden bg-white py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="container-panel relative overflow-hidden rounded-3xl">
+      <span class="rivet rivet-tl" aria-hidden="true"></span>
+      <span class="rivet rivet-tr" aria-hidden="true"></span>
+      <span class="rivet rivet-bl" aria-hidden="true"></span>
+      <span class="rivet rivet-br" aria-hidden="true"></span>
 
-  <div class="relative mx-auto flex max-w-4xl flex-col items-center px-6 py-28 text-center sm:py-32">
-    <p
-      data-reveal
-      class="translate-y-8 text-sm font-semibold tracking-[0.25em] text-white/80 uppercase opacity-0 transition-all duration-700 ease-out"
-    >
-      Get In Touch
-    </p>
-    <h2 data-reveal class="cta-heading mt-5 translate-y-8 text-3xl leading-tight font-extrabold text-white uppercase opacity-0 transition-all duration-700 ease-out sm:text-4xl lg:text-5xl">
-      Let Us Take the Burden of Your Cargo
-    </h2>
-    <p
-      data-reveal
-      class="mt-6 max-w-xl translate-y-8 text-base leading-relaxed text-white/90 opacity-0 [text-shadow:0_2px_6px_rgba(0,0,0,0.4)] transition-all delay-150 duration-700 ease-out sm:text-lg"
-    >
-      Talk to our team and get a tailored freight solution built around your cargo, wherever it needs to go.
-    </p>
+      <div class="relative mx-auto flex max-w-2xl flex-col items-center px-6 py-16 text-center sm:px-12 sm:py-20 lg:py-24">
+        <p
+          data-reveal
+          class="translate-y-8 text-sm font-semibold tracking-[0.25em] text-white/80 uppercase opacity-0 transition-all duration-700 ease-out"
+        >
+          Get In Touch
+        </p>
+        <h2 data-reveal class="cta-heading mt-5 translate-y-8 text-2xl leading-tight font-extrabold text-white uppercase opacity-0 transition-all duration-700 ease-out sm:text-3xl lg:text-4xl">
+          Let Us Take the Burden of Your Cargo
+        </h2>
+        <p
+          data-reveal
+          class="mt-5 max-w-xl translate-y-8 text-sm leading-relaxed text-white/90 opacity-0 [text-shadow:0_2px_6px_rgba(0,0,0,0.4)] transition-all delay-150 duration-700 ease-out sm:text-base"
+        >
+          Talk to our team and get a tailored freight solution built around your cargo, wherever it needs to go.
+        </p>
 
-    <a
-      href="/quote"
-      data-reveal
-      class="cta-button group mt-10 inline-flex translate-y-8 items-center gap-2 rounded-full px-8 py-4 text-base font-bold text-brand-red opacity-0 transition-all delay-300 duration-700 ease-out hover:-translate-y-0.5"
-    >
-      Get a Quote
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1">
-        <path d="M5 12h14M13 6l6 6-6 6" />
-      </svg>
-    </a>
+        <a
+          href="/quote"
+          data-reveal
+          class="cta-button group mt-8 inline-flex translate-y-8 items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-brand-red opacity-0 transition-all delay-300 duration-700 ease-out hover:-translate-y-0.5 sm:text-base"
+        >
+          Get a Quote
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
   .container-panel {
     background-color: #9c1620;
+    box-shadow:
+      0 30px 60px -20px rgba(0, 0, 0, 0.35),
+      0 10px 24px -10px rgba(0, 0, 0, 0.25);
     background-image:
       /* diagonal light sheen, upper-left light source */
       linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, transparent 35%, transparent 65%, rgba(0, 0, 0, 0.18) 100%),
@@ -57,10 +67,10 @@
       linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.45) 0%,
-        rgba(0, 0, 0, 0.45) 3%,
-        transparent 7%,
-        transparent 93%,
-        rgba(0, 0, 0, 0.45) 97%,
+        rgba(0, 0, 0, 0.45) 4%,
+        transparent 9%,
+        transparent 91%,
+        rgba(0, 0, 0, 0.45) 96%,
         rgba(0, 0, 0, 0.45) 100%
       ),
       /* corrugation: smooth rounded ridge shading instead of hard stripes */
@@ -101,8 +111,8 @@
 
   .rivet {
     position: absolute;
-    width: 0.9rem;
-    height: 0.9rem;
+    width: 0.8rem;
+    height: 0.8rem;
     border-radius: 9999px;
     background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.75), rgba(120, 15, 20, 0.9) 45%, rgba(0, 0, 0, 0.75) 85%);
     box-shadow:
@@ -111,19 +121,19 @@
   }
 
   .rivet-tl {
-    top: 1.5rem;
-    left: 1.5rem;
+    top: 1.25rem;
+    left: 1.25rem;
   }
   .rivet-tr {
-    top: 1.5rem;
-    right: 1.5rem;
+    top: 1.25rem;
+    right: 1.25rem;
   }
   .rivet-bl {
-    bottom: 1.5rem;
-    left: 1.5rem;
+    bottom: 1.25rem;
+    left: 1.25rem;
   }
   .rivet-br {
-    bottom: 1.5rem;
-    right: 1.5rem;
+    bottom: 1.25rem;
+    right: 1.25rem;
   }
 </style>
