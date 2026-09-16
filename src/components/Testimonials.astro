@@ -1,0 +1,218 @@
+---
+// Two rows of testimonial cards, auto-scrolling as an infinite marquee in
+// opposite directions (pure CSS — no JS needed, unlike the scroll-linked
+// mechanics in HowItWorks.astro, since this isn't tied to page scroll at all).
+// No real testimonials exist yet, and inventing quotes attributed to
+// real-sounding people/companies would misrepresent actual client
+// relationships — same reasoning as the placeholder logos in TrustedBy.astro.
+// Names/companies here are deliberately generic placeholders (swap for real
+// testimonials whenever they're supplied), and avatars are colored initials
+// rather than stock photos, so nothing implies a specific real person.
+interface Testimonial {
+  quote: string;
+  name: string;
+  company: string;
+  country: string;
+  initials: string;
+}
+
+const rowOne: Testimonial[] = [
+  {
+    quote: "Every shipment has moved on schedule since we switched to Alpha Star. Communication is clear from booking to delivery.",
+    name: "Amara Osei",
+    company: "Osei Trading Co.",
+    country: "Kenya",
+    initials: "AO",
+  },
+  {
+    quote: "Customs clearance used to be our biggest headache. Their team handles it smoothly every time, no surprises.",
+    name: "Daniel Cho",
+    company: "Cho Import Partners",
+    country: "South Korea",
+    initials: "DC",
+  },
+  {
+    quote: "Responsive, organized and genuinely easy to work with. Exactly what we need for regular GCC shipments.",
+    name: "Priya Nair",
+    company: "Nair Exports Ltd.",
+    country: "India",
+    initials: "PN",
+  },
+  {
+    quote: "They handled a complex multi-modal shipment without a single hiccup. Real expertise, not just promises.",
+    name: "Thomas Becker",
+    company: "Becker Industrial Supply",
+    country: "Germany",
+    initials: "TB",
+  },
+  {
+    quote: "Our go-to freight partner for anything moving through Dubai. Reliable, and always reachable when it matters.",
+    name: "Fatima Al-Sayed",
+    company: "Al-Sayed Trading House",
+    country: "Egypt",
+    initials: "FA",
+  },
+  {
+    quote: "Warehousing and last-mile delivery both handled under one roof. Saved us a lot of coordination headaches.",
+    name: "Michael Reyes",
+    company: "Reyes Logistics Group",
+    country: "Philippines",
+    initials: "MR",
+  },
+];
+
+const rowTwo: Testimonial[] = [
+  {
+    quote: "From quote to delivery, everything is transparent. We always know exactly where our cargo stands.",
+    name: "Sarah Whitfield",
+    company: "Whitfield & Co.",
+    country: "United Kingdom",
+    initials: "SW",
+  },
+  {
+    quote: "Handled our dangerous goods shipment with the care and documentation it actually needed. Impressive.",
+    name: "Wei Zhang",
+    company: "Zhang Chemical Trading",
+    country: "China",
+    initials: "WZ",
+  },
+  {
+    quote: "A freight forwarder that actually picks up the phone. Small thing, but it makes a real difference.",
+    name: "Carlos Mendes",
+    company: "Mendes Distribution",
+    country: "Brazil",
+    initials: "CM",
+  },
+  {
+    quote: "Consistent, dependable, and their rates are fair. We've expanded to three more trade lanes with them.",
+    name: "Layla Haddad",
+    company: "Haddad Commercial Group",
+    country: "Jordan",
+    initials: "LH",
+  },
+  {
+    quote: "Our perishable shipments always arrive in perfect condition. Cold chain handling is genuinely excellent.",
+    name: "James Anderson",
+    company: "Anderson Fresh Imports",
+    country: "USA",
+    initials: "JA",
+  },
+  {
+    quote: "Smooth onboarding, clear pricing, and a team that understands our industry's specific requirements.",
+    name: "Nadia Ibrahim",
+    company: "Ibrahim Trading LLC",
+    country: "UAE",
+    initials: "NI",
+  },
+];
+
+const avatarTints = ["bg-navy", "bg-brand-blue", "bg-brand-red"];
+---
+
+<section class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div data-reveal class="translate-y-8 text-center opacity-0 transition-all duration-700 ease-out">
+      <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Testimonials</p>
+      <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl lg:text-5xl">Words From Our Clients</h2>
+    </div>
+  </div>
+
+  <div data-reveal class="mt-14 translate-y-8 space-y-6 opacity-0 transition-all delay-150 duration-700 ease-out">
+    <div class="marquee-row">
+      <div class="marquee-track marquee-left">
+        {
+          [...rowOne, ...rowOne].map((t, i) => (
+            <article class="w-[19rem] flex-none rounded-3xl bg-white p-7 shadow-sm sm:w-[22rem]">
+              <span class={`flex h-11 w-11 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue`}>
+                <svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                  <path d="M7.17 6A5.17 5.17 0 0 0 2 11.17V18h6.83v-6.83H4.5a2.67 2.67 0 0 1 2.67-2.67V6Zm10 0A5.17 5.17 0 0 0 12 11.17V18h6.83v-6.83H14.5a2.67 2.67 0 0 1 2.67-2.67V6Z" />
+                </svg>
+              </span>
+              <p class="mt-5 text-sm leading-relaxed text-navy/80">{t.quote}</p>
+              <div class="mt-6 flex items-center gap-3">
+                <span class={`flex h-10 w-10 flex-none items-center justify-center rounded-full text-xs font-semibold text-white ${avatarTints[i % avatarTints.length]}`}>
+                  {t.initials}
+                </span>
+                <div>
+                  <p class="text-sm font-bold text-navy">{t.name}</p>
+                  <p class="text-xs text-navy/50">
+                    {t.company}, {t.country}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="marquee-row">
+      <div class="marquee-track marquee-right">
+        {
+          [...rowTwo, ...rowTwo].map((t, i) => (
+            <article class="w-[19rem] flex-none rounded-3xl bg-white p-7 shadow-sm sm:w-[22rem]">
+              <span class={`flex h-11 w-11 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue`}>
+                <svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                  <path d="M7.17 6A5.17 5.17 0 0 0 2 11.17V18h6.83v-6.83H4.5a2.67 2.67 0 0 1 2.67-2.67V6Zm10 0A5.17 5.17 0 0 0 12 11.17V18h6.83v-6.83H14.5a2.67 2.67 0 0 1 2.67-2.67V6Z" />
+                </svg>
+              </span>
+              <p class="mt-5 text-sm leading-relaxed text-navy/80">{t.quote}</p>
+              <div class="mt-6 flex items-center gap-3">
+                <span class={`flex h-10 w-10 flex-none items-center justify-center rounded-full text-xs font-semibold text-white ${avatarTints[(i + 1) % avatarTints.length]}`}>
+                  {t.initials}
+                </span>
+                <div>
+                  <p class="text-sm font-bold text-navy">{t.name}</p>
+                  <p class="text-xs text-navy/50">
+                    {t.company}, {t.country}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .marquee-row {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 1.25rem;
+    animation: marquee 50s linear infinite;
+  }
+
+  .marquee-track.marquee-right {
+    animation-direction: reverse;
+  }
+
+  .marquee-row:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+    .marquee-row {
+      overflow-x: auto;
+    }
+  }
+</style>
