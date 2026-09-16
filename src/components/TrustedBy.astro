@@ -52,14 +52,10 @@ const placeholderCount = initialCount + extraCount;
       {
         Array.from({ length: placeholderCount }).map((_, i) => (
           <div
-            class={`client-tile flex aspect-[3/2] items-center justify-center rounded-2xl bg-white p-6 opacity-100 shadow-sm transition-opacity duration-500 ${i >= initialCount ? "hidden opacity-0" : ""}`}
+            class={`client-tile flex aspect-[3/2] items-center justify-center rounded-2xl bg-white p-4 opacity-100 shadow-sm transition-opacity duration-500 sm:p-5 ${i >= initialCount ? "hidden opacity-0" : ""}`}
             aria-label={`Client logo placeholder ${i + 1}`}
           >
-            <svg viewBox="0 0 48 24" class="h-6 w-auto text-navy/20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="10" cy="12" r="8" fill="currentColor" />
-              <rect x="22" y="5" width="26" height="6" rx="3" fill="currentColor" />
-              <rect x="22" y="15" width="18" height="6" rx="3" fill="currentColor" />
-            </svg>
+            <img src={`/clients/client-${i + 1}.webp`} alt="Client name" class="h-full w-full object-contain" />
           </div>
         ))
       }
