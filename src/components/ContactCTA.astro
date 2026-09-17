@@ -1,17 +1,18 @@
 ---
+import { Image } from "astro:assets";
+import starLogo from "../assets/logos/star-logo.png";
+
 // Final CTA before the footer. Went through several rounds: (1) CSS-drawn
 // corrugated panel with text on it; (2) same idea, polished depth/typography
 // after "not premium" feedback; (3) swapped in the user's real container
 // photo, still with text on the surface; (4) tried a poster layout with the
-// headline separate from a floating container graphic, inspired by a bold
-// reference image — but the user clarified they want the text back on the
-// container itself, just keeping that reference's production quality. Back
-// to a single card: the real container photo (background removed — see
-// public/cta/container-cutout.png) with all the copy overlaid directly on
-// its surface. Per feedback, the card shows the photo at its own natural
-// aspect ratio (object-contain in a matching aspect-ratio box, not cropped)
-// and has square corners rather than rounded ones — "I want the image as it
-// is", not reshaped to fit a rounded card.
+// headline separate from a floating container graphic — reverted, user wants
+// text on the container itself; (5) full-image-uncropped + square corners.
+// This round: added the same star-mark watermark used in Footer/TrustedBy,
+// a bold condensed display face (Oswald, loaded in index.astro's <head>,
+// `--font-display` theme token in global.css) for the headline instead of
+// the site's body font, and a more considered button — a circular arrow
+// badge rather than a plain trailing icon.
 ---
 
 <section class="relative overflow-hidden bg-white py-12 sm:py-16">
@@ -20,6 +21,15 @@
       <img src="/cta/container-cutout.png" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain" />
       <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/15 to-black/50" />
 
+      <!-- same star-mark watermark idea as Footer/TrustedBy, sized down to suit this shorter card -->
+      <Image
+        src={starLogo}
+        alt=""
+        aria-hidden="true"
+        width={220}
+        class="pointer-events-none absolute -top-4 -right-4 w-16 opacity-[0.16] select-none sm:w-20 md:-top-5 md:-right-5 md:w-24"
+      />
+
       <div class="relative mx-auto flex h-full max-w-2xl flex-col items-center justify-center px-6 text-center sm:px-12">
         <p
           data-reveal
@@ -27,7 +37,7 @@
         >
           Get In Touch
         </p>
-        <h2 data-reveal class="cta-heading mt-5 translate-y-8 text-2xl leading-tight font-extrabold text-white uppercase opacity-0 transition-all duration-700 ease-out sm:text-3xl lg:text-4xl">
+        <h2 data-reveal class="cta-heading font-display mt-5 translate-y-8 text-3xl leading-tight tracking-wide text-white uppercase opacity-0 transition-all duration-700 ease-out sm:text-4xl lg:text-5xl">
           Let Us Take the Burden of Your Cargo
         </h2>
         <p
@@ -40,12 +50,14 @@
         <a
           href="/quote"
           data-reveal
-          class="cta-button group mt-8 inline-flex translate-y-8 items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-brand-red opacity-0 transition-all delay-300 duration-700 ease-out hover:-translate-y-0.5 sm:text-base"
+          class="cta-button group mt-8 inline-flex translate-y-8 items-center gap-3 rounded-full py-2 pr-2 pl-7 text-sm font-bold text-navy opacity-0 transition-all delay-300 duration-700 ease-out hover:-translate-y-0.5 sm:text-base"
         >
           Get a Quote
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1">
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
+          <span class="cta-button-icon flex h-10 w-10 flex-none items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:rotate-45">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+              <path d="M7 17 17 7M7 7h10v10" />
+            </svg>
+          </span>
         </a>
       </div>
     </div>
@@ -63,10 +75,9 @@
     /* debossed/stamped-metal lettering: a soft light catch on the upper edge
        plus a deeper drop shadow below, rather than a single flat shadow */
     text-shadow:
-      0 -1px 0 rgba(255, 255, 255, 0.25),
+      0 -1px 0 rgba(255, 255, 255, 0.3),
       0 3px 2px rgba(0, 0, 0, 0.25),
       0 8px 16px rgba(0, 0, 0, 0.35);
-    letter-spacing: 0.01em;
   }
 
   .cta-button {
@@ -80,5 +91,9 @@
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.6) inset,
       0 14px 36px rgba(0, 0, 0, 0.4);
+  }
+
+  .cta-button-icon {
+    background: linear-gradient(135deg, #d81f2a, #a3121c);
   }
 </style>

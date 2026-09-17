@@ -9,6 +9,7 @@
   --color-brand-red: #d81f2a;
 
   --font-sans: "Signa", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Oswald", ui-sans-serif, system-ui, sans-serif;
 }
 
 /* Signa files aren't supplied yet — see public/fonts/README.md. Until they're
