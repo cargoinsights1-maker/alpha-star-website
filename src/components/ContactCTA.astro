@@ -1,75 +1,84 @@
 ---
-// Final CTA before the footer. Three rounds so far: (1) CSS-drawn corrugated
-// panel with white text on it; (2) swapped in the user's real container
-// photo, still as a bordered card; (3) user pushed for a "premium" poster
-// look — ref: bold gradient headline with a container photo integrated
-// directly into the composition, no card/border, floating on a plain
-// background (their ref used an angled crane shot; they explicitly want the
-// straight side-view container kept, just the same production quality).
-// Rebuilt around that: large gradient-text headline, then the container
-// (background removed — see public/cta/container-cutout.png, chroma-keyed
-// via sharp since the source had a flat white background) floating below it
-// with a soft shadow and a blurred color glow, rather than sitting in a
-// bordered box with text painted on its surface.
+// Final CTA before the footer. Went through several rounds: (1) CSS-drawn
+// corrugated panel with text on it; (2) same idea, polished depth/typography
+// after "not premium" feedback; (3) swapped in the user's real container
+// photo, still with text on the surface; (4) tried a poster layout with the
+// headline separate from a floating container graphic, inspired by a bold
+// reference image — but the user clarified they want the text back on the
+// container itself, just keeping that reference's production quality. Back
+// to a single card: the real container photo (background removed — see
+// public/cta/container-cutout.png) with all the copy overlaid directly on
+// its surface. Per feedback, the card shows the photo at its own natural
+// aspect ratio (object-contain in a matching aspect-ratio box, not cropped)
+// and has square corners rather than rounded ones — "I want the image as it
+// is", not reshaped to fit a rounded card.
 ---
 
-<section class="relative overflow-hidden bg-white py-20 sm:py-28">
-  <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-    <p
-      data-reveal
-      class="translate-y-8 text-sm font-semibold tracking-[0.25em] text-brand-red uppercase opacity-0 transition-all duration-700 ease-out"
-    >
-      Get In Touch
-    </p>
-    <h2
-      data-reveal
-      class="cta-heading mt-5 translate-y-8 text-4xl leading-[1.05] font-extrabold tracking-tight opacity-0 transition-all duration-700 ease-out sm:text-5xl lg:text-6xl"
-    >
-      Let Us Take the Burden of Your Cargo
-    </h2>
-    <p
-      data-reveal
-      class="mx-auto mt-6 max-w-xl translate-y-8 text-base leading-relaxed text-navy/60 opacity-0 transition-all delay-150 duration-700 ease-out sm:text-lg"
-    >
-      Talk to our team and get a tailored freight solution built around your cargo, wherever it needs to go.
-    </p>
+<section class="relative overflow-hidden bg-white py-12 sm:py-16">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="container-card relative aspect-[1918/719] min-h-[380px] w-full overflow-hidden bg-[#9c1620] lg:min-h-0">
+      <img src="/cta/container-cutout.png" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain" />
+      <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/15 to-black/50" />
 
-    <a
-      href="/quote"
-      data-reveal
-      class="group mt-8 inline-flex translate-y-8 items-center gap-2 rounded-full bg-gradient-to-r from-brand-red to-[#a3121c] px-8 py-4 text-base font-semibold text-white opacity-0 shadow-lg shadow-brand-red/25 transition-all delay-300 duration-700 ease-out hover:-translate-y-0.5 hover:shadow-xl"
-    >
-      Get a Quote
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1">
-        <path d="M5 12h14M13 6l6 6-6 6" />
-      </svg>
-    </a>
-  </div>
+      <div class="relative mx-auto flex h-full max-w-2xl flex-col items-center justify-center px-6 text-center sm:px-12">
+        <p
+          data-reveal
+          class="translate-y-8 text-sm font-semibold tracking-[0.25em] text-white/80 uppercase opacity-0 transition-all duration-700 ease-out"
+        >
+          Get In Touch
+        </p>
+        <h2 data-reveal class="cta-heading mt-5 translate-y-8 text-2xl leading-tight font-extrabold text-white uppercase opacity-0 transition-all duration-700 ease-out sm:text-3xl lg:text-4xl">
+          Let Us Take the Burden of Your Cargo
+        </h2>
+        <p
+          data-reveal
+          class="mt-5 max-w-xl translate-y-8 text-sm leading-relaxed text-white/90 opacity-0 [text-shadow:0_2px_6px_rgba(0,0,0,0.4)] transition-all delay-150 duration-700 ease-out sm:text-base"
+        >
+          Talk to our team and get a tailored freight solution built around your cargo, wherever it needs to go.
+        </p>
 
-  <div data-reveal class="cta-container-wrap relative mx-auto mt-14 max-w-5xl translate-y-8 px-6 opacity-0 transition-all delay-450 duration-700 ease-out sm:mt-20">
-    <div class="cta-glow" aria-hidden="true"></div>
-    <img src="/cta/container-cutout.png" alt="Red shipping container" class="relative mx-auto w-full drop-shadow-2xl" />
+        <a
+          href="/quote"
+          data-reveal
+          class="cta-button group mt-8 inline-flex translate-y-8 items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-brand-red opacity-0 transition-all delay-300 duration-700 ease-out hover:-translate-y-0.5 sm:text-base"
+        >
+          Get a Quote
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
+  .container-card {
+    box-shadow:
+      0 30px 60px -20px rgba(0, 0, 0, 0.35),
+      0 10px 24px -10px rgba(0, 0, 0, 0.25);
+  }
+
   .cta-heading {
-    background: linear-gradient(to bottom, #152056 15%, rgba(21, 32, 86, 0.55));
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+    /* debossed/stamped-metal lettering: a soft light catch on the upper edge
+       plus a deeper drop shadow below, rather than a single flat shadow */
+    text-shadow:
+      0 -1px 0 rgba(255, 255, 255, 0.25),
+      0 3px 2px rgba(0, 0, 0, 0.25),
+      0 8px 16px rgba(0, 0, 0, 0.35);
+    letter-spacing: 0.01em;
   }
 
-  .cta-glow {
-    position: absolute;
-    inset: 10% 15%;
-    background: radial-gradient(ellipse at center, rgba(216, 31, 42, 0.22) 0%, transparent 70%);
-    filter: blur(40px);
-    z-index: 0;
+  .cta-button {
+    background: linear-gradient(to bottom, #ffffff, #f3f4f6);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 10px 30px rgba(0, 0, 0, 0.35);
   }
 
-  .cta-container-wrap img {
-    position: relative;
-    z-index: 1;
+  .cta-button:hover {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.6) inset,
+      0 14px 36px rgba(0, 0, 0, 0.4);
   }
 </style>
