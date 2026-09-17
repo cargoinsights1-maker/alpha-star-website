@@ -1,24 +1,21 @@
 ---
 // Final CTA before the footer. Ref: a straight-on photo of a red shipping
 // container's corrugated side, with copy meant to read as if it were painted
-// directly onto the container itself. Built the container surface in CSS
-// rather than risk a mismatched/missing stock photo — renders crisply at any
-// size with zero asset dependency. Two rounds of feedback so far: (1) the
-// texture itself read flat/plasticky with hard-edged stripes, fixed with
-// smooth multi-stop ridge shading + a light sheen + a vignette; (2) it was
-// filling the whole section edge-to-edge, losing the "here's a container
-// sitting in front of you" read entirely — fixed by putting it back on a
-// plain white section as a distinct rounded, shadowed card (like a product
-// photo), matching what the reference image actually showed.
+// directly onto the container itself. First two passes built the container
+// surface in CSS (to avoid an asset dependency) but the user asked for the
+// real photo they supplied — trimmed its white margin and upscaled slightly
+// (source was 612x251) via sharp, saved to public/cta/container.webp. It's a
+// flat-illustration-style render rather than a detailed photo, so the
+// upscale stays crisp. A dark gradient sits between the image and the text
+// for legibility; no CSS-drawn rivets anymore since the real photo already
+// has its own corner castings baked in.
 ---
 
 <section class="relative overflow-hidden bg-white py-20 sm:py-24">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
     <div class="container-panel relative overflow-hidden rounded-3xl">
-      <span class="rivet rivet-tl" aria-hidden="true"></span>
-      <span class="rivet rivet-tr" aria-hidden="true"></span>
-      <span class="rivet rivet-bl" aria-hidden="true"></span>
-      <span class="rivet rivet-br" aria-hidden="true"></span>
+      <img src="/cta/container.webp" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/15 to-black/50" />
 
       <div class="relative mx-auto flex max-w-2xl flex-col items-center px-6 py-16 text-center sm:px-12 sm:py-20 lg:py-24">
         <p
@@ -54,36 +51,9 @@
 
 <style>
   .container-panel {
-    background-color: #9c1620;
     box-shadow:
       0 30px 60px -20px rgba(0, 0, 0, 0.35),
       0 10px 24px -10px rgba(0, 0, 0, 0.25);
-    background-image:
-      /* diagonal light sheen, upper-left light source */
-      linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, transparent 35%, transparent 65%, rgba(0, 0, 0, 0.18) 100%),
-      /* corner vignette for depth */
-      radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.3) 100%),
-      /* top + bottom structural rail bands, soft-edged rather than hard-cut */
-      linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.45) 0%,
-        rgba(0, 0, 0, 0.45) 4%,
-        transparent 9%,
-        transparent 91%,
-        rgba(0, 0, 0, 0.45) 96%,
-        rgba(0, 0, 0, 0.45) 100%
-      ),
-      /* corrugation: smooth rounded ridge shading instead of hard stripes */
-      repeating-linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0.32) 0px,
-        rgba(0, 0, 0, 0.1) 5px,
-        rgba(255, 255, 255, 0.22) 11px,
-        rgba(255, 255, 255, 0.28) 13px,
-        rgba(255, 255, 255, 0.22) 15px,
-        rgba(0, 0, 0, 0.1) 21px,
-        rgba(0, 0, 0, 0.32) 26px
-      );
   }
 
   .cta-heading {
@@ -107,33 +77,5 @@
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.6) inset,
       0 14px 36px rgba(0, 0, 0, 0.4);
-  }
-
-  .rivet {
-    position: absolute;
-    width: 0.8rem;
-    height: 0.8rem;
-    border-radius: 9999px;
-    background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.75), rgba(120, 15, 20, 0.9) 45%, rgba(0, 0, 0, 0.75) 85%);
-    box-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.6),
-      0 0 0 1px rgba(0, 0, 0, 0.25);
-  }
-
-  .rivet-tl {
-    top: 1.25rem;
-    left: 1.25rem;
-  }
-  .rivet-tr {
-    top: 1.25rem;
-    right: 1.25rem;
-  }
-  .rivet-bl {
-    bottom: 1.25rem;
-    left: 1.25rem;
-  }
-  .rivet-br {
-    bottom: 1.25rem;
-    right: 1.25rem;
   }
 </style>
