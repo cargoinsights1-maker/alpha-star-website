@@ -7,18 +7,21 @@ import starLogo from "../assets/logos/star-logo.png";
 // after "not premium" feedback; (3) swapped in the user's real container
 // photo, still with text on the surface; (4) tried a poster layout with the
 // headline separate from a floating container graphic — reverted, user wants
-// text on the container itself; (5) full-image-uncropped + square corners.
-// This round: added the same star-mark watermark used in Footer/TrustedBy,
-// a bold condensed display face (Oswald, loaded in index.astro's <head>,
-// `--font-display` theme token in global.css) for the headline instead of
-// the site's body font, and a more considered button — a circular arrow
-// badge rather than a plain trailing icon.
+// text on the container itself; (5) full-image-uncropped + square corners;
+// (6) watermark + Oswald display font for the headline + a circular arrow-
+// badge button. This round: user clarified the container doesn't need to
+// show its full length after all — switched from object-contain (whole
+// photo, letterboxed on mobile) to object-cover on a fixed aspect-[2/1]
+// card, so it fills the card and zooms into the corrugation instead of
+// shrinking to fit the whole thing. Desktop crops a little off each end now
+// too (aspect-[2/1] vs. the photo's native ~2.67:1), which reads fine since
+// it's a repeating texture with plain end-rails, not a specific detail.
 ---
 
 <section class="relative overflow-hidden bg-white py-12 sm:py-16">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-    <div class="container-card relative aspect-[1918/719] min-h-[300px] w-full overflow-hidden bg-[#9c1620] sm:min-h-[340px] lg:min-h-0">
-      <img src="/cta/container-cutout.png" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain" />
+    <div class="container-card relative aspect-[2/1] min-h-[300px] w-full overflow-hidden bg-[#9c1620] sm:min-h-[340px] lg:min-h-0">
+      <img src="/cta/container-cutout.png" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-cover" />
       <div class="absolute inset-0 bg-gradient-to-b from-black/45 via-black/15 to-black/50" />
 
       <!-- same star-mark watermark idea as Footer/TrustedBy, sized down to suit this shorter card -->
@@ -30,7 +33,7 @@ import starLogo from "../assets/logos/star-logo.png";
         class="pointer-events-none absolute -top-3 -right-3 w-12 opacity-[0.16] select-none sm:-top-4 sm:-right-4 sm:w-16 md:-top-5 md:-right-5 md:w-24"
       />
 
-      <div class="relative mx-auto flex h-full max-w-2xl flex-col items-center justify-center px-5 text-center sm:px-12">
+      <div class="relative mx-auto flex h-full max-w-2xl flex-col items-center justify-center px-5 py-8 text-center sm:px-12 sm:py-0">
         <p
           data-reveal
           class="translate-y-8 text-xs font-semibold tracking-[0.2em] text-white/80 uppercase opacity-0 transition-all duration-700 ease-out sm:text-sm sm:tracking-[0.25em]"
