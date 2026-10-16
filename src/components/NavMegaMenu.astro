@@ -1,0 +1,67 @@
+---
+// Services' dropdown needs real depth (6 categories, 3-9 sub-items each) that
+// the compact single/two-column NavDropdown can't hold well — a proper wide
+// mega-menu instead. Grid is 3 columns x 2 rows (not 6-across) so the panel
+// stays a reasonable width instead of risking viewport overflow, and is
+// centered under its trigger (rather than left-aligned, like the narrower
+// dropdowns) since a ~640px panel anchored at the nav's left edge would
+// otherwise run off the right side of the screen.
+import { Image } from "astro:assets";
+import starLogo from "../assets/logos/star-logo.png";
+import type { NavColumn } from "../data/nav";
+
+interface Props {
+  label: string;
+  href: string;
+  columns: NavColumn[];
+}
+
+const { label, href, columns } = Astro.props;
+---
+
+<div class="group relative flex items-center">
+  <a href={href} class="flex items-center gap-1 text-sm font-medium text-navy transition-colors hover:text-brand-red">
+    {label}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform group-hover:rotate-180">
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  </a>
+
+  <div class="invisible absolute top-full left-1/2 z-20 w-[42rem] -translate-x-1/2 pt-3 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+      <div class="relative overflow-hidden bg-gradient-to-br from-navy via-brand-blue to-brand-blue-light px-6 py-5">
+        <Image
+          src={starLogo}
+          alt=""
+          aria-hidden="true"
+          width={200}
+          class="pointer-events-none absolute -top-8 -right-8 w-36 mix-blend-overlay select-none opacity-40"
+        />
+        <p class="relative text-[11px] font-semibold tracking-wider text-white/70 uppercase">What We Move</p>
+        <p class="relative mt-0.5 text-base font-semibold text-white">Our Services</p>
+      </div>
+      <div class="grid grid-cols-3 gap-x-4 gap-y-5 p-5">
+        {
+          columns.map((column) => (
+            <div>
+              <a href={column.headingHref} class="block text-sm font-semibold text-navy transition-colors hover:text-brand-red">
+                {column.heading}
+              </a>
+              {column.items.length > 0 && (
+                <ul class="mt-2 space-y-1.5">
+                  {column.items.map((item) => (
+                    <li>
+                      <a href={item.href} class="block text-[13px] leading-snug text-navy/65 transition-colors hover:text-brand-red">
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>

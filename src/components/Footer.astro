@@ -2,18 +2,7 @@
 import { Image } from "astro:assets";
 import mainLogo from "../assets/logos/main-logo.png";
 import starLogo from "../assets/logos/star-logo.png";
-
-interface NavLink {
-  label: string;
-  href: string;
-}
-
-const navLinks: NavLink[] = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-];
+import { insightsItems, ourTeamItems } from "../data/nav";
 
 // placeholder hrefs — swap for real profile URLs once supplied
 interface SocialLink {
@@ -49,7 +38,7 @@ const socialLinks: SocialLink[] = [
   />
 
   <div class="relative mx-auto max-w-7xl px-6 pt-16 pb-8 md:px-10">
-    <div data-reveal class="grid translate-y-8 gap-12 opacity-0 transition-all duration-700 ease-out sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
+    <div data-reveal class="grid translate-y-8 gap-12 opacity-0 transition-all duration-700 ease-out sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1.1fr]">
       <div>
         <Image src={mainLogo} alt="Alpha Star Shipping" width={200} class="h-auto w-44" />
         <p class="mt-5 max-w-xs text-sm leading-relaxed text-navy/60">
@@ -108,11 +97,26 @@ const socialLinks: SocialLink[] = [
         </div>
       </div>
 
-      <nav aria-label="Footer">
-        <h3 class="text-sm font-semibold tracking-wider text-navy uppercase">Navigate</h3>
-        <ul class="mt-5 space-y-3">
+      <nav aria-label="Footer: Insights">
+        <h3 class="text-sm font-semibold tracking-wider text-navy uppercase">Insights</h3>
+        <ul class="mt-5 space-y-2.5">
           {
-            navLinks.map((link) => (
+            insightsItems.map((link) => (
+              <li>
+                <a href={link.href} class="inline-block text-sm text-navy/70 transition-all duration-300 hover:translate-x-1 hover:text-brand-red">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label="Footer: Our Team">
+        <h3 class="text-sm font-semibold tracking-wider text-navy uppercase">Our Team</h3>
+        <ul class="mt-5 space-y-2.5">
+          {
+            ourTeamItems.map((link) => (
               <li>
                 <a href={link.href} class="inline-block text-sm text-navy/70 transition-all duration-300 hover:translate-x-1 hover:text-brand-red">
                   {link.label}

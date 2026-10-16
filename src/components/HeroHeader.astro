@@ -4,13 +4,18 @@
 // navbar style that doesn't change between desktop and mobile.
 import { Image } from "astro:assets";
 import whiteLogo from "../assets/logos/white-logo.png";
-import { navLinksBefore, navLinksAfter } from "../data/nav";
+import { homeLink } from "../data/nav";
 
+// flat top-level list for this full-screen overlay — the header-nav's
+// mega-menu/dropdown depth doesn't translate to this context, same as before
 const menuLinks = [
-  ...navLinksBefore,
+  homeLink,
   { label: "Services", href: "/services" },
-  { label: "Industries", href: "/services#industries" },
-  ...navLinksAfter,
+  { label: "Ship Spares", href: "/ship-spares" },
+  { label: "Warehousing & 3PL", href: "/warehousing-3pl" },
+  { label: "Industries", href: "/industries" },
+  { label: "Airline Cargo Representation", href: "/airline-cargo-representation" },
+  { label: "Contact", href: "/contact" },
 ];
 ---
 

@@ -1,0 +1,74 @@
+---
+// Reusable compact nav dropdown — same visual language as the original
+// Services/Industries dropdowns (gradient header banner with the star-logo
+// watermark, then a flat item list), now shared across Ship Spares,
+// Warehousing & 3PL, Industries and Airline Cargo Representation. Splits
+// into two columns automatically once there are enough items that a single
+// column would run too tall (more than 6).
+import { Image } from "astro:assets";
+import starLogo from "../assets/logos/star-logo.png";
+import type { DropdownItem } from "../data/nav";
+
+interface Props {
+  label: string;
+  href: string;
+  eyebrow: string;
+  title: string;
+  gradientClass: string;
+  items: DropdownItem[];
+}
+
+const { label, href, eyebrow, title, gradientClass, items } = Astro.props;
+const twoColumns = items.length > 6;
+const half = Math.ceil(items.length / 2);
+const columns = twoColumns ? [items.slice(0, half), items.slice(half)] : [items];
+---
+
+<div class="group relative flex items-center">
+  <a href={href} class="flex items-center gap-1 text-sm font-medium text-navy transition-colors hover:text-brand-red">
+    {label}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform group-hover:rotate-180">
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  </a>
+
+  <div class={`invisible absolute top-full left-0 z-20 pt-3 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 ${twoColumns ? "w-[26rem]" : "w-72"}`}>
+    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+      <div class={`relative overflow-hidden bg-gradient-to-br ${gradientClass} px-5 py-5`}>
+        <Image
+          src={starLogo}
+          alt=""
+          aria-hidden="true"
+          width={160}
+          class="pointer-events-none absolute -top-6 -right-6 w-28 mix-blend-overlay select-none opacity-40"
+        />
+        <p class="relative text-[11px] font-semibold tracking-wider text-white/70 uppercase">{eyebrow}</p>
+        <p class="relative mt-0.5 text-base font-semibold text-white">{title}</p>
+      </div>
+      <div class={`p-2 ${twoColumns ? "grid grid-cols-2 gap-1" : ""}`}>
+        {
+          columns.map((column) => (
+            <div>
+              {column.map((item) => (
+                <a href={item.href} class="group/item flex items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-navy transition-colors hover:bg-brand-red/5 hover:text-brand-red">
+                  <span>{item.label}</span>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-3.5 w-3.5 flex-none -translate-x-1 opacity-0 transition-all duration-150 group-hover/item:translate-x-0 group-hover/item:opacity-100"
+                  >
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </a>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
