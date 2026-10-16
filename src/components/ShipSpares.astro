@@ -6,28 +6,22 @@
 // own text; quick industry research (GAC/Eurosender/Wrist Marine service
 // pages) confirmed the real emphasis is urgency + 24/7 responsiveness +
 // door-to-deck delivery, matching the Ship Spares sub-items already in
-// src/data/nav.ts. "24/7" is the single most-repeated idea in the client's
-// copy, so it's the visual anchor here (same gradient-stat pattern as
-// About.astro's quick stats, just white-based for this dark background).
+// src/data/nav.ts.
 //
-// Styling takes cues from two "premium" reference screenshots the user
-// shared (bold uppercase gradient headline, eyebrow pill badge, circular-
-// arrow-badge CTA): the button reuses ContactCTA.astro's exact
-// .cta-button/.cta-button-icon pattern, and the headline reuses the Oswald
-// display font already loaded for that section rather than adding a third
-// typeface.
-//
-// Redesigned per feedback on the first version: dropped the "Regions We
-// Serve" badge card (read as a map, which competed with the actual map
-// motif below) in favor of a photographic cutout — reusing ContactCTA's
-// container-cutout.png, since a shipping container is the one real asset
-// on hand that reads as "ship spares logistics" — flowing in from the left
-// with its own horizontal reveal, text + a few capability icons (pulled
-// from the real Ship Spares nav sub-items, not invented) on the right, and
-// an abstract global shipping-route graphic standing in for the "premium
-// map background" instead of a literal (and licensing-risky) world map
-// image — three dashed routes converging on port-style nodes reads as
-// "global network" without needing real geographic map data.
+// Third pass, after two rejected directions (a dark-navy glass-card version,
+// then a dark version with an abstract route-map background): user wants a
+// whitish, minimal section instead, with a real ship "scrolling through"
+// from the left and the text on the right — no map motif at all this time.
+// Reused About.astro's light-section language directly (dot-grid texture,
+// navy headings, red-gradient pill CTA with arrow) so this section matches
+// the rest of the light pages rather than inventing a third visual style.
+// The ship photo is the same aerial container-ship source already used in
+// HowItWorks.astro, cropped to a tight horizontal strip around just the
+// hull (bbox found by classifying water vs. ship pixels rather than
+// eyeballing crop coordinates) — no second ship photo was available, and
+// the treatment here (a thin strip fading into a white section) reads
+// differently enough from HowItWorks' full-bleed scroll-pinned pan that it
+// doesn't feel like repeating the same visual.
 interface Capability {
   label: string;
   icon: "anchor" | "clock" | "shield";
@@ -40,52 +34,39 @@ const capabilities: Capability[] = [
 ];
 ---
 
-<section class="relative overflow-hidden bg-gradient-to-br from-navy via-[#0d3550] to-navy py-20 sm:py-24">
-  <svg
-    class="pointer-events-none absolute inset-0 h-full w-full text-white/15"
-    viewBox="0 0 800 400"
-    preserveAspectRatio="xMidYMid slice"
-    fill="none"
+<section class="relative overflow-hidden bg-white py-20 sm:py-24">
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.4]"
+    style="background-image: radial-gradient(rgba(18,85,127,0.12) 1px, transparent 1px); background-size: 22px 22px;"
   >
-    <path d="M0 60H800M0 140H800M0 220H800M0 300H800" stroke="currentColor" stroke-width="1" />
-    <path d="M80 0V400M260 0V400M440 0V400M620 0V400" stroke="currentColor" stroke-width="1" />
-    <path d="M70 320C220 220 300 120 460 100C560 90 620 150 740 70" stroke="#d81f2a" stroke-opacity="0.45" stroke-width="1.5" stroke-dasharray="2 8" stroke-linecap="round" />
-    <path d="M40 150C160 180 260 260 420 250C520 245 600 300 760 260" stroke="#d81f2a" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="2 8" stroke-linecap="round" />
-    <g fill="#d81f2a" fill-opacity="0.55">
-      <circle cx="70" cy="320" r="3.5" /><circle cx="460" cy="100" r="3.5" /><circle cx="740" cy="70" r="3.5" />
-      <circle cx="40" cy="150" r="3.5" /><circle cx="420" cy="250" r="3.5" /><circle cx="760" cy="260" r="3.5" />
-    </g>
-  </svg>
+  </div>
 
   <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="grid items-center gap-14 lg:grid-cols-2 lg:gap-10">
-      <div
-        data-reveal
-        class="relative -translate-x-10 opacity-0 transition-all duration-700 ease-out lg:-ml-6"
-      >
-        <div class="ss-image-glow pointer-events-none absolute inset-0" aria-hidden="true" />
-        <img
-          src="/cta/container-cutout.png"
-          alt="Alpha Star shipping container"
-          width="1800"
-          height="675"
-          class="relative mx-auto w-full max-w-xl drop-shadow-[0_30px_40px_rgba(0,0,0,0.45)]"
-        />
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div data-reveal class="relative -translate-x-10 opacity-0 transition-all duration-700 ease-out">
+        <div class="relative">
+          <img
+            src="/ship-spares/ship-aerial-strip.webp"
+            alt="Alpha Star container ship"
+            width="1800"
+            height="294"
+            class="w-full"
+          />
+          <div class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent sm:w-24" />
+          <div class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent sm:w-24" />
+          <div class="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-white to-transparent" />
+          <div class="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white to-transparent" />
+        </div>
       </div>
 
       <div data-reveal class="translate-y-8 opacity-0 transition-all delay-150 duration-700 ease-out">
-        <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-wide text-white/80 backdrop-blur">
-          <svg viewBox="0 0 24 24" fill="currentColor" class="h-3.5 w-3.5 text-brand-red">
-            <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z" />
-          </svg>
-          24/7 Ship Spares Logistics
-        </span>
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">24/7 Ship Spares Logistics</p>
 
-        <h2 class="ship-spares-heading font-display mt-6 text-4xl leading-[1.05] tracking-wide text-white uppercase sm:text-5xl lg:text-6xl">
+        <h2 class="font-display mt-4 text-4xl leading-[1.05] tracking-wide text-navy uppercase sm:text-5xl">
           Leading Ship Spares Logistics in the UAE
         </h2>
 
-        <p class="mt-6 max-w-lg text-lg leading-relaxed text-white/75">
+        <p class="mt-6 max-w-lg leading-relaxed text-navy/70">
           Alpha Star serves customers across the ship spares industry in Europe, the USA, Middle East and Far East
           Asia. Spares arrive through every mode of logistics, and because delivery is time bound, our team stays
           active 24/7 to get every shipment to the vessel on time.
@@ -94,8 +75,8 @@ const capabilities: Capability[] = [
         <ul class="mt-8 flex flex-col gap-4">
           {
             capabilities.map((capability) => (
-              <li class="flex items-center gap-3 text-sm font-medium text-white/85 sm:text-base">
-                <span class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-white/10 text-brand-red">
+              <li class="flex items-center gap-3 text-sm font-medium text-navy sm:text-base">
+                <span class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-gradient-to-br from-brand-blue to-brand-blue-light text-white shadow-lg shadow-brand-blue/25">
                   {capability.icon === "anchor" && (
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4.5 w-4.5">
                       <circle cx="12" cy="5" r="2" />
@@ -123,46 +104,14 @@ const capabilities: Capability[] = [
 
         <a
           href="/ship-spares"
-          class="ss-button group mt-9 inline-flex items-center gap-3 rounded-full py-1.5 pr-1.5 pl-7 text-sm font-bold text-navy transition-all duration-300 hover:-translate-y-0.5 sm:text-base"
+          class="group mt-9 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-red to-[#a3121c] px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-black/20 transition-shadow hover:shadow-xl"
         >
           Explore Ship Spares
-          <span class="ss-button-icon flex h-9 w-9 flex-none items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:rotate-45">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5">
-              <path d="M7 17 17 7M7 7h10v10" />
-            </svg>
-          </span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-1">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
         </a>
       </div>
     </div>
   </div>
 </section>
-
-<style>
-  .ship-spares-heading {
-    text-shadow:
-      0 -1px 0 rgba(255, 255, 255, 0.2),
-      0 8px 24px rgba(0, 0, 0, 0.4);
-  }
-
-  .ss-button {
-    background: linear-gradient(to bottom, #ffffff, #f3f4f6);
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.6) inset,
-      0 10px 30px rgba(0, 0, 0, 0.35);
-  }
-
-  .ss-button:hover {
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.6) inset,
-      0 14px 36px rgba(0, 0, 0, 0.4);
-  }
-
-  .ss-button-icon {
-    background: linear-gradient(135deg, #d81f2a, #a3121c);
-  }
-
-  .ss-image-glow {
-    background: radial-gradient(ellipse 60% 55% at 50% 50%, rgba(216, 31, 42, 0.25) 0%, transparent 70%);
-    filter: blur(20px);
-  }
-</style>
