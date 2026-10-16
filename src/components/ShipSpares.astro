@@ -8,20 +8,26 @@
 // door-to-deck delivery, matching the Ship Spares sub-items already in
 // src/data/nav.ts.
 //
-// Third pass, after two rejected directions (a dark-navy glass-card version,
-// then a dark version with an abstract route-map background): user wants a
-// whitish, minimal section instead, with a real ship "scrolling through"
-// from the left and the text on the right — no map motif at all this time.
-// Reused About.astro's light-section language directly (dot-grid texture,
-// navy headings, red-gradient pill CTA with arrow) so this section matches
-// the rest of the light pages rather than inventing a third visual style.
-// The ship photo is the same aerial container-ship source already used in
-// HowItWorks.astro, cropped to a tight horizontal strip around just the
-// hull (bbox found by classifying water vs. ship pixels rather than
-// eyeballing crop coordinates) — no second ship photo was available, and
-// the treatment here (a thin strip fading into a white section) reads
-// differently enough from HowItWorks' full-bleed scroll-pinned pan that it
-// doesn't feel like repeating the same visual.
+// Third pass, after two rejected dark-theme directions: user wants a
+// whitish, minimal section instead, with a real ship and the text split
+// across two columns. Reused About.astro's light-section language directly
+// (dot-grid texture, navy headings, red-gradient pill CTA with arrow) so
+// this section matches the rest of the light pages rather than inventing a
+// third visual style. Background got a soft oceanic gradient + blurred
+// blobs + wave divider after "too plain" feedback on the first flat-white
+// attempt, and the three capability pointers became a side-by-side row of
+// cards instead of a stacked list, per explicit request.
+//
+// Fourth pass: user supplied a real diagonal aerial ship photo and asked
+// for it on the right with text on the left (the original had a thin
+// cropped strip of an older photo on the left — that's now replaced
+// entirely, and the column order flipped to match the new reference). This
+// photo stands fine on its own as a rounded photo card (unlike the old
+// strip, which needed a heavy edge-fade to avoid looking like an awkward
+// sliver) — kept just a light vignette at the very edges so it still feels
+// like it's gently settling into the section rather than sitting in a hard
+// box. Reveal direction flipped too (slides in from the right now, since
+// that's where the image actually sits).
 interface Capability {
   label: string;
   icon: "anchor" | "clock" | "shield";
@@ -34,7 +40,7 @@ const capabilities: Capability[] = [
 ];
 ---
 
-<section class="relative overflow-hidden bg-gradient-to-b from-sky-50 via-white to-blue-50 py-20 sm:py-24">
+<section class="relative overflow-hidden bg-gradient-to-b from-sky-50 via-white to-blue-50 pt-36 pb-20 sm:pb-24">
   <div
     class="pointer-events-none absolute inset-0 opacity-[0.4]"
     style="background-image: radial-gradient(rgba(18,85,127,0.12) 1px, transparent 1px); background-size: 22px 22px;"
@@ -48,19 +54,7 @@ const capabilities: Capability[] = [
 
   <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-      <div data-reveal class="relative -translate-x-10 opacity-0 transition-all duration-700 ease-out">
-        <div class="relative">
-          <img
-            src="/ship-spares/ship-aerial-strip.webp"
-            alt="Alpha Star container ship"
-            width="1800"
-            height="294"
-            class="ship-strip-img w-full"
-          />
-        </div>
-      </div>
-
-      <div data-reveal class="translate-y-8 opacity-0 transition-all delay-150 duration-700 ease-out">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
         <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">24/7 Ship Spares Logistics</p>
 
         <h2 class="font-display mt-4 text-4xl leading-[1.05] tracking-wide text-navy uppercase sm:text-5xl">
@@ -113,16 +107,26 @@ const capabilities: Capability[] = [
           </svg>
         </a>
       </div>
+
+      <div data-reveal class="translate-x-10 opacity-0 transition-all delay-150 duration-700 ease-out">
+        <img
+          src="/ship-spares/ship-diagonal.webp"
+          alt="Alpha Star container ship at sea"
+          width="2000"
+          height="1332"
+          class="ship-photo aspect-[5/4] w-full rounded-[2rem] object-cover shadow-2xl shadow-brand-blue/20"
+        />
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* True alpha fade so the strip blends into the gradient behind it instead
-     of sitting in a flat-color box (the old overlay-gradient approach broke
-     once the section background stopped being flat white). */
-  .ship-strip-img {
-    -webkit-mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, black 45%, transparent 100%);
-    mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, black 45%, transparent 100%);
+  /* Light vignette so the card's corners settle into the section rather
+     than reading as a hard-edged box, without hiding most of the photo
+     the way the old thin ship-strip's heavy fade had to. */
+  .ship-photo {
+    -webkit-mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, black 78%, transparent 100%);
+    mask-image: radial-gradient(ellipse 92% 92% at 50% 50%, black 78%, transparent 100%);
   }
 </style>
