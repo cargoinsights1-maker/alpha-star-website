@@ -34,12 +34,17 @@ const capabilities: Capability[] = [
 ];
 ---
 
-<section class="relative overflow-hidden bg-white py-20 sm:py-24">
+<section class="relative overflow-hidden bg-gradient-to-b from-sky-50 via-white to-blue-50 py-20 sm:py-24">
   <div
     class="pointer-events-none absolute inset-0 opacity-[0.4]"
     style="background-image: radial-gradient(rgba(18,85,127,0.12) 1px, transparent 1px); background-size: 22px 22px;"
   >
   </div>
+  <div class="pointer-events-none absolute top-0 left-[-10%] h-[420px] w-[420px] rounded-full bg-brand-blue-light/20 blur-3xl"></div>
+  <div class="pointer-events-none absolute right-[-8%] bottom-0 h-[380px] w-[380px] rounded-full bg-brand-blue/15 blur-3xl"></div>
+  <svg class="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full text-sky-100/80 sm:h-32" viewBox="0 0 1440 120" preserveAspectRatio="none" fill="currentColor">
+    <path d="M0,60 C240,100 480,10 720,50 C960,90 1200,20 1440,55 L1440,120 L0,120 Z" />
+  </svg>
 
   <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -50,12 +55,8 @@ const capabilities: Capability[] = [
             alt="Alpha Star container ship"
             width="1800"
             height="294"
-            class="w-full"
+            class="ship-strip-img w-full"
           />
-          <div class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent sm:w-24" />
-          <div class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent sm:w-24" />
-          <div class="pointer-events-none absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-white to-transparent" />
-          <div class="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white to-transparent" />
         </div>
       </div>
 
@@ -72,31 +73,31 @@ const capabilities: Capability[] = [
           active 24/7 to get every shipment to the vessel on time.
         </p>
 
-        <ul class="mt-8 flex flex-col gap-4">
+        <ul class="mt-8 grid grid-cols-3 gap-3 sm:gap-4">
           {
             capabilities.map((capability) => (
-              <li class="flex items-center gap-3 text-sm font-medium text-navy sm:text-base">
-                <span class="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-gradient-to-br from-brand-blue to-brand-blue-light text-white shadow-lg shadow-brand-blue/25">
+              <li class="flex flex-col items-center gap-2.5 rounded-2xl border border-brand-blue/10 bg-white/60 px-2 py-4 text-center shadow-sm backdrop-blur-sm">
+                <span class="flex h-11 w-11 flex-none items-center justify-center rounded-full bg-gradient-to-br from-brand-blue to-brand-blue-light text-white shadow-lg shadow-brand-blue/25">
                   {capability.icon === "anchor" && (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4.5 w-4.5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
                       <circle cx="12" cy="5" r="2" />
                       <path d="M12 7v13M6 13H3a9 9 0 0 0 9 7 9 9 0 0 0 9-7h-3M8 10l-2 3M16 10l2 3" />
                     </svg>
                   )}
                   {capability.icon === "clock" && (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4.5 w-4.5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
                       <circle cx="12" cy="12" r="9" />
                       <path d="M12 7v5l3.5 2" />
                     </svg>
                   )}
                   {capability.icon === "shield" && (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-4.5 w-4.5">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
                       <path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3Z" />
                       <path d="M9.5 12l2 2 3.5-4" />
                     </svg>
                   )}
                 </span>
-                {capability.label}
+                <span class="text-xs leading-snug font-semibold text-navy sm:text-sm">{capability.label}</span>
               </li>
             ))
           }
@@ -115,3 +116,13 @@ const capabilities: Capability[] = [
     </div>
   </div>
 </section>
+
+<style>
+  /* True alpha fade so the strip blends into the gradient behind it instead
+     of sitting in a flat-color box (the old overlay-gradient approach broke
+     once the section background stopped being flat white). */
+  .ship-strip-img {
+    -webkit-mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, black 45%, transparent 100%);
+    mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, black 45%, transparent 100%);
+  }
+</style>
