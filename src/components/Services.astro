@@ -9,14 +9,14 @@ interface ServiceCard {
   href: string;
 }
 
-// kept in sync with the Services mega-menu's 6 categories in src/data/nav.ts —
-// same labels/order, so this section and the nav never drift apart
+// 5 of the nav's 6 Services categories — Multimodal deliberately left out
+// here per the client ("multimodal is part of warehousing"), even though it
+// still gets its own top-level column in the nav's mega-menu (src/data/nav.ts)
 const services: ServiceCard[] = [
   { slug: "air-freight", label: "Air Freight", href: "/services/air-freight" },
   { slug: "sea-freight", label: "Sea Freight", href: "/services/sea-freight" },
   { slug: "road-freight", label: "Road Freight", href: "/services/road-freight" },
   { slug: "warehousing", label: "Warehousing & 3PL", href: "/warehousing-3pl" },
-  { slug: "multimodal", label: "Multimodal", href: "/services/multimodal" },
   { slug: "customs-clearance", label: "Customs Clearance", href: "/services/customs-clearance" },
 ];
 
