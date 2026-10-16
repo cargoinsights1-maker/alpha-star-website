@@ -6,15 +6,18 @@
 interface ServiceCard {
   slug: string;
   label: string;
+  href: string;
 }
 
+// kept in sync with the Services mega-menu's 6 categories in src/data/nav.ts —
+// same labels/order, so this section and the nav never drift apart
 const services: ServiceCard[] = [
-  { slug: "air-freight", label: "Air Freight" },
-  { slug: "sea-freight", label: "Sea Freight" },
-  { slug: "land-freight", label: "Land Freight (FTL/LTL)" },
-  { slug: "customs-clearance", label: "Customs Clearance" },
-  { slug: "warehousing", label: "Warehousing & 3PL" },
-  { slug: "value-added-services", label: "Value Added Services" },
+  { slug: "air-freight", label: "Air Freight", href: "/services/air-freight" },
+  { slug: "sea-freight", label: "Sea Freight", href: "/services/sea-freight" },
+  { slug: "road-freight", label: "Road Freight", href: "/services/road-freight" },
+  { slug: "warehousing", label: "Warehousing & 3PL", href: "/warehousing-3pl" },
+  { slug: "multimodal", label: "Multimodal", href: "/services/multimodal" },
+  { slug: "customs-clearance", label: "Customs Clearance", href: "/services/customs-clearance" },
 ];
 
 const gradients = [
@@ -54,7 +57,7 @@ const gradients = [
         {
           services.map((service, i) => (
             <a
-              href={`/services#${service.slug}`}
+              href={service.href}
               style={`background: url('/services/${service.slug}.webp') center/cover no-repeat, ${gradients[i % gradients.length]};`}
               class="group relative aspect-[3/4] w-[85%] flex-none snap-start overflow-hidden rounded-3xl sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-3.75rem)/4)]"
             >
