@@ -20,8 +20,10 @@ const menuLinks = [
 ---
 
 <div class="absolute inset-x-0 top-0 z-40">
-  <!-- scrim so the nav stays legible over bright footage, independent of video/image content -->
-  <div class="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/50 to-transparent" />
+  <!-- scrim so the nav stays legible over bright footage, independent of video/image content —
+       strengthened after real bright-sky frames in the current video still washed out the logo
+       even with its own drop-shadow below -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/75 via-black/40 to-transparent" />
 
   <div class="relative mx-auto grid max-w-7xl grid-cols-3 items-center px-4 py-5 sm:px-6 lg:px-8">
     <div class="flex justify-start">
@@ -40,7 +42,12 @@ const menuLinks = [
     </div>
 
     <a href="/" class="flex justify-center">
-      <Image src={whiteLogo} alt="Alpha Star Shipping" width={220} class="h-8 w-auto sm:h-12 md:h-14" />
+      <Image
+        src={whiteLogo}
+        alt="Alpha Star Shipping"
+        width={220}
+        class="h-8 w-auto drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)] sm:h-12 md:h-14"
+      />
     </a>
 
     <div class="flex justify-end">
