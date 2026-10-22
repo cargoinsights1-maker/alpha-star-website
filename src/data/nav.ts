@@ -33,7 +33,7 @@ export const servicesMegaMenu: NavColumn[] = [
       { label: "General Cargo", href: "/services/air-freight#general-cargo" },
       { label: "International Courier", href: "/services/air-freight#international-courier" },
       { label: "Time Critical / NFO", href: "/services/air-freight#time-critical-nfo" },
-      { label: "AOG", href: "/services/air-freight#aog" },
+      { label: "AOG", href: "/services/air-freight/aog" },
       { label: "OBC", href: "/services/air-freight#obc" },
       { label: "Dangerous Goods", href: "/services/air-freight#dangerous-goods" },
       { label: "Pharma / Healthcare", href: "/services/air-freight#pharma-healthcare" },

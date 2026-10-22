@@ -5,6 +5,7 @@ export interface SubServiceContent {
   label: string;
   description: string;
   icon: string;
+  href?: string;
 }
 
 export interface Differentiator {
@@ -47,14 +48,19 @@ export interface ServicePageContent {
 }
 
 // Builds a sub-service entry from the matching src/data/nav.ts item so the
-// anchor id/label can never drift from what the header mega-menu links to —
-// only description/icon are authored here.
-function fromNav(navItems: { label: string; href: string }[], label: string, description: string, icon: string): SubServiceContent {
+// id/label can never drift from what the header mega-menu links to — only
+// description/icon (and, once a sub-item has its own dedicated page,
+// hrefOverride) are authored here. The id is the last path segment whether
+// the nav href is still an anchor (/foo#bar) or a real nested page
+// (/foo/bar), so sub-items can migrate from one style to the other one at a
+// time without breaking the rest.
+function fromNav(navItems: { label: string; href: string }[], label: string, description: string, icon: string, hrefOverride?: string): SubServiceContent {
   const navItem = navItems.find((item) => item.label === label);
   if (!navItem) {
     throw new Error(`services.ts: no nav.ts entry found for sub-item "${label}"`);
   }
-  return { id: navItem.href.split("#")[1], label: navItem.label, description, icon };
+  const id = navItem.href.split(/[/#]/).filter(Boolean).pop()!;
+  return { id, label: navItem.label, description, icon, href: hrefOverride };
 }
 
 const airFreightNavItems = servicesMegaMenu[0].items;
@@ -138,6 +144,7 @@ export const airFreight: ServicePageContent = {
       "AOG",
       "Aircraft On Ground parts get first priority booking to get a grounded aircraft back in service with minimum downtime. We handle the booking, customs and last mile to the hangar as one continuous job, not a handoff between parties.",
       '<circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16h.01" />',
+      "/services/air-freight/aog",
     ),
     fromNav(
       airFreightNavItems,
