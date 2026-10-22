@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import starLogo from "../../../assets/logos/star-logo.png";
 import Layout from "../../../layouts/Layout.astro";
 import SiblingServiceSlider from "../../../components/SiblingServiceSlider.astro";
+import RelatedServiceCards from "../../../components/RelatedServiceCards.astro";
 import ContactCTA from "../../../components/ContactCTA.astro";
 import { airFreight } from "../../../data/services";
 import { aog } from "../../../data/subServicePages";
@@ -117,6 +118,16 @@ const breadcrumb = [
         <h2 class="text-3xl font-extrabold tracking-wide text-navy uppercase sm:text-4xl">More {aog.parentLabel} Services</h2>
       </div>
       <SiblingServiceSlider items={siblings} />
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Our Services</p>
+        <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Explore Our Core Services</h2>
+        <RelatedServiceCards items={airFreight.relatedServices} />
+      </div>
     </div>
   </section>
 
