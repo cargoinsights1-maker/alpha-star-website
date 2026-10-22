@@ -4,13 +4,18 @@ Astro (v7, minimal template) + Tailwind v4 (`@tailwindcss/vite`, CSS-based theme
 
 ```
 src/
-  layouts/                  # empty — Layout.astro (head, Header/Footer wrapper) added when Header/Footer are built
-  components/               # empty — Header.astro, Footer.astro, Hero.astro, etc. added section by section
-  data/                     # empty — reserved for content files (e.g. siteData.ts) as sections need real copy
+  layouts/
+    Layout.astro              # shared shell for inner pages: head/meta/OG, SmoothScroll, Header (no revealOnScroll), <slot />, Footer, ScrollAnimations
+  components/                 # Header.astro, Footer.astro, Hero.astro, section components, plus reusable inner-page pieces (ServiceHero.astro, ServiceDifferentiators.astro, ServiceSubItems.astro)
+  data/
+    nav.ts                     # header nav structure + every service's #anchor sub-items (source of truth for inner-page anchor ids)
+    services.ts                 # one ServicePageContent entry per service page; sub-item id/label derived from nav.ts, not retyped
   pages/
-    index.astro              # home page — only page in scope for now
+    index.astro                 # home page
+    services/
+      air-freight.astro          # first inner service page (more to follow the same pattern)
   styles/
-    global.css               # Tailwind import, @theme (colors, font), Signa @font-face rules
+    global.css                 # Tailwind import, @theme (colors, font), Signa @font-face rules
   assets/
     logos/
       main-logo.png           # full wordmark, navy text — use on light backgrounds (header)

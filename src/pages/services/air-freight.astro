@@ -1,0 +1,69 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ServiceHero from "../../components/ServiceHero.astro";
+import ServiceDifferentiators from "../../components/ServiceDifferentiators.astro";
+import ServiceSubItems from "../../components/ServiceSubItems.astro";
+import ContactCTA from "../../components/ContactCTA.astro";
+import { airFreight } from "../../data/services";
+---
+
+<Layout title={airFreight.metaTitle} description={airFreight.metaDescription}>
+  <ServiceHero
+    eyebrow={airFreight.eyebrow}
+    title={airFreight.heroTitle}
+    intro={airFreight.heroIntro}
+    breadcrumb={[{ label: "Home", href: "/" }, { label: "Services" }, { label: airFreight.heroTitle }]}
+    image={airFreight.heroImage}
+    gradient={airFreight.heroGradient}
+  />
+
+  <section class="relative overflow-hidden py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.4]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.12) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Why Alpha Star</p>
+        <h2 class="mt-4 max-w-2xl text-3xl leading-tight font-bold text-navy sm:text-4xl">{airFreight.overviewHeading}</h2>
+        <p class="mt-6 max-w-3xl leading-relaxed text-navy/70">{airFreight.overview}</p>
+      </div>
+      <ServiceDifferentiators items={airFreight.differentiators} />
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <h2 class="text-3xl font-extrabold tracking-wide text-navy uppercase sm:text-4xl">{airFreight.subServicesHeading}</h2>
+      </div>
+      <ServiceSubItems items={airFreight.subServices} />
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Related Services</p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          {
+            airFreight.relatedServices.map((service) => (
+              <a
+                href={service.href}
+                class="group inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-2.5 text-sm font-semibold text-navy transition-colors hover:border-brand-blue hover:text-brand-blue"
+              >
+                {service.label}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

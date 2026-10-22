@@ -1,0 +1,69 @@
+---
+// Medium-height inner-page hero (not full-viewport like Hero.astro) — photo
+// optional since Road Freight / Multimodal have none yet, same graceful
+// url()-over-gradient fallback used by Industries.astro/Services.astro.
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  breadcrumb: BreadcrumbItem[];
+  image?: string;
+  gradient: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const { eyebrow, title, intro, breadcrumb, image, gradient, ctaLabel = "Get a Quote", ctaHref = "/quote" } = Astro.props;
+
+const backgroundStyle = image ? `background: url('${image}') center/cover no-repeat, ${gradient};` : `background: ${gradient};`;
+---
+
+<section class="relative flex min-h-[60vh] items-end overflow-hidden bg-navy pb-16 sm:min-h-[70vh] sm:pb-20">
+  <div style={backgroundStyle} class="absolute inset-0" />
+  <div class="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/40 to-black/20" />
+  <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-black/10 to-transparent" />
+
+  <div class="relative z-10 mx-auto w-full max-w-7xl px-4 pt-28 sm:px-6 sm:pt-32 lg:px-8">
+    <nav aria-label="Breadcrumb" class="animate-fade-up flex flex-wrap items-center gap-2 text-xs font-medium text-white/70 opacity-0 sm:text-sm">
+      {
+        breadcrumb.map((crumb, i) => (
+          <span class="flex items-center gap-2">
+            {i > 0 && <span class="text-white/40">/</span>}
+            {crumb.href ? (
+              <a href={crumb.href} class="transition-colors hover:text-white">
+                {crumb.label}
+              </a>
+            ) : (
+              <span>{crumb.label}</span>
+            )}
+          </span>
+        ))
+      }
+    </nav>
+
+    <p class="animate-fade-up mt-5 text-sm font-semibold tracking-widest text-brand-red uppercase opacity-0 [animation-delay:80ms]">{eyebrow}</p>
+    <h1 class="animate-fade-up mt-3 max-w-2xl font-sans text-[2rem] leading-[1.1] font-bold text-white opacity-0 [animation-delay:150ms] sm:text-[2.75rem] lg:text-[3.5rem]">
+      {title}
+    </h1>
+    <p class="animate-fade-up mt-5 max-w-xl text-base leading-relaxed text-white/80 opacity-0 [animation-delay:220ms] sm:text-lg">
+      {intro}
+    </p>
+
+    <div class="animate-fade-up mt-8 opacity-0 [animation-delay:300ms]">
+      <a
+        href={ctaHref}
+        class="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-red to-[#a3121c] px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-black/30 transition-shadow hover:shadow-xl"
+      >
+        {ctaLabel}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-1">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

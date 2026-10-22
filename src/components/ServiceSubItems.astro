@@ -1,0 +1,36 @@
+---
+// Each card's id comes straight from the matching src/data/nav.ts entry (see
+// src/data/services.ts), so the header mega-menu's existing #anchor links
+// land on a real section instead of just the top of the page.
+interface SubService {
+  id: string;
+  label: string;
+  description: string;
+  icon: string;
+}
+
+interface Props {
+  items: SubService[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+  {
+    items.map((item, i) => (
+      <div
+        id={item.id}
+        data-reveal
+        style={`transition-delay: ${(i % 3) * 100}ms`}
+        class="group relative translate-y-8 scroll-mt-32 overflow-hidden rounded-2xl border border-slate-100 bg-white p-6 opacity-0 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-500 ease-out hover:-translate-y-1 hover:border-brand-blue/20 hover:shadow-[0_25px_60px_-15px_rgba(18,85,127,0.35)]"
+      >
+        <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-blue to-brand-blue-light text-white shadow-md shadow-brand-blue/25">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" set:html={item.icon} />
+        </span>
+        <h3 class="mt-4 font-sans text-lg font-bold text-navy">{item.label}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-navy/60">{item.description}</p>
+      </div>
+    ))
+  }
+</div>
