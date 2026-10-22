@@ -14,8 +14,10 @@ export interface Differentiator {
 }
 
 export interface RelatedService {
+  slug: string;
   label: string;
   href: string;
+  image?: string;
 }
 
 export interface ProcessStep {
@@ -169,8 +171,8 @@ export const airFreight: ServicePageContent = {
     ),
   ],
   relatedServices: [
-    { label: "Sea Freight", href: "/services/sea-freight" },
-    { label: "Multimodal", href: "/services/multimodal" },
-    { label: "Customs Clearance", href: "/services/customs-clearance" },
+    { slug: "sea-freight", label: "Sea Freight", href: "/services/sea-freight", image: "/services/sea-freight.webp" },
+    { slug: "multimodal", label: "Multimodal", href: "/services/multimodal" },
+    { slug: "customs-clearance", label: "Customs Clearance", href: "/services/customs-clearance", image: "/services/customs-clearance.webp" },
   ],
 };

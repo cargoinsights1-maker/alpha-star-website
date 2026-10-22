@@ -6,6 +6,7 @@ import ServiceHero from "../../components/ServiceHero.astro";
 import ServiceDifferentiators from "../../components/ServiceDifferentiators.astro";
 import ServiceProcess from "../../components/ServiceProcess.astro";
 import ServiceSubItems from "../../components/ServiceSubItems.astro";
+import RelatedServiceCards from "../../components/RelatedServiceCards.astro";
 import ContactCTA from "../../components/ContactCTA.astro";
 import { airFreight } from "../../data/services";
 ---
@@ -99,21 +100,7 @@ import { airFreight } from "../../data/services";
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
         <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Related Services</p>
-        <div class="mt-5 flex flex-wrap gap-3">
-          {
-            airFreight.relatedServices.map((service) => (
-              <a
-                href={service.href}
-                class="group inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-2.5 text-sm font-semibold text-navy transition-colors hover:border-brand-blue hover:text-brand-blue"
-              >
-                {service.label}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </a>
-            ))
-          }
-        </div>
+        <RelatedServiceCards items={airFreight.relatedServices} />
       </div>
     </div>
   </section>
