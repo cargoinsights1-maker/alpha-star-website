@@ -46,13 +46,16 @@ import { airFreight } from "../../data/services";
                   height="653"
                   class="aspect-[16/9] w-full object-cover"
                 />
-                {/* same corner-watermark treatment as ContactCTA.astro/TrustedBy.astro, for consistency across photo moments site-wide */}
+                {/* corner-watermark, same idea as ContactCTA.astro/TrustedBy.astro — given a small dark vignette behind it here
+                    since this photo is busy corner-to-corner (unlike those sections' plainer backgrounds), so the mark stays
+                    legible regardless of what's underneath it rather than disappearing into the cargo netting */}
+                <div class="pointer-events-none absolute top-0 right-0 h-28 w-28 bg-gradient-to-bl from-navy/55 via-navy/15 to-transparent sm:h-36 sm:w-36" />
                 <Image
                   src={starLogo}
                   alt=""
                   aria-hidden="true"
                   width={220}
-                  class="pointer-events-none absolute -top-3 -right-3 w-14 opacity-[0.18] select-none sm:-top-4 sm:-right-4 sm:w-20 md:-top-5 md:-right-5 md:w-28"
+                  class="pointer-events-none absolute top-3 right-3 w-14 opacity-80 select-none drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] sm:top-4 sm:right-4 sm:w-20 md:w-24"
                 />
               </div>
             </div>
