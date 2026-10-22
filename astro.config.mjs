@@ -9,12 +9,16 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
-    // Pre-bundle lenis up front instead of letting Vite discover it lazily
-    // on first request — lazy discovery mid-request was re-optimizing deps
-    // and serving a stale shared-chunk hash, which aborted the import and
-    // silently prevented SmoothScroll.astro's script from ever running.
+    // Pre-bundle lenis and cobe up front instead of letting Vite discover
+    // them lazily on first request — lazy discovery mid-request re-optimizes
+    // deps and serves a stale shared-chunk hash, which aborts the import
+    // silently. Confirmed the same failure mode twice now: first it broke
+    // SmoothScroll's lenis import, then (during a long dev session with many
+    // new pages added) it left Globe.astro's `createGlobe` import silently
+    // failing — the canvas just sat at its default 300x150 size since the
+    // library never actually drew to it.
     optimizeDeps: {
-      include: ['lenis']
+      include: ['lenis', 'cobe']
     }
   }
 });

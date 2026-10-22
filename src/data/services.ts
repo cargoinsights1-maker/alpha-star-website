@@ -1,4 +1,4 @@
-import { servicesMegaMenu, warehousingItems } from "./nav";
+import { servicesMegaMenu, warehousingItems, shipSparesItems } from "./nav";
 
 export interface SubServiceContent {
   id: string;
@@ -440,5 +440,51 @@ export const customsClearance: ServicePageContent = {
     { slug: "road-freight", label: "Road Freight", href: "/services/road-freight", image: "/services/road-freight.webp" },
     { slug: "warehousing", label: "Warehousing & 3PL", href: "/warehousing-3pl", image: "/services/warehousing.webp" },
     { slug: "multimodal", label: "Multimodal", href: "/services/multimodal" },
+  ],
+};
+
+export const shipSpares: ServicePageContent = {
+  slug: "ship-spares",
+  metaTitle: "Ship Spares Logistics in the UAE | Alpha Star Shipping",
+  metaDescription:
+    "Time bound ship spares logistics to vessels across Europe, the USA, Middle East and Far East Asia. Door to deck delivery, 24/7 urgent support and customs handling from Alpha Star.",
+  eyebrow: "Ship Spares",
+  heroTitle: "Ship Spares",
+  heroIntro: "Time bound ship spares logistics to vessels across Europe, the USA, Middle East and Far East Asia, delivered door to deck around the clock.",
+  heroImage: "/ship-spares/ship-diagonal.webp",
+  heroGradient: "linear-gradient(135deg, #12557f, #2f8fc9)",
+  overviewHeading: "Ship Spares Logistics Built for a Vessel's Schedule",
+  overview: [
+    "Alpha Star is a leading ship spares logistics company in the UAE, serving customers across the ship spares industry in Europe, the USA, Middle East and Far East Asia. Spares arrive through every mode of logistics, and because delivery is time bound, our team stays active 24/7 to get every shipment to the vessel on time.",
+    "A vessel idle in port waiting on a part is an expensive problem, so our ship spares desk is built around urgency from the first call. We track the vessel's schedule, not just the shipment's, and coordinate customs, transit and final delivery so a part reaches the deck before the ship needs to sail.",
+  ],
+  overviewImage: "/industries/ship-spares.webp",
+  differentiators: [
+    { label: "Door-to-Deck Delivery", description: "Spares are tracked and delivered all the way to the vessel's deck, not handed off at the port gate.", icon: icons.anchor },
+    { label: "24/7 Urgent Support", description: "A desk that stays open around the clock, because a vessel's schedule doesn't wait for business hours.", icon: icons.clock },
+    { label: "Customs & Transit Handling", description: "In-transit and bonded customs handling managed directly, so spares don't sit waiting on paperwork at the border.", icon: icons.shield },
+  ],
+  processHeading: "How Your Ship Spares Move With Us",
+  process: [
+    { title: "Receive & Confirm", description: "Share the part, the vessel and the port it needs to reach, and we confirm the fastest route to get there." },
+    { title: "Document & Prepare", description: "Customs and transit paperwork is prepared in advance, including bonded handling where the spare is already in transit." },
+    { title: "Urgent Transit Handling", description: "Our team coordinates the fastest suitable mode and tracks the shipment right up to the port." },
+    { title: "Door-to-Deck Delivery", description: "The spare is delivered directly to the vessel and confirmed received before the ship sails." },
+  ],
+  subServicesHeading: "Ship Spares Services We Offer",
+  subServicesIntro: "Every ship spares shipment is handled against the one deadline that actually matters: the vessel's schedule.",
+  subServices: [
+    fromNav(shipSparesItems, "Ship Spares in Transit", "Spares already moving through another country's customs system, tracked and handled so transit status doesn't turn into a delay at the next border.", icons.transfer),
+    fromNav(shipSparesItems, "Door to Deck", "Delivery that doesn't stop at the port gate. We track the shipment through to the vessel's deck and confirm it's received before closing the job.", icons.anchor),
+    fromNav(shipSparesItems, "24/7 Urgent Support", "A desk that's staffed around the clock for urgent spares, because a vessel idle in port waiting on a part is an expensive problem that doesn't wait for business hours.", icons.clock),
+    fromNav(shipSparesItems, "Customs & Transit Handling", "In-transit and bonded customs handling managed directly, so spares already in the system keep moving instead of sitting on paperwork.", icons.shield),
+    fromNav(shipSparesItems, "Marine Logistics", "Broader marine logistics support beyond a single spare part, covering the wider shipping and handling needs of vessels calling at UAE ports.", icons.globe),
+  ],
+  relatedServices: [
+    { slug: "sea-freight", label: "Sea Freight", href: "/services/sea-freight", image: "/services/sea-freight.webp" },
+    { slug: "air-freight", label: "Air Freight", href: "/services/air-freight", image: "/services/air-freight.webp" },
+    { slug: "road-freight", label: "Road Freight", href: "/services/road-freight", image: "/services/road-freight.webp" },
+    { slug: "warehousing", label: "Warehousing & 3PL", href: "/warehousing-3pl", image: "/services/warehousing.webp" },
+    { slug: "customs-clearance", label: "Customs Clearance", href: "/services/customs-clearance", image: "/services/customs-clearance.webp" },
   ],
 };
