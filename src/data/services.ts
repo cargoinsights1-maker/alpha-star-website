@@ -18,11 +18,6 @@ export interface RelatedService {
   href: string;
 }
 
-export interface QuickStat {
-  value: string;
-  label: string;
-}
-
 export interface ProcessStep {
   title: string;
   description: string;
@@ -39,7 +34,7 @@ export interface ServicePageContent {
   heroGradient: string;
   overviewHeading: string;
   overview: string[];
-  quickStats: QuickStat[];
+  overviewImage?: string;
   differentiators: Differentiator[];
   processHeading: string;
   process: ProcessStep[];
@@ -77,11 +72,7 @@ export const airFreight: ServicePageContent = {
     "Alpha Star moves air cargo through Dubai's airports with the speed air freight is chosen for in the first place. Whether it is a routine pallet on a scheduled flight or a single part needed to get a grounded aircraft back in the air, our air freight desk handles booking, documentation and airside coordination so your shipment makes the flight it needs to be on.",
     "Dubai sits at the centre of the GCC's air cargo network, with direct capacity to Europe, Asia, Africa and the Americas inside a single connection. We use that position to keep transit times short and routing flexible, whether your cargo moves on a major carrier's scheduled hold or a dedicated charter booked for your shipment alone.",
   ],
-  quickStats: [
-    { value: "2007", label: "Moving Air Cargo Since" },
-    { value: "9", label: "Specialised Air Freight Services" },
-    { value: "GCC+", label: "Markets Connected From Dubai" },
-  ],
+  overviewImage: "/services/air-freight-ground.webp",
   differentiators: [
     {
       label: "Priority Airport Handling",

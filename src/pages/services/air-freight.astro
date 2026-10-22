@@ -25,25 +25,32 @@ import { airFreight } from "../../data/services";
     >
     </div>
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
-        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Why Alpha Star</p>
-        <h2 class="mt-4 max-w-2xl text-3xl leading-tight font-bold text-navy sm:text-4xl">{airFreight.overviewHeading}</h2>
-        {airFreight.overview.map((paragraph) => <p class="mt-6 max-w-3xl leading-relaxed text-navy/70">{paragraph}</p>)}
-
-        <div class="mt-10 grid grid-cols-3 gap-4 border-y border-slate-200 py-6">
-          {
-            airFreight.quickStats.map((stat) => (
-              <div>
-                <p class="bg-gradient-to-br from-brand-red to-brand-blue bg-clip-text text-3xl font-extrabold tracking-tight text-transparent sm:text-4xl">
-                  {stat.value}
-                </p>
-                <p class="mt-1.5 text-xs font-semibold tracking-wide text-navy/60 uppercase">{stat.label}</p>
-              </div>
-            ))
-          }
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+          <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Why Alpha Star</p>
+          <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">{airFreight.overviewHeading}</h2>
+          {airFreight.overview.map((paragraph) => <p class="mt-6 leading-relaxed text-navy/70">{paragraph}</p>)}
         </div>
+
+        {
+          airFreight.overviewImage && (
+            <div data-reveal class="relative translate-x-10 opacity-0 transition-all delay-150 duration-700 ease-out">
+              <div class="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-brand-blue-light/15 blur-2xl" />
+              <img
+                src={airFreight.overviewImage}
+                alt="Alpha Star ground crew loading air cargo"
+                width="1200"
+                height="653"
+                class="aspect-[16/9] w-full rounded-3xl object-cover shadow-2xl shadow-brand-blue/20"
+              />
+            </div>
+          )
+        }
       </div>
-      <ServiceDifferentiators items={airFreight.differentiators} />
+
+      <div class="mt-14 lg:mt-16">
+        <ServiceDifferentiators items={airFreight.differentiators} />
+      </div>
     </div>
   </section>
 
