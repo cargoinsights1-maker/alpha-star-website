@@ -1,0 +1,106 @@
+---
+import { Image } from "astro:assets";
+import starLogo from "../../assets/logos/star-logo.png";
+import Layout from "../../layouts/Layout.astro";
+import ServiceHero from "../../components/ServiceHero.astro";
+import ServiceDifferentiators from "../../components/ServiceDifferentiators.astro";
+import ServiceProcess from "../../components/ServiceProcess.astro";
+import ServiceSubItems from "../../components/ServiceSubItems.astro";
+import RelatedServiceCards from "../../components/RelatedServiceCards.astro";
+import ContactCTA from "../../components/ContactCTA.astro";
+import { seaFreight } from "../../data/services";
+---
+
+<Layout title={seaFreight.metaTitle} description={seaFreight.metaDescription}>
+  <ServiceHero
+    eyebrow={seaFreight.eyebrow}
+    title={seaFreight.heroTitle}
+    intro={seaFreight.heroIntro}
+    breadcrumb={[{ label: "Home", href: "/" }, { label: "Services" }, { label: seaFreight.heroTitle }]}
+    image={seaFreight.heroImage}
+    gradient={seaFreight.heroGradient}
+  />
+
+  <section class="relative overflow-hidden py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.4]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.12) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+          <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Why Alpha Star</p>
+          <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">{seaFreight.overviewHeading}</h2>
+          {seaFreight.overview.map((paragraph) => <p class="mt-6 leading-relaxed text-navy/70">{paragraph}</p>)}
+        </div>
+
+        {
+          seaFreight.overviewImage && (
+            <div data-reveal class="relative translate-x-10 opacity-0 transition-all delay-150 duration-700 ease-out">
+              <div class="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-brand-blue-light/15 blur-2xl" />
+              <div class="relative overflow-hidden rounded-3xl shadow-2xl shadow-brand-blue/20">
+                <img
+                  src={seaFreight.overviewImage}
+                  alt="Alpha Star sea freight operations"
+                  width="1200"
+                  height="500"
+                  class="aspect-[16/9] w-full object-cover"
+                />
+                <div class="pointer-events-none absolute top-0 right-0 h-28 w-28 bg-gradient-to-bl from-navy/55 via-navy/15 to-transparent sm:h-36 sm:w-36" />
+                <Image
+                  src={starLogo}
+                  alt=""
+                  aria-hidden="true"
+                  width={220}
+                  class="pointer-events-none absolute top-3 right-3 w-14 opacity-80 select-none drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] sm:top-4 sm:right-4 sm:w-20 md:w-24"
+                />
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      <div class="mt-14 lg:mt-16">
+        <ServiceDifferentiators items={seaFreight.differentiators} />
+      </div>
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden bg-white py-20 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Our Process</p>
+        <h2 class="mt-4 max-w-2xl text-3xl leading-tight font-bold text-navy sm:text-4xl">{seaFreight.processHeading}</h2>
+      </div>
+      <ServiceProcess items={seaFreight.process} />
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.5]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.1) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="pointer-events-none absolute top-0 right-[-8%] h-[420px] w-[420px] rounded-full bg-brand-blue-light/15 blur-3xl"></div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <h2 class="text-3xl font-extrabold tracking-wide text-navy uppercase sm:text-4xl">{seaFreight.subServicesHeading}</h2>
+        <p class="mt-4 leading-relaxed text-navy/70">{seaFreight.subServicesIntro}</p>
+      </div>
+      <ServiceSubItems items={seaFreight.subServices} />
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Related Services</p>
+        <RelatedServiceCards items={seaFreight.relatedServices} />
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

@@ -1,0 +1,79 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ServiceHero from "../../components/ServiceHero.astro";
+import ServiceDifferentiators from "../../components/ServiceDifferentiators.astro";
+import ServiceProcess from "../../components/ServiceProcess.astro";
+import ServiceSubItems from "../../components/ServiceSubItems.astro";
+import RelatedServiceCards from "../../components/RelatedServiceCards.astro";
+import ContactCTA from "../../components/ContactCTA.astro";
+import { multimodal } from "../../data/services";
+---
+
+<Layout title={multimodal.metaTitle} description={multimodal.metaDescription}>
+  <ServiceHero
+    eyebrow={multimodal.eyebrow}
+    title={multimodal.heroTitle}
+    intro={multimodal.heroIntro}
+    breadcrumb={[{ label: "Home", href: "/" }, { label: "Services" }, { label: multimodal.heroTitle }]}
+    image={multimodal.heroImage}
+    gradient={multimodal.heroGradient}
+  />
+
+  <section class="relative overflow-hidden py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.4]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.12) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {/* no photo exists for Multimodal yet — single-column text instead of the usual text+image row, rather than
+          leaving an empty second grid column */}
+      <div data-reveal class="max-w-3xl translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Why Alpha Star</p>
+        <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">{multimodal.overviewHeading}</h2>
+        {multimodal.overview.map((paragraph) => <p class="mt-6 leading-relaxed text-navy/70">{paragraph}</p>)}
+      </div>
+
+      <div class="mt-14 lg:mt-16">
+        <ServiceDifferentiators items={multimodal.differentiators} />
+      </div>
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden bg-white py-20 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Our Process</p>
+        <h2 class="mt-4 max-w-2xl text-3xl leading-tight font-bold text-navy sm:text-4xl">{multimodal.processHeading}</h2>
+      </div>
+      <ServiceProcess items={multimodal.process} />
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.5]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.1) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="pointer-events-none absolute top-0 right-[-8%] h-[420px] w-[420px] rounded-full bg-brand-blue-light/15 blur-3xl"></div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <h2 class="text-3xl font-extrabold tracking-wide text-navy uppercase sm:text-4xl">{multimodal.subServicesHeading}</h2>
+        <p class="mt-4 leading-relaxed text-navy/70">{multimodal.subServicesIntro}</p>
+      </div>
+      <ServiceSubItems items={multimodal.subServices} />
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden py-16 sm:py-20">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Related Services</p>
+        <RelatedServiceCards items={multimodal.relatedServices} />
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>
