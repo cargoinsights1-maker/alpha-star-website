@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import ServiceHero from "../../components/ServiceHero.astro";
 import ServiceDifferentiators from "../../components/ServiceDifferentiators.astro";
+import ServiceProcess from "../../components/ServiceProcess.astro";
 import ServiceSubItems from "../../components/ServiceSubItems.astro";
 import ContactCTA from "../../components/ContactCTA.astro";
 import { airFreight } from "../../data/services";
@@ -27,16 +28,46 @@ import { airFreight } from "../../data/services";
       <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
         <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Why Alpha Star</p>
         <h2 class="mt-4 max-w-2xl text-3xl leading-tight font-bold text-navy sm:text-4xl">{airFreight.overviewHeading}</h2>
-        <p class="mt-6 max-w-3xl leading-relaxed text-navy/70">{airFreight.overview}</p>
+        {airFreight.overview.map((paragraph) => <p class="mt-6 max-w-3xl leading-relaxed text-navy/70">{paragraph}</p>)}
+
+        <div class="mt-10 grid grid-cols-3 gap-4 border-y border-slate-200 py-6">
+          {
+            airFreight.quickStats.map((stat) => (
+              <div>
+                <p class="bg-gradient-to-br from-brand-red to-brand-blue bg-clip-text text-3xl font-extrabold tracking-tight text-transparent sm:text-4xl">
+                  {stat.value}
+                </p>
+                <p class="mt-1.5 text-xs font-semibold tracking-wide text-navy/60 uppercase">{stat.label}</p>
+              </div>
+            ))
+          }
+        </div>
       </div>
       <ServiceDifferentiators items={airFreight.differentiators} />
     </div>
   </section>
 
-  <section class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
+  <section class="relative overflow-hidden bg-white py-20 sm:py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Our Process</p>
+        <h2 class="mt-4 max-w-2xl text-3xl leading-tight font-bold text-navy sm:text-4xl">{airFreight.processHeading}</h2>
+      </div>
+      <ServiceProcess items={airFreight.process} />
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.5]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.1) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="pointer-events-none absolute top-0 right-[-8%] h-[420px] w-[420px] rounded-full bg-brand-blue-light/15 blur-3xl"></div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out">
         <h2 class="text-3xl font-extrabold tracking-wide text-navy uppercase sm:text-4xl">{airFreight.subServicesHeading}</h2>
+        <p class="mt-4 leading-relaxed text-navy/70">{airFreight.subServicesIntro}</p>
       </div>
       <ServiceSubItems items={airFreight.subServices} />
     </div>
