@@ -1,0 +1,85 @@
+---
+// Placeholder partner-logo marquee — no real partner names or logo files
+// exist yet, so each tile is an obvious dashed "logo goes here" slot rather
+// than a fabricated brand or a raw <img> pointing at a file that doesn't
+// exist (the latter is what TrustedBy.astro's client grid currently does,
+// and it renders as a broken-image icon for every unfilled slot — avoided
+// here on purpose). Scrolling marquee reuses Testimonials.astro's exact
+// infinite-scroll CSS technique (duplicated track, pause on hover, disabled
+// under prefers-reduced-motion) rather than a static grid, per request.
+// To add a real logo: replace one tile's placeholder <svg> with
+// <img src="/partners/<file>.webp" alt="<Partner name>" class="h-full w-full object-contain" />.
+interface Props {
+  heading: string;
+  intro?: string;
+  count?: number;
+}
+
+const { heading, intro, count = 8 } = Astro.props;
+const tiles = Array.from({ length: count });
+---
+
+<section class="relative overflow-hidden bg-white py-20 sm:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div data-reveal class="max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out">
+      <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Our Partners</p>
+      <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">{heading}</h2>
+      {intro && <p class="mt-4 leading-relaxed text-navy/70">{intro}</p>}
+    </div>
+  </div>
+
+  <div data-reveal class="mt-10 translate-y-8 opacity-0 transition-all delay-150 duration-700 ease-out">
+    <div class="partner-marquee-row">
+      <div class="partner-marquee-track">
+        {
+          [...tiles, ...tiles].map((_, i) => (
+            <div class="flex aspect-[3/2] w-44 flex-none items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/60 p-5 sm:w-52" aria-label={`Partner logo placeholder ${i + 1}`}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="h-7 w-7 text-slate-300">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="9" cy="9" r="1.5" />
+                <path d="M21 15l-5-5L5 21" />
+              </svg>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .partner-marquee-row {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  }
+
+  .partner-marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 1.25rem;
+    animation: partner-marquee 30s linear infinite;
+  }
+
+  .partner-marquee-row:hover .partner-marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes partner-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .partner-marquee-track {
+      animation: none;
+    }
+    .partner-marquee-row {
+      overflow-x: auto;
+    }
+  }
+</style>

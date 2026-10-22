@@ -6,6 +6,7 @@ import ServiceHero from "../../components/ServiceHero.astro";
 import ServiceDifferentiators from "../../components/ServiceDifferentiators.astro";
 import ServiceProcess from "../../components/ServiceProcess.astro";
 import ServiceSubItems from "../../components/ServiceSubItems.astro";
+import PartnerLogos from "../../components/PartnerLogos.astro";
 import RelatedServiceCards from "../../components/RelatedServiceCards.astro";
 import ContactCTA from "../../components/ContactCTA.astro";
 import { airFreight } from "../../data/services";
@@ -79,6 +80,8 @@ import { airFreight } from "../../data/services";
       <ServiceProcess items={airFreight.process} />
     </div>
   </section>
+
+  <PartnerLogos heading="Our Air Freight Partners" intro="Logos coming soon." count={8} />
 
   <section class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
     <div
