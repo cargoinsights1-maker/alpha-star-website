@@ -32,7 +32,7 @@ const gradients = [
         <a
           href={service.href}
           style={`background: ${service.image ? `url('${service.image}') center/cover no-repeat, ` : ""}${gradients[i % gradients.length]};`}
-          class="group relative aspect-[3/2] w-[85%] flex-none snap-start overflow-hidden rounded-3xl sm:w-[calc((100%-1.25rem)/2)] lg:w-[calc((100%-2.5rem)/3)]"
+          class="group relative aspect-[3/2] w-[85%] flex-none snap-start overflow-hidden rounded-3xl sm:w-[calc((100%-1.25rem)/2)] lg:w-[420px]"
         >
           <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
           <span class="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur transition-all duration-300 group-hover:rotate-45 group-hover:bg-brand-red">
@@ -46,39 +46,54 @@ const gradients = [
     }
   </div>
 
-  {
-    items.length > 2 && (
-      <div class="mt-6 flex justify-end gap-3">
-        <button id="related-prev" type="button" aria-label="Previous related service" class="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-navy transition-colors hover:border-brand-red hover:bg-brand-red hover:text-white">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <button id="related-next" type="button" aria-label="Next related service" class="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-navy transition-colors hover:border-brand-red hover:bg-brand-red hover:text-white">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
-    )
-  }
+  <div id="related-nav" class="mt-6 hidden justify-end gap-3">
+    <button id="related-prev" type="button" aria-label="Previous related service" class="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-navy transition-colors hover:border-brand-red hover:bg-brand-red hover:text-white disabled:pointer-events-none disabled:opacity-30">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <button id="related-next" type="button" aria-label="Next related service" class="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-navy transition-colors hover:border-brand-red hover:bg-brand-red hover:text-white disabled:pointer-events-none disabled:opacity-30">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+        <path d="M5 12h14M12 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
 </div>
 
 <script>
   const track = document.getElementById("related-track");
-  const prev = document.getElementById("related-prev");
-  const next = document.getElementById("related-next");
+  const nav = document.getElementById("related-nav");
+  const prev = document.getElementById("related-prev") as HTMLButtonElement | null;
+  const next = document.getElementById("related-next") as HTMLButtonElement | null;
 
-  const scrollByCard = (direction: number) => {
-    if (!track) return;
-    const card = track.querySelector("a");
-    const gap = 20;
-    const cardWidth = card ? card.getBoundingClientRect().width + gap : 300;
-    track.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
-  };
+  if (track && nav && prev && next) {
+    // The nav only makes sense once the track actually overflows — with few
+    // related items it often fits the row exactly at wide breakpoints, and
+    // showing live-looking buttons that do nothing reads as broken.
+    const updateNav = () => {
+      const hasOverflow = track.scrollWidth > track.clientWidth + 1;
+      nav.classList.toggle("hidden", !hasOverflow);
+      nav.classList.toggle("flex", hasOverflow);
+      if (!hasOverflow) return;
+      const atStart = track.scrollLeft <= 1;
+      const atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+      prev.disabled = atStart;
+      next.disabled = atEnd;
+    };
 
-  prev?.addEventListener("click", () => scrollByCard(-1));
-  next?.addEventListener("click", () => scrollByCard(1));
+    const scrollByCard = (direction: number) => {
+      const card = track.querySelector("a");
+      const gap = 20;
+      const cardWidth = card ? card.getBoundingClientRect().width + gap : 300;
+      track.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
+    };
+
+    prev.addEventListener("click", () => scrollByCard(-1));
+    next.addEventListener("click", () => scrollByCard(1));
+    track.addEventListener("scroll", updateNav, { passive: true });
+    window.addEventListener("resize", updateNav);
+    updateNav();
+  }
 </script>
 
 <style>

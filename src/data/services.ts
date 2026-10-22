@@ -172,6 +172,8 @@ export const airFreight: ServicePageContent = {
   ],
   relatedServices: [
     { slug: "sea-freight", label: "Sea Freight", href: "/services/sea-freight", image: "/services/sea-freight.webp" },
+    { slug: "road-freight", label: "Road Freight", href: "/services/road-freight", image: "/services/road-freight.webp" },
+    { slug: "warehousing", label: "Warehousing & 3PL", href: "/warehousing-3pl", image: "/services/warehousing.webp" },
     { slug: "multimodal", label: "Multimodal", href: "/services/multimodal" },
     { slug: "customs-clearance", label: "Customs Clearance", href: "/services/customs-clearance", image: "/services/customs-clearance.webp" },
   ],
