@@ -1,0 +1,119 @@
+---
+// Shared template for every dedicated industry page — mirrors
+// SubServicePage.astro's proven light-template structure (title/content +
+// image -> differentiators -> cross-links -> sibling slider -> Contact CTA),
+// but self-contained instead of parent-inherited since industries have no
+// parent/child relationship the way services -> sub-services do.
+import { Image } from "astro:assets";
+import starLogo from "../assets/logos/star-logo.png";
+import Layout from "../layouts/Layout.astro";
+import ServiceDifferentiators from "./ServiceDifferentiators.astro";
+import RelatedServiceCards from "./RelatedServiceCards.astro";
+import SiblingServiceSlider from "./SiblingServiceSlider.astro";
+import ContactCTA from "./ContactCTA.astro";
+import { industries, type IndustryPageContent } from "../data/industries";
+
+interface Props {
+  industry: IndustryPageContent;
+}
+
+const { industry } = Astro.props;
+
+const siblings = industries
+  .filter((item) => item.slug !== industry.slug)
+  .map((item) => ({ id: item.slug, label: item.label, description: item.siblingDescription, icon: item.icon, href: `/industries/${item.slug}` }));
+
+const breadcrumb = [{ label: "Home", href: "/" }, { label: "Industries", href: "/industries" }, { label: industry.label }];
+---
+
+<Layout title={industry.metaTitle} description={industry.metaDescription}>
+  <section class="relative overflow-hidden py-16 sm:py-20">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.4]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.12) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class={industry.heroImage ? "grid items-center gap-12 lg:grid-cols-2 lg:gap-16" : "max-w-3xl"}>
+        <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+          <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs font-medium text-navy/50 sm:text-sm">
+            {
+              breadcrumb.map((crumb, i) => (
+                <span class="flex items-center gap-2">
+                  {i > 0 && <span class="text-navy/25">/</span>}
+                  {crumb.href ? (
+                    <a href={crumb.href} class="transition-colors hover:text-brand-red">
+                      {crumb.label}
+                    </a>
+                  ) : (
+                    <span class="text-navy">{crumb.label}</span>
+                  )}
+                </span>
+              ))
+            }
+          </nav>
+
+          <p class="mt-5 text-sm font-semibold tracking-widest text-brand-red uppercase">{industry.eyebrow}</p>
+          <h1 class="mt-3 text-4xl leading-[1.05] font-bold text-navy sm:text-5xl">{industry.label}</h1>
+          <p class="mt-5 max-w-xl text-lg leading-relaxed text-navy/70">{industry.heroIntro}</p>
+
+          {industry.overview.map((paragraph) => <p class="mt-5 max-w-xl leading-relaxed text-navy/70">{paragraph}</p>)}
+
+          <a
+            href="/quote"
+            class="group mt-9 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-red to-[#a3121c] px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-black/20 transition-shadow hover:shadow-xl"
+          >
+            Get a Quote
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-1">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+        </div>
+
+        {
+          industry.heroImage && (
+            <div data-reveal class="relative translate-x-10 opacity-0 transition-all delay-150 duration-700 ease-out">
+              <div class="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-brand-blue-light/15 blur-2xl" />
+              <div class="relative overflow-hidden rounded-3xl shadow-2xl shadow-brand-blue/20">
+                <img src={industry.heroImage} alt={`Alpha Star — ${industry.label}`} width="1000" height="1250" class="aspect-[4/5] w-full object-cover" />
+                <div class="pointer-events-none absolute top-0 right-0 h-28 w-28 bg-gradient-to-bl from-navy/55 via-navy/15 to-transparent sm:h-36 sm:w-36" />
+                <Image
+                  src={starLogo}
+                  alt=""
+                  aria-hidden="true"
+                  width={220}
+                  class="pointer-events-none absolute top-3 right-3 w-14 opacity-80 select-none drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] sm:top-4 sm:right-4 sm:w-20 md:w-24"
+                />
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      <ServiceDifferentiators items={industry.differentiators} />
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.5]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.1) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="pointer-events-none absolute top-0 right-[-8%] h-[420px] w-[420px] rounded-full bg-brand-blue-light/15 blur-3xl"></div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <h2 class="text-3xl leading-tight font-bold text-navy sm:text-4xl">{industry.relevantServicesHeading}</h2>
+      </div>
+      <RelatedServiceCards items={industry.relevantServices} />
+
+      <div data-reveal class="mt-10 max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out sm:mt-12">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Industries We Serve</p>
+        <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Other Industries</h2>
+      </div>
+      <SiblingServiceSlider items={siblings} />
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

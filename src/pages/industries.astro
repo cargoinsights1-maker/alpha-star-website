@@ -1,0 +1,78 @@
+---
+// Index/directory page for the Industries nav dropdown — deliberately light
+// (title + tile grid + Contact CTA only, no differentiators/process/sub-items
+// sections), since its job is routing to the 8 dedicated industry pages, not
+// carrying its own content. Tile visual language reused from the home page's
+// Industries.astro teaser (full-bleed photo tile, bottom scrim, red accent
+// line) but as real links instead of static divs.
+import Layout from "../layouts/Layout.astro";
+import ServiceHero from "../components/ServiceHero.astro";
+import ContactCTA from "../components/ContactCTA.astro";
+import { industryItems } from "../data/nav";
+
+const gradients = [
+  "linear-gradient(135deg, #152056, #12557f)",
+  "linear-gradient(135deg, #12557f, #2f8fc9)",
+  "linear-gradient(135deg, #152056, #d81f2a)",
+  "linear-gradient(135deg, #2f8fc9, #12557f)",
+];
+
+// nav.ts's slugs don't line up 1:1 with the existing photo filenames in
+// public/industries/ (those predate the official nav structure), so this
+// maps each nav slug to its real image — omitted entries (Aviation &
+// Aerospace, Retail / E-commerce) fall back to the gradient alone, same
+// graceful-placeholder convention used everywhere else on the site.
+const images: Record<string, string> = {
+  "marine-ship-spares": "ship-spares",
+  "oil-gas-energy": "oil-gas",
+  automotive: "automobiles",
+  "industrial-projects": "project-cargo",
+  "pharma-healthcare": "pharma",
+  "food-perishables": "perishables",
+};
+
+// nav.ts is the source of truth for label/href.
+const tiles = industryItems.map((item) => {
+  const slug = item.href.split("/").filter(Boolean).pop()!;
+  return { label: item.label, href: item.href, image: images[slug] };
+});
+---
+
+<Layout title="Industries We Serve | Alpha Star Shipping" description="Freight forwarding and logistics for the industries Alpha Star Shipping serves across the GCC and beyond: energy, marine, aviation, automotive, pharma, perishables and more.">
+  <ServiceHero
+    eyebrow="Who We Serve"
+    title="Industries We Serve"
+    intro="Every sector moves differently. We build the logistics plan around what your cargo actually needs, not a one-size-fits-all shipment."
+    breadcrumb={[{ label: "Home", href: "/" }, { label: "Industries" }]}
+    gradient="linear-gradient(135deg, #152056, #12557f)"
+    ctaLabel="Get a Quote"
+    ctaHref="/quote"
+  />
+
+  <section class="relative overflow-hidden py-20 sm:py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 gap-1.5 lg:grid-cols-4 lg:gap-2">
+        {
+          tiles.map((tile, i) => (
+            <a
+              href={tile.href}
+              data-reveal
+              style={`transition-delay: ${(i % 4) * 80}ms`}
+              class="group relative aspect-[4/3] translate-y-8 overflow-hidden opacity-0 transition-all duration-700 ease-out"
+            >
+              <div
+                style={`background: ${tile.image ? `url('/industries/${tile.image}.webp') center/cover no-repeat, ` : ""}${gradients[i % gradients.length]};`}
+                class="absolute inset-0 scale-100 transition-transform duration-500 group-hover:scale-105"
+              />
+              <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-white via-white/70 to-transparent" />
+              <p class="absolute inset-x-0 bottom-3 text-center text-sm font-extrabold tracking-wide text-navy uppercase sm:text-base">{tile.label}</p>
+              <div class="absolute inset-x-0 bottom-0 h-[3px] bg-brand-red" />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

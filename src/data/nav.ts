@@ -112,14 +112,14 @@ export const warehousingItems: DropdownItem[] = [
 ];
 
 export const industryItems: DropdownItem[] = [
-  { label: "Marine & Ship Spares", href: "/industries#marine-ship-spares" },
-  { label: "Oil & Gas / Energy", href: "/industries#oil-gas-energy" },
-  { label: "Aviation & Aerospace", href: "/industries#aviation-aerospace" },
-  { label: "Automotive", href: "/industries#automotive" },
-  { label: "Industrial / Projects", href: "/industries#industrial-projects" },
-  { label: "Pharma & Healthcare", href: "/industries#pharma-healthcare" },
-  { label: "Food & Perishables", href: "/industries#food-perishables" },
-  { label: "Retail / E-commerce", href: "/industries#retail-ecommerce" },
+  { label: "Marine & Ship Spares", href: "/industries/marine-ship-spares" },
+  { label: "Oil & Gas / Energy", href: "/industries/oil-gas-energy" },
+  { label: "Aviation & Aerospace", href: "/industries/aviation-aerospace" },
+  { label: "Automotive", href: "/industries/automotive" },
+  { label: "Industrial / Projects", href: "/industries/industrial-projects" },
+  { label: "Pharma & Healthcare", href: "/industries/pharma-healthcare" },
+  { label: "Food & Perishables", href: "/industries/food-perishables" },
+  { label: "Retail / E-commerce", href: "/industries/retail-ecommerce" },
 ];
 
 export const airlineCargoItems: DropdownItem[] = [
