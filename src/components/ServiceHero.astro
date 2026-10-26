@@ -18,7 +18,7 @@ interface Props {
   ctaHref?: string;
 }
 
-const { eyebrow, title, intro, breadcrumb, image, gradient, ctaLabel = "Get a Quote", ctaHref = "/quote" } = Astro.props;
+const { eyebrow, title, intro, breadcrumb, image, gradient, ctaLabel = "Get a Quote", ctaHref = "/contact" } = Astro.props;
 
 const backgroundStyle = image ? `background: url('${image}') center/cover no-repeat, ${gradient};` : `background: ${gradient};`;
 ---

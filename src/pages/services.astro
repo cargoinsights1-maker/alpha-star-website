@@ -1,0 +1,105 @@
+---
+// Index/hub page tying the 6 Services-dropdown categories together.
+// Co-exists with the services/ directory the same way ship-spares.astro
+// sits beside ship-spares/ — an established pattern on this site. Built as
+// a static content grid (not RelatedServiceCards' slider) on purpose: a
+// hub page benefits from real, unique per-card paragraphs and descriptive
+// internal-link anchor text for SEO, not single-word slider labels.
+import { Image } from "astro:assets";
+import starLogo from "../assets/logos/star-logo.png";
+import Layout from "../layouts/Layout.astro";
+import ContactCTA from "../components/ContactCTA.astro";
+import { airFreight, seaFreight, roadFreight, warehousing, multimodal, customsClearance } from "../data/services";
+
+const categories = [
+  { data: airFreight, href: "/services/air-freight", heading: "Air Freight Services" },
+  { data: seaFreight, href: "/services/sea-freight", heading: "Sea Freight Services" },
+  { data: roadFreight, href: "/services/road-freight", heading: "Road Freight Services" },
+  { data: warehousing, href: "/warehousing-3pl", heading: "Warehousing & 3PL Services" },
+  { data: multimodal, href: "/services/multimodal", heading: "Multimodal Transport Services" },
+  { data: customsClearance, href: "/services/customs-clearance", heading: "Customs Clearance Services" },
+];
+
+const gradients = [
+  "linear-gradient(135deg, #152056, #12557f)",
+  "linear-gradient(135deg, #12557f, #2f8fc9)",
+  "linear-gradient(135deg, #152056, #d81f2a)",
+  "linear-gradient(135deg, #2f8fc9, #12557f)",
+];
+---
+
+<Layout
+  title="Freight Forwarding Services in Dubai & the GCC | Alpha Star Shipping"
+  description="Air, sea and road freight, warehousing and 3PL, multimodal transport and customs clearance from Dubai. Alpha Star Shipping has moved cargo across the GCC and beyond since 2007."
+>
+  <section class="relative overflow-hidden py-16 sm:py-20">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.4]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.12) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs font-medium text-navy/50 sm:text-sm">
+        <a href="/" class="transition-colors hover:text-brand-red">Home</a>
+        <span class="text-navy/25">/</span>
+        <span class="text-navy">Services</span>
+      </nav>
+
+      <p class="mt-5 text-sm font-semibold tracking-widest text-brand-red uppercase">What We Do</p>
+      <h1 class="mt-3 text-4xl leading-[1.05] font-bold text-navy sm:text-5xl">Freight Forwarding & Logistics Services</h1>
+
+      <p class="mt-6 max-w-3xl leading-relaxed text-navy/70">
+        Alpha Star Shipping has moved cargo between the GCC and the rest of the world since 2007, across air, sea and
+        road, with the warehousing, multimodal routing and customs clearance to support it end to end. Every shipment
+        gets planned around what it actually is, a time critical air freight booking, a full container load by sea, a
+        cross border road move, or a combination of all three, rather than forced into one default option.
+      </p>
+      <p class="mt-5 max-w-3xl leading-relaxed text-navy/70">
+        Based in Dubai, our teams work across the UAE's free zones and mainland and into the wider GCC and beyond.
+        Explore each service below for what it covers and how we handle it.
+      </p>
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden bg-slate-50 py-16 sm:py-20">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.5]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.1) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          categories.map((category, i) => (
+            <a
+              href={category.href}
+              data-reveal
+              style={`transition-delay: ${(i % 3) * 100}ms`}
+              class="group relative flex translate-y-8 flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white opacity-0 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_25px_60px_-15px_rgba(18,85,127,0.35)]"
+            >
+              <div
+                style={`background: ${category.data.heroImage ? `url('${category.data.heroImage}') center/cover no-repeat, ` : ""}${gradients[i % gradients.length]};`}
+                class="relative aspect-[16/10] w-full overflow-hidden"
+              >
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent" />
+                <Image src={starLogo} alt="" aria-hidden="true" width={160} class="pointer-events-none absolute top-3 right-3 w-10 opacity-70 select-none drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]" />
+              </div>
+              <div class="flex flex-1 flex-col p-6">
+                <h2 class="text-xl font-bold text-navy transition-colors group-hover:text-brand-blue">{category.heading}</h2>
+                <p class="mt-2.5 flex-1 text-sm leading-relaxed text-navy/60">{category.data.heroIntro}</p>
+                <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-brand-red">
+                  Explore {category.data.eyebrow} Services
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform group-hover:translate-x-1">
+                    <path d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>
