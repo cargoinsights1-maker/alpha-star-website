@@ -107,11 +107,17 @@ const breadcrumb = [{ label: "Home", href: "/" }, { label: "Industries", href: "
       </div>
       <RelatedServiceCards items={industry.relevantServices} />
 
-      <div data-reveal class="mt-10 max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out sm:mt-12">
-        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Industries We Serve</p>
-        <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Other Industries</h2>
-      </div>
-      <SiblingServiceSlider items={siblings} />
+      {
+        siblings.length > 0 && (
+          <>
+            <div data-reveal class="mt-10 max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out sm:mt-12">
+              <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Industries We Serve</p>
+              <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Other Industries</h2>
+            </div>
+            <SiblingServiceSlider items={siblings} />
+          </>
+        )
+      }
     </div>
   </section>
 
