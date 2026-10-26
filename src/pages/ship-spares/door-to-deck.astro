@@ -1,0 +1,7 @@
+---
+import SubServicePage from "../../components/SubServicePage.astro";
+import { shipSpares } from "../../data/services";
+import { doorToDeck } from "../../data/subServicePages";
+---
+
+<SubServicePage parent={shipSpares} subPage={doorToDeck} />
