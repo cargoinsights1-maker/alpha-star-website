@@ -38,10 +38,10 @@ const memberships: Membership[] = [
       </p>
     </div>
 
-    <div data-reveal class="mt-14 grid translate-y-8 grid-cols-2 gap-4 opacity-0 transition-all delay-150 duration-700 ease-out sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
+    <div data-reveal class="mt-14 flex translate-y-8 flex-wrap justify-center gap-4 opacity-0 transition-all delay-150 duration-700 ease-out sm:gap-5">
       {
         memberships.map((membership) => (
-          <div class="group flex aspect-[3/2] items-center justify-center rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/20 hover:shadow-[0_25px_60px_-15px_rgba(18,85,127,0.25)] sm:p-6">
+          <div class="group flex aspect-[3/2] w-[calc(50%-0.5rem)] items-center justify-center rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/20 hover:shadow-[0_25px_60px_-15px_rgba(18,85,127,0.25)] sm:w-[calc(33.333%-0.834rem)] sm:p-6 lg:w-[calc(25%-0.938rem)]">
             <img src={membership.logo} alt={membership.name} class="h-full w-full object-contain" loading="lazy" />
           </div>
         ))
