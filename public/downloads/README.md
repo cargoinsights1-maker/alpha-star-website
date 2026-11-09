@@ -1,7 +1,3 @@
 # Downloads
 
-Drop the company catalogue here, named:
-
-- `alpha-star-catalogue.pdf`
-
-The Footer's "Download Catalogue" button (`src/components/Footer.astro`) already links to `/downloads/alpha-star-catalogue.pdf` with a `download` attribute. Until the real file is added, clicking it will 404 — add the PDF here and it works immediately, no code changes needed.
+- `alpha-star-catalogue.pdf` — the real company catalogue, in place. The Footer's "Download Catalogue" button (`src/components/Footer.astro`) links here with a `download` attribute. Replace this file (keep the same name) whenever a newer catalogue is supplied — no code changes needed.
