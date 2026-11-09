@@ -27,11 +27,12 @@ export const aog: SubServicePageContent = {
   metaDescription:
     "Aircraft On Ground (AOG) parts logistics from Alpha Star. First priority booking and 24/7 handling to get a grounded aircraft back in service fast.",
   heroIntro:
-    "Aircraft On Ground parts get first priority booking to get a grounded aircraft back in service with minimum downtime.",
+    "Priority coordination for aircraft parts and urgent recovery requirements.",
   overviewHeading: "AOG Parts, Prioritised From the First Call",
   overview: [
-    "An aircraft on the ground is not just delayed, it is losing money every hour it stays there. AOG parts get first boarding priority on the next available flight, ahead of standard freight, because getting the aircraft back in service outweighs almost every other shipping priority.",
-    "Alpha Star's air freight desk is built to move on an AOG call immediately, coordinating pickup, documentation and airline booking in parallel rather than one after another. The part reaches Dubai's airports and clears onward to the aircraft with the same urgency the call came in with.",
+    "We help coordinate aircraft parts and aerospace cargo when timing, documentation and handling require close attention. Routing options may include priority air freight, next-flight-out, on-board courier or charter, subject to feasibility and acceptance.",
+    "Scope: aircraft spares; urgent collection; airport coordination; customs support; repair and return movements; delivery to the agreed airport, MRO or recipient.",
+    "Enquiry details: part description, location, ready time, weight and dimensions, required delivery time and any batteries or dangerous-goods classification.",
   ],
 };
 
@@ -114,11 +115,12 @@ export const dangerousGoodsAir: SubServicePageContent = {
   metaTitle: "Dangerous Goods Air Freight | Air Freight | Alpha Star Shipping",
   metaDescription: "IATA DGR compliant dangerous goods air freight from Alpha Star, with classification, packing and airline acceptance confirmed before pickup.",
   heroIntro:
-    "Hazardous cargo packed, labelled and declared to IATA DGR standards, handled by a team trained to keep it compliant from pickup to delivery.",
+    "Review acceptance before the cargo moves.",
   overviewHeading: "Dangerous Goods, Classified Right the First Time",
   overview: [
-    "Dangerous goods air freight lives or dies on classification. Get the UN number, packing group or hazard class wrong and a shipment can be rejected at the airline counter after it has already left your site, costing far more time than getting it right from the start.",
-    "Alpha Star's dangerous goods desk confirms classification, packing and documentation against IATA DGR standards before pickup, and checks airline acceptance in advance rather than finding out at the terminal. The goal is a shipment that moves once, correctly, not one that gets bounced back for a fix.",
+    "Dangerous goods shipments require the right classification, packaging, documentation and carrier acceptance. Alpha Star coordinates the logistics scope after reviewing the commodity and proposed mode of transport.",
+    "Scope: document and acceptance coordination; specialist packing arrangements where required; air, sea and road routing; customs and handling support.",
+    "Provide the safety data sheet, UN number, proper shipping name, hazard class, packing group where applicable, quantities and packaging details. Every movement remains subject to applicable requirements and the relevant carrier or operator's acceptance.",
   ],
 };
 
@@ -131,11 +133,11 @@ export const pharmaHealthcare: SubServicePageContent = {
   metaTitle: "Pharma & Healthcare Air Freight | Air Freight | Alpha Star Shipping",
   metaDescription: "Temperature controlled pharma and healthcare air freight from Alpha Star, with routing planned to protect a cold chain from pickup to delivery.",
   heroIntro:
-    "Temperature controlled handling for vaccines, medicines and medical equipment, moved fast to protect a cold chain that cannot break.",
+    "Plan sensitive cargo around its handling requirements.",
   overviewHeading: "Cold Chain Logistics That Don't Break the Chain",
   overview: [
-    "Pharmaceutical and healthcare shipments are judged on one thing above all: whether the cold chain held. A vaccine or medicine that spends too long outside its required temperature range can be compromised long before it reaches its destination, no matter how fast the flight itself was.",
-    "We plan pharma shipments around minimising time outside controlled conditions specifically, not just minimising total transit time. That means tighter ground handling windows, pre-cleared documentation and routing chosen for consistency, not just speed.",
+    "Healthcare and pharmaceutical shipments require an agreed handling plan. We review the commodity, packaging, documentation, time sensitivity and specified storage or transport conditions before confirming the suitable logistics scope.",
+    "Temperature-controlled services must be confirmed for the particular cargo and route. No GDP, validated cold-chain, temperature range or pharmaceutical storage approval should be implied without supporting documentation.",
   ],
 };
 
@@ -148,11 +150,11 @@ export const perishablesAir: SubServicePageContent = {
   metaTitle: "Perishables Air Freight | Air Freight | Alpha Star Shipping",
   metaDescription: "Perishables air freight from Alpha Star for fresh produce and flowers, routed and cleared fast to protect shelf life on arrival.",
   heroIntro:
-    "Fresh produce, flowers and other time sensitive goods routed on the fastest suitable flight to protect shelf life on arrival.",
+    "Coordinate the movement around the product.",
   overviewHeading: "Every Hour Matters When Shelf Life Is the Clock",
   overview: [
-    "Perishable cargo doesn't get a second attempt. Fresh produce and flowers lose value every hour they spend in transit, so the booking that matters most is the earliest one that fits, not necessarily the cheapest.",
-    "Alpha Star plans perishable shipments backward from shelf life rather than forward from pickup time, choosing routing and customs clearance that protect however much shelf life the cargo has left on arrival. It's a different planning logic to standard freight, and it changes which flight actually makes sense.",
+    "Perishable cargo needs timely uplift, suitable handling and a clear delivery plan. Alpha Star reviews the product, packaging, required conditions and destination formalities to coordinate the available freight and local handling options.",
+    "Scope: priority routing assessment; airport and customs coordination; onward delivery planning; confirmation of handling requirements with the relevant service providers.",
   ],
 };
 
@@ -165,11 +167,12 @@ export const charter: SubServicePageContent = {
   metaTitle: "Air Charter Services | Air Freight | Alpha Star Shipping",
   metaDescription: "Air charter services from Alpha Star, sourcing and coordinating a dedicated aircraft for oversized or mission critical shipments.",
   heroIntro:
-    "A dedicated aircraft reserved for your cargo alone, for oversized, high volume or mission critical shipments that cannot share a hold.",
+    "Dedicated capacity when scheduled services do not fit.",
   overviewHeading: "When the Shipment Needs the Whole Aircraft",
   overview: [
-    "Some shipments don't fit the standard model of booking space on someone else's scheduled flight. Oversized cargo, very high volumes, or genuinely mission critical freight sometimes need an aircraft reserved entirely for that one shipment, moving on exactly the schedule the cargo needs.",
-    "Alpha Star sources and coordinates charter aircraft for exactly these cases, handling the logistics of a dedicated flight the same way we'd handle any other shipment: booking, documentation and ground handling managed as one job, not outsourced to a separate charter broker.",
+    "For urgent, heavy or oversized cargo, Alpha Star assesses charter options through suitable aircraft operators. The planning process considers cargo loadability, route, airports, handling equipment, permits and destination requirements.",
+    "Scope: aircraft sourcing; feasibility review; operator coordination; loading and ground-handling arrangements; documentation; origin and destination execution.",
+    "Aircraft availability and operational suitability are confirmed for the individual movement. Alpha Star should not be presented as owning or operating aircraft unless a specific verified arrangement supports that claim.",
   ],
 };
 
@@ -218,11 +221,12 @@ export const breakbulk: SubServicePageContent = {
   metaTitle: "Breakbulk Shipping | Sea Freight | Alpha Star Shipping",
   metaDescription: "Breakbulk sea freight from Alpha Star for machinery, steel and other cargo too large for a standard container, loaded directly onto the vessel.",
   heroIntro:
-    "Cargo too large or oddly shaped for a standard container, loaded directly onto the vessel using cranes rather than boxed into a unit.",
+    "A transport plan for cargo outside standard limits.",
   overviewHeading: "Cargo That Was Never Going to Fit in a Box",
   overview: [
-    "Breakbulk cargo doesn't go into a container at all. Machinery, steel coils, large equipment and other freight that's too large, too heavy or the wrong shape for containerisation gets loaded directly onto the vessel using cranes, often secured as individual units rather than a standard load.",
-    "This kind of shipment needs its own handling plan at both ends, not just a booking. Alpha Star arranges the lifting equipment, stowage and port handling breakbulk cargo actually requires, rather than trying to fit it into a process built for standard containers.",
+    "Machinery, industrial components and oversized equipment require more than a standard freight booking. Alpha Star coordinates the transport and handling plan around the cargo's dimensions, weight, lifting points and delivery conditions.",
+    "Scope: route and equipment assessment; breakbulk and out-of-gauge freight; flat racks and specialist trailers; port handling; lifting coordination; permits and escorts where required; delivery planning.",
+    "Enquiry details: technical drawings where available, dimensions, gross weight, centre of gravity, lifting points, loading and unloading scope, route and required dates.",
   ],
 };
 
@@ -235,11 +239,12 @@ export const projectOogCargo: SubServicePageContent = {
   metaTitle: "Project & Out of Gauge (OOG) Cargo | Sea Freight | Alpha Star Shipping",
   metaDescription: "Project and out of gauge (OOG) cargo shipping from Alpha Star, planned with a dedicated lifting, securing and permit strategy.",
   heroIntro:
-    "Out of gauge and project cargo that exceeds standard container dimensions, planned with its own lifting, securing and permit strategy.",
+    "A transport plan for cargo outside standard limits.",
   overviewHeading: "Oversized Cargo Needs an Oversized Plan",
   overview: [
-    "Out of gauge, or OOG, cargo exceeds the dimensions of a standard container, usually by sticking out of the top, sides or ends of a flat rack or open top unit. Project cargo goes further still, covering entire shipments of equipment or structures planned as one coordinated job rather than a single container booking.",
-    "These shipments need their own lifting plan, securing method and often permits before a sailing is even booked. Alpha Star plans project and OOG cargo from the ground up, not as an exception squeezed into a standard container process.",
+    "Machinery, industrial components and oversized equipment require more than a standard freight booking. Alpha Star coordinates the transport and handling plan around the cargo's dimensions, weight, lifting points and delivery conditions.",
+    "Scope: route and equipment assessment; breakbulk and out-of-gauge freight; flat racks and specialist trailers; port handling; lifting coordination; permits and escorts where required; delivery planning.",
+    "Enquiry details: technical drawings where available, dimensions, gross weight, centre of gravity, lifting points, loading and unloading scope, route and required dates.",
   ],
 };
 
@@ -252,11 +257,12 @@ export const dangerousGoodsSea: SubServicePageContent = {
   metaTitle: "Dangerous Goods Sea Freight | Sea Freight | Alpha Star Shipping",
   metaDescription: "IMDG compliant dangerous goods sea freight from Alpha Star, packed, labelled and declared correctly from pickup to vessel.",
   heroIntro:
-    "Hazardous cargo packed, labelled and declared to IMDG standards, handled by a team trained to keep it compliant from pickup to vessel.",
+    "Review acceptance before the cargo moves.",
   overviewHeading: "Dangerous Goods by Sea, Declared to IMDG Standards",
   overview: [
-    "Hazardous cargo moving by sea follows the IMDG Code, not the air freight rules, and getting classification, packing and stowage right matters just as much on a vessel as it does on an aircraft. A misdeclared or poorly packed dangerous goods shipment can be refused at the terminal or held for correction.",
-    "Alpha Star's dangerous goods team handles classification, labelling and documentation to IMDG standards before a container is booked, confirming the carrier will actually accept the shipment as declared. That upfront check is what keeps a hazardous shipment moving instead of stalling at the port.",
+    "Dangerous goods shipments require the right classification, packaging, documentation and carrier acceptance. Alpha Star coordinates the logistics scope after reviewing the commodity and proposed mode of transport.",
+    "Scope: document and acceptance coordination; specialist packing arrangements where required; air, sea and road routing; customs and handling support.",
+    "Provide the safety data sheet, UN number, proper shipping name, hazard class, packing group where applicable, quantities and packaging details. Every movement remains subject to applicable requirements and the relevant carrier or operator's acceptance.",
   ],
 };
 

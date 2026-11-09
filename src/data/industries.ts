@@ -49,13 +49,13 @@ export const oilGasEnergy: IndustryPageContent = {
     "Freight forwarding for the oil, gas and energy sector from Dubai: time-critical parts, project and out-of-gauge cargo, and dangerous goods handling for rigs, plants and offshore operations.",
   eyebrow: "Industries We Serve",
   heroIntro:
-    "Rigs, plants and offshore platforms run on parts that can't wait and equipment that doesn't fit a standard container. We move both.",
+    "Support for equipment, projects and operational spares.",
   heroImage: "/industries/oil-gas.webp",
   heroGradient: "linear-gradient(135deg, #152056, #d81f2a)",
   overviewHeading: "Built for the Pace of Energy Operations",
   overview: [
-    "A delayed valve, pump or control module can idle an entire platform or plant, and a lot of the equipment the sector moves, skids, manifolds, generators, pipe sections, doesn't fit a standard container to begin with. Alpha Star plans each shipment around what it actually is: an urgent spare that needs the fastest routing available, or an oversized load that needs its own lifting, securing and permit strategy from pickup to final site.",
-    "Much of what moves through the energy sector is also regulated cargo, chemicals, flammables and other hazardous materials that need to be packed, labelled and declared correctly before they're accepted anywhere. Our team handles the IATA and IMDG compliance work alongside the transport itself, so a shipment doesn't stall at a customs desk or a carrier's dangerous goods check after it's already on its way.",
+    "Alpha Star supports oil and gas logistics requirements through project freight, urgent spares, heavy and oversized equipment movements, customs and storage coordination. The transport plan is aligned with the cargo's handling requirements and the delivery scope at the destination.",
+    "Scope: air, sea and road freight; charter assessment; breakbulk and OOG movements; dangerous-goods coordination; warehousing; marine and site-delivery coordination.",
   ],
   differentiators: [
     { label: "Time-Critical Parts Delivery", description: "Urgent routing for rig and plant spares where downtime is the real cost, not the freight bill.", icon: icons.clock },
@@ -203,13 +203,13 @@ export const pharmaHealthcare: IndustryPageContent = {
   metaDescription:
     "Pharmaceutical and healthcare logistics from Dubai: cold chain handling, GDP-aligned practices and time-critical air routing for temperature-sensitive medicines and medical shipments.",
   eyebrow: "Industries We Serve",
-  heroIntro: "Temperature-sensitive medicines and healthcare products need an unbroken cold chain, not just a fast flight.",
+  heroIntro: "Plan sensitive cargo around its handling requirements.",
   heroImage: "/industries/pharma.webp",
   heroGradient: "linear-gradient(135deg, #12557f, #2f8fc9)",
   overviewHeading: "Cold Chain Integrity From Pickup to Delivery",
   overview: [
-    "A pharmaceutical shipment is only as good as its weakest link in the cold chain, one gap in temperature control, and the product itself can be compromised. Alpha Star handles pharma and healthcare cargo with temperature-controlled processes and GDP-aligned practices at every stage, from pickup through to final delivery.",
-    "Time matters too, since many medical shipments are moving to meet a genuine clinical need. We route pharma and healthcare freight with the same time-critical priority as our other urgent cargo, backed by bonded warehousing and customs clearance that keep the shipment moving rather than waiting.",
+    "Healthcare and pharmaceutical shipments require an agreed handling plan. We review the commodity, packaging, documentation, time sensitivity and specified storage or transport conditions before confirming the suitable logistics scope.",
+    "Temperature-controlled services must be confirmed for the particular cargo and route. No GDP, validated cold-chain, temperature range or pharmaceutical storage approval should be implied without supporting documentation.",
   ],
   differentiators: [
     { label: "Cold Chain Handling", description: "Temperature-controlled processes maintained from pickup through to final delivery.", icon: icons.shield },
@@ -234,13 +234,13 @@ export const foodPerishables: IndustryPageContent = {
   metaDescription:
     "Perishables logistics from Dubai: temperature-controlled handling, priority transit booking and cold chain warehousing for food and perishable cargo moving against the clock.",
   eyebrow: "Industries We Serve",
-  heroIntro: "Every hour in transit is an hour off a perishable shipment's shelf life. We plan routing around that clock.",
+  heroIntro: "Coordinate the movement around the product.",
   heroImage: "/industries/perishables.webp",
   heroGradient: "linear-gradient(135deg, #152056, #12557f)",
   overviewHeading: "Speed and Temperature Control, Together",
   overview: [
-    "Perishable cargo loses value with every hour it sits still, so the routing decision matters as much as the temperature control. Alpha Star books priority air freight capacity for perishable shipments and keeps them temperature-controlled from pickup to the point they're handed over.",
-    "Where a shipment needs to be held or redistributed rather than moving straight through, our cold chain warehousing and regional distribution network across the GCC keep it at the right temperature without adding unnecessary transit time.",
+    "Perishable cargo needs timely uplift, suitable handling and a clear delivery plan. Alpha Star reviews the product, packaging, required conditions and destination formalities to coordinate the available freight and local handling options.",
+    "Scope: priority routing assessment; airport and customs coordination; onward delivery planning; confirmation of handling requirements with the relevant service providers.",
   ],
   differentiators: [
     { label: "Temperature-Controlled Handling", description: "Perishable cargo kept at the right temperature from pickup to handover, not just in transit.", icon: icons.shield },
