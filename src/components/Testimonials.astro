@@ -2,107 +2,72 @@
 // Two rows of testimonial cards, auto-scrolling as an infinite marquee in
 // opposite directions (pure CSS — no JS needed, unlike the scroll-linked
 // mechanics in HowItWorks.astro, since this isn't tied to page scroll at all).
-// No real testimonials exist yet, and inventing quotes attributed to
-// real-sounding people/companies would misrepresent actual client
-// relationships — same reasoning as the placeholder logos in TrustedBy.astro.
-// Names/companies here are deliberately generic placeholders (swap for real
-// testimonials whenever they're supplied), and avatars are colored initials
-// rather than stock photos, so nothing implies a specific real person.
+// Real testimonials from the client's own handover document
+// (03_Testimonials/02_Testimonials_and_Case_Studies.pdf) — quotes kept
+// verbatim (including source wording/typos) per that document's own
+// instruction not to present polished marketing copy as a customer
+// quotation. Country is only included where the source explicitly states
+// it (in the heading, e.g. "Sudara, USA") — left blank rather than guessed
+// where it wasn't given. Avatars are colored initials rather than stock
+// photos, consistent with the rest of the site's "don't fabricate" approach
+// to people who aren't actually pictured.
 interface Testimonial {
   quote: string;
   name: string;
   company: string;
-  country: string;
+  country?: string;
   initials: string;
 }
 
 const rowOne: Testimonial[] = [
   {
-    quote: "Every shipment has moved on schedule since we switched to Alpha Star. Communication is clear from booking to delivery.",
-    name: "Amara Osei",
-    company: "Osei Trading Co.",
-    country: "Kenya",
-    initials: "AO",
+    quote: "Alpha Star Shipping is a professional and reliable partner in achieving our goals. We have been able to find the Flexibility necessary for the continuity of our operation from them since the day we started working with.",
+    name: "Cagri Ozmen",
+    company: "Azur Aviation",
+    initials: "CO",
   },
   {
-    quote: "Customs clearance used to be our biggest headache. Their team handles it smoothly every time, no surprises.",
-    name: "Daniel Cho",
-    company: "Cho Import Partners",
-    country: "South Korea",
-    initials: "DC",
+    quote: "Alpha Star has been a great logistics partner for Sudara for a year now. We experienced significant savings on our import shipping of goods from India to the US. This was critical for our business during a difficult year with COVID related issues. The team at Alpha Star is very easy to work with and always quick to support our shipping needs. I would highly recommend Alpha Star.",
+    name: "John Arathoon",
+    company: "Sudara",
+    country: "USA",
+    initials: "JA",
   },
   {
-    quote: "Responsive, organized and genuinely easy to work with. Exactly what we need for regular GCC shipments.",
-    name: "Priya Nair",
-    company: "Nair Exports Ltd.",
-    country: "India",
-    initials: "PN",
-  },
-  {
-    quote: "They handled a complex multi-modal shipment without a single hiccup. Real expertise, not just promises.",
-    name: "Thomas Becker",
-    company: "Becker Industrial Supply",
-    country: "Germany",
+    quote: "This is what is called a well-mastered file !!! Congratulations to all for this excellent service and the information you have made us follow as you go along. Our client is very happy with the follow-up and so are we. On this issue, I have only one word... perfect!!! Thanks again to you for your professionalism and we really hope, have other operations like this",
+    name: "Thierry Bongiovanni",
+    company: "Centrimex",
     initials: "TB",
   },
   {
-    quote: "Our go-to freight partner for anything moving through Dubai. Reliable, and always reachable when it matters.",
-    name: "Fatima Al-Sayed",
-    company: "Al-Sayed Trading House",
-    country: "Egypt",
-    initials: "FA",
-  },
-  {
-    quote: "Warehousing and last-mile delivery both handled under one roof. Saved us a lot of coordination headaches.",
-    name: "Michael Reyes",
-    company: "Reyes Logistics Group",
-    country: "Philippines",
-    initials: "MR",
+    quote: "Good Job! Communication was so smooth and collaboration @ its peak! Many Thanks to you for your efforts and your team on this shipment Since cgnee have huge emergency on this file and same was treated very professionally and fast!!",
+    name: "Shalinee Chotoree Poonith",
+    company: "G & A Rapid Freight Co Ltd",
+    initials: "SP",
   },
 ];
 
 const rowTwo: Testimonial[] = [
   {
-    quote: "From quote to delivery, everything is transparent. We always know exactly where our cargo stands.",
-    name: "Sarah Whitfield",
-    company: "Whitfield & Co.",
-    country: "United Kingdom",
-    initials: "SW",
+    quote: "I would like to thank you so much for your GREAT job regarding this shipment It was a TOP quality operation Thank you very MUCH to all the Team Alpha star!",
+    name: "Daphnée Dessource",
+    company: "Centrimex",
+    country: "France",
+    initials: "DD",
   },
   {
-    quote: "Handled our dangerous goods shipment with the care and documentation it actually needed. Impressive.",
-    name: "Wei Zhang",
-    company: "Zhang Chemical Trading",
-    country: "China",
-    initials: "WZ",
+    quote: "Really appreciate all the hard work/ excellent services & your patience in handling this first shipment (we are expecting regular shipments from same shipper/ same consignee)",
+    name: "Jawad Nasim Rana",
+    company: "Pakistan Freight System",
+    country: "Pakistan",
+    initials: "JR",
   },
   {
-    quote: "A freight forwarder that actually picks up the phone. Small thing, but it makes a real difference.",
-    name: "Carlos Mendes",
-    company: "Mendes Distribution",
-    country: "Brazil",
-    initials: "CM",
-  },
-  {
-    quote: "Consistent, dependable, and their rates are fair. We've expanded to three more trade lanes with them.",
-    name: "Layla Haddad",
-    company: "Haddad Commercial Group",
-    country: "Jordan",
-    initials: "LH",
-  },
-  {
-    quote: "Our perishable shipments always arrive in perfect condition. Cold chain handling is genuinely excellent.",
-    name: "James Anderson",
-    company: "Anderson Fresh Imports",
-    country: "USA",
-    initials: "JA",
-  },
-  {
-    quote: "Smooth onboarding, clear pricing, and a team that understands our industry's specific requirements.",
-    name: "Nadia Ibrahim",
-    company: "Ibrahim Trading LLC",
+    quote: "Well received with many thanks for your efforts throughout the shipment",
+    name: "Sulyma Hakmeh",
+    company: "eCargoWorld",
     country: "UAE",
-    initials: "NI",
+    initials: "SH",
   },
 ];
 
@@ -136,7 +101,7 @@ const avatarTints = ["bg-navy", "bg-brand-blue", "bg-brand-red"];
                 <div>
                   <p class="text-sm font-bold text-navy">{t.name}</p>
                   <p class="text-xs text-navy/50">
-                    {t.company}, {t.country}
+                    {t.company}{t.country && `, ${t.country}`}
                   </p>
                 </div>
               </div>
@@ -164,7 +129,7 @@ const avatarTints = ["bg-navy", "bg-brand-blue", "bg-brand-red"];
                 <div>
                   <p class="text-sm font-bold text-navy">{t.name}</p>
                   <p class="text-xs text-navy/50">
-                    {t.company}, {t.country}
+                    {t.company}{t.country && `, ${t.country}`}
                   </p>
                 </div>
               </div>
