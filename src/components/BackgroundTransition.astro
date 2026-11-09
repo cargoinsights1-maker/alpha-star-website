@@ -3,7 +3,7 @@
 // boundaries as each one scrolls through the middle of the viewport — a
 // smooth, scroll-linked handoff instead of a hard cut. Every section listed
 // below renders with no bg-* class of its own (see About.astro / Services.astro
-// / ProjectsGallery.astro) so this shows through. Add a new { id, color } entry
+// / Industries.astro) so this shows through. Add a new { id, color } entry
 // whenever a future section needs to join this chain — the boundary between
 // each consecutive pair gets the same treatment automatically.
 ---
@@ -17,7 +17,6 @@
     { id: "about-section", color: [248, 250, 252] }, // slate-50
     { id: "services-section", color: [21, 32, 86] }, // navy
     { id: "industries-section", color: [248, 250, 252] }, // slate-50
-    { id: "gallery-section", color: [248, 250, 252] }, // slate-50
   ];
 
   const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
