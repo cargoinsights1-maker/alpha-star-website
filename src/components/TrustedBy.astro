@@ -3,15 +3,30 @@ import { Image } from "astro:assets";
 import starLogo from "../assets/logos/star-logo.png";
 
 // "Trusted by" client-logo wall. Ref: a bold blue section, big heading, white
-// rounded logo cards in a grid. No real client logos exist yet and displaying
-// invented company names/logos would misrepresent real client relationships,
-// so per the user's explicit "use placeholder logos for now", each tile shows
-// a plain abstract mark instead of a fabricated brand — swap in real logos
-// (as <img> tags) whenever they're supplied. "200+" reuses the same client
-// figure already shown in About.astro rather than inventing a new number.
-const initialCount = 12;
-const extraCount = 12;
-const placeholderCount = initialCount + extraCount;
+// rounded logo cards in a grid. Real client logos only (public/clients/) —
+// "200+" reuses the same client figure already shown in About.astro rather
+// than inventing a new number. ARM Motors' source file was a pure-white mark
+// on a transparent background (invisible on a white card), recolored to the
+// brand navy, same shape, during processing — not a fabricated logo, just
+// made visible on a light surface.
+interface Client {
+  name: string;
+  logo: string;
+}
+
+const clients: Client[] = [
+  { name: "Birra Fragrances", logo: "/clients/client-1.webp" },
+  { name: "AD Ports Group", logo: "/clients/client-2.webp" },
+  { name: "ALEMCO", logo: "/clients/client-3.webp" },
+  { name: "Biocon", logo: "/clients/client-4.webp" },
+  { name: "Brothers Gas", logo: "/clients/client-5.webp" },
+  { name: "Gulf Oil", logo: "/clients/client-6.webp" },
+  { name: "Mitsubishi Electric", logo: "/clients/client-7.webp" },
+  { name: "SAFCO", logo: "/clients/client-8.webp" },
+  { name: "Saipem", logo: "/clients/client-9.webp" },
+  { name: "Sony", logo: "/clients/client-10.webp" },
+  { name: "Alex Renner Motors", logo: "/clients/client-11.webp" },
+];
 ---
 
 <section class="relative overflow-hidden bg-navy py-20 sm:py-24">
@@ -47,50 +62,15 @@ const placeholderCount = initialCount + extraCount;
 
     <div
       data-reveal
-      class="mt-14 grid translate-y-8 grid-cols-2 gap-4 opacity-0 transition-all delay-150 duration-700 ease-out sm:grid-cols-3 sm:gap-5 lg:grid-cols-6"
+      class="mt-14 flex translate-y-8 flex-wrap justify-center gap-4 opacity-0 transition-all delay-150 duration-700 ease-out sm:gap-5"
     >
       {
-        Array.from({ length: placeholderCount }).map((_, i) => (
-          <div
-            class={`client-tile flex aspect-[3/2] items-center justify-center rounded-2xl bg-white p-4 opacity-100 shadow-sm transition-opacity duration-500 sm:p-5 ${i >= initialCount ? "hidden opacity-0" : ""}`}
-            aria-label={`Client logo placeholder ${i + 1}`}
-          >
-            <img src={`/clients/client-${i + 1}.webp`} alt="Client name" class="h-full w-full object-contain" />
+        clients.map((client) => (
+          <div class="flex aspect-[3/2] w-[calc(50%-0.5rem)] items-center justify-center rounded-2xl bg-white p-4 shadow-sm sm:w-[calc(33.333%-0.834rem)] sm:p-5 lg:w-[calc(16.667%-1.042rem)]">
+            <img src={client.logo} alt={client.name} class="h-full w-full object-contain" loading="lazy" />
           </div>
         ))
       }
     </div>
-
-    <div class="mt-12 text-center">
-      <button
-        id="clients-load-more"
-        type="button"
-        class="group inline-flex items-center gap-2 rounded-full border border-white/40 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-      >
-        Load More
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5">
-          <path d="M12 5v14m0 0-6-6m6 6 6-6" />
-        </svg>
-      </button>
-    </div>
   </div>
 </section>
-
-<script>
-  const button = document.getElementById("clients-load-more");
-  const hiddenTiles = Array.from(document.querySelectorAll<HTMLElement>(".client-tile.hidden"));
-
-  if (button) {
-    if (hiddenTiles.length === 0) {
-      button.remove();
-    } else {
-      button.addEventListener("click", () => {
-        hiddenTiles.forEach((tile) => {
-          tile.classList.remove("hidden");
-          requestAnimationFrame(() => tile.classList.remove("opacity-0"));
-        });
-        button.remove();
-      });
-    }
-  }
-</script>

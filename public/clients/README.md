@@ -1,10 +1,17 @@
 # Client logos
 
-`src/components/TrustedBy.astro` currently shows placeholder marks (no real
-client names/logos, to avoid implying client relationships that aren't
-confirmed). When real logos are ready:
+Real client logos, listed in `src/components/TrustedBy.astro`'s `clients` array:
 
-1. Drop each one here as `client-01.webp` … `client-NN.webp` (transparent or white background, reasonable width e.g. ~400px).
-2. In `TrustedBy.astro`, replace the placeholder `<svg>` in each grid tile with an `<img src={`/clients/client-${i + 1}.webp`} alt="Client name" class="h-8 w-auto object-contain sm:h-10" />` (swap in real company names for the `alt` text).
+- `client-1.webp` — Birra Fragrances
+- `client-2.webp` — AD Ports Group
+- `client-3.webp` — ALEMCO
+- `client-4.webp` — Biocon
+- `client-5.webp` — Brothers Gas
+- `client-6.webp` — Gulf Oil
+- `client-7.webp` — Mitsubishi Electric
+- `client-8.webp` — SAFCO
+- `client-9.webp` — Saipem
+- `client-10.webp` — Sony
+- `client-11.webp` — Alex Renner Motors (source file was a pure-white mark on a transparent background; recolored to the brand navy during processing so it's visible on a white card — same shape, not a fabricated logo)
 
-No other changes needed — the grid, spacing and card styling already fit real logos.
+To add another client, drop a new `client-NN.webp` here and add a matching `{ name, logo }` entry to the `clients` array — no other changes needed.
