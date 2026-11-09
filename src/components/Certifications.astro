@@ -1,0 +1,51 @@
+---
+// Certifications & Memberships logo wall. Real marks only, extracted
+// directly from Alpha Star's own certificates/membership documents
+// (see public/certifications/*.webp) — same "no fabricated logos" principle
+// as TrustedBy.astro, just the opposite situation here since these are all
+// real and on hand. Light section (not TrustedBy's navy) so it sits
+// naturally between Industries' light tone and HowItWorks' own navy start.
+interface Membership {
+  name: string;
+  logo: string;
+}
+
+const memberships: Membership[] = [
+  { name: "FIATA", logo: "/certifications/fiata.webp" },
+  { name: "TIACA", logo: "/certifications/tiaca.webp" },
+  { name: "NAFL", logo: "/certifications/nafl.webp" },
+  { name: "JCtrans", logo: "/certifications/jctrans.webp" },
+  { name: "G7 Signature", logo: "/certifications/g7-signature.webp" },
+  { name: "ISO 9001:2015", logo: "/certifications/iso-9001.webp" },
+  { name: "ISO 45001:2018", logo: "/certifications/iso-45001.webp" },
+];
+---
+
+<section class="relative overflow-hidden bg-white py-20 sm:py-24">
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.4]"
+    style="background-image: radial-gradient(rgba(18,85,127,0.1) 1px, transparent 1px); background-size: 22px 22px;"
+  >
+  </div>
+
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div data-reveal class="translate-y-8 text-center opacity-0 transition-all duration-700 ease-out">
+      <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Certifications & Memberships</p>
+      <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Accredited and Recognized Across the Industry</h2>
+      <p class="mx-auto mt-5 max-w-2xl leading-relaxed text-navy/70">
+        Alpha Star Shipping holds management-system certifications and sits within the global freight networks that
+        back our service standards, from customs brokerage to warehousing and ship spares logistics.
+      </p>
+    </div>
+
+    <div data-reveal class="mt-14 grid translate-y-8 grid-cols-2 gap-4 opacity-0 transition-all delay-150 duration-700 ease-out sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
+      {
+        memberships.map((membership) => (
+          <div class="group flex aspect-[3/2] items-center justify-center rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-blue/20 hover:shadow-[0_25px_60px_-15px_rgba(18,85,127,0.25)] sm:p-6">
+            <img src={membership.logo} alt={membership.name} class="h-full w-full object-contain" loading="lazy" />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
