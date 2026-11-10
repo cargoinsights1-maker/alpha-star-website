@@ -1,0 +1,277 @@
+---
+// "Our Team" page — matches nav.ts's ourTeamItems anchors (/our-team#...).
+// Only two of the eight sub-sections have real content so far (Our Story,
+// Leadership & Team) — built per the "don't get ahead of the current step"
+// rule, not stubbed with invented copy for Offices & Facilities, Global
+// Network, Technology & Visibility, Sustainability/Compliance or Careers.
+// Team photos are all placeholders (colored-initials avatars, same
+// established convention as Testimonials.astro for named real people with
+// no photo on hand) — user is supplying real portraits in a follow-up.
+import { Image } from "astro:assets";
+import starLogo from "../assets/logos/star-logo.png";
+import Layout from "../layouts/Layout.astro";
+import ContactCTA from "../components/ContactCTA.astro";
+
+interface Value {
+  label: string;
+  description: string;
+  icon: string;
+}
+
+const values: Value[] = [
+  {
+    label: "Responsibility",
+    description: "Clear ownership of the work entrusted to us.",
+    icon: '<path d="M12 3l7 3v6c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V6l7-3Z" /><path d="M9.5 12l2 2 3.5-4" />',
+  },
+  {
+    label: "Relationships",
+    description: "Respectful, transparent cooperation with customers and partners.",
+    icon: '<circle cx="9" cy="8" r="3" /><circle cx="17" cy="9" r="2.5" /><path d="M3 20c0-3.5 2.5-6 6-6s6 2.5 6 6" /><path d="M14.5 14.5c2.5 0 4.5 2 4.5 5.5" />',
+  },
+  {
+    label: "Practical Judgement",
+    description: "A plan suited to the cargo, route and operating conditions.",
+    icon: '<circle cx="12" cy="12" r="9" /><path d="m14.5 9.5-1.5 5-5 1.5 1.5-5 5-1.5Z" />',
+  },
+  {
+    label: "Care",
+    description: "Attention to documentation, handling requirements and the details that affect delivery.",
+    icon: '<rect x="4" y="3" width="16" height="18" rx="1.5" /><path d="M8 8h8M8 12h8M8 16h5" />',
+  },
+];
+
+interface TeamMember {
+  name: string;
+  title: string;
+  titlePending?: boolean;
+}
+
+const leadership: TeamMember[] = [
+  { name: "Noorul Ameen", title: "Chairman" },
+  { name: "Mustufa Dharodia", title: "Managing Director" },
+  { name: "Muneeb Arif", title: "Director" },
+  { name: "Abdul Mateen", title: "Director" },
+];
+
+const team: TeamMember[] = [
+  { name: "Pratheesh Gopalan", title: "Manager, Operations and Sales" },
+  { name: "Nabeel Shahzad", title: "Manager, Land Freight Operations and Sales" },
+  { name: "Nawaz Shaikh", title: "Manager, Sea Freight Operations" },
+  { name: "Karan Poojary", title: "Manager, Air Operations" },
+  { name: "Jilani Londhe", title: "Senior Manager, Ship Spares Operations" },
+  { name: "Jince Samuel", title: "Title Pending Confirmation", titlePending: true },
+  { name: "Shiraz", title: "Government Relations and Customs" },
+  { name: "Shafeekh Kuruvatte", title: "Head of Accounts" },
+];
+
+const avatarTints = ["bg-navy", "bg-brand-blue", "bg-brand-red"];
+const initialsOf = (name: string) =>
+  name
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+---
+
+<Layout
+  title="Our Team | Alpha Star Shipping"
+  description="Established in 2007, Alpha Star Shipping is a Dubai-based freight forwarding and logistics company. Meet the leadership and team behind our operations in Dubai and Jebel Ali Free Zone."
+>
+  <section class="relative overflow-hidden bg-white pt-28 pb-20 sm:pt-32 sm:pb-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.4]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.12) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs font-medium text-navy/50 sm:text-sm">
+        <a href="/" class="transition-colors hover:text-brand-red">Home</a>
+        <span class="text-navy/25">/</span>
+        <span class="text-navy">Our Team</span>
+      </nav>
+
+      <p class="mt-5 text-sm font-semibold tracking-widest text-brand-red uppercase">About Alpha Star Shipping</p>
+      <h1 class="mt-3 text-4xl leading-[1.05] font-bold text-navy sm:text-5xl">
+        Built in the UAE. Working Across International Trade Lanes.
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-navy/70">
+        Established in 2007, Alpha Star Shipping LLC is a Dubai-based freight forwarding and logistics company. We
+        support international cargo movements through air, sea and road freight, customs coordination, warehousing
+        and specialist logistics.
+      </p>
+    </div>
+  </section>
+
+  <section id="our-story" class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.5]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.1) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+          <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Our Story</p>
+          <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">What We Do, and How We Work</h2>
+          <p class="mt-6 leading-relaxed text-navy/70">
+            Our work ranges from routine commercial shipments to cargo with specific handling, timing or routing
+            requirements. Ship spares, aviation parts, industrial equipment and project cargo each need a different
+            operating plan. We bring the relevant freight, documentation, handling and delivery activities together
+            around that requirement.
+          </p>
+          <p class="mt-5 leading-relaxed text-navy/70">
+            With operations in Dubai and Jebel Ali Free Zone, Alpha Star supports inbound cargo, storage, re-export
+            and distribution. Overseas agents, freight partners and specialist operators extend that coordination
+            across origins and destinations.
+          </p>
+          <p class="mt-5 leading-relaxed text-navy/70">
+            Our approach is practical: understand the cargo, define the scope, identify the people responsible and
+            communicate as the shipment moves. We aim to build durable business relationships through responsive
+            service and accountable execution.
+          </p>
+        </div>
+
+        <div data-reveal class="relative translate-x-10 opacity-0 transition-all delay-150 duration-700 ease-out">
+          <div class="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-brand-blue-light/15 blur-2xl" />
+          <div class="relative overflow-hidden rounded-3xl shadow-2xl shadow-brand-blue/20">
+            <img
+              src="/services/warehousing-overview.webp"
+              alt="Alpha Star Shipping operations in Dubai"
+              width="1200"
+              height="900"
+              class="aspect-[4/3] w-full object-cover"
+            />
+            <div class="pointer-events-none absolute top-0 right-0 h-28 w-28 bg-gradient-to-bl from-navy/55 via-navy/15 to-transparent sm:h-36 sm:w-36" />
+            <Image
+              src={starLogo}
+              alt=""
+              aria-hidden="true"
+              width={220}
+              class="pointer-events-none absolute top-3 right-3 w-14 opacity-80 select-none drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)] sm:top-4 sm:right-4 sm:w-20 md:w-24"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden bg-navy py-20 sm:py-24">
+    <Image
+      src={starLogo}
+      alt=""
+      aria-hidden="true"
+      width={280}
+      class="pointer-events-none absolute -top-6 -right-6 w-36 opacity-[0.18] select-none sm:w-48 md:-top-8 md:-right-8 md:w-72"
+    />
+    <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <p data-reveal class="translate-y-8 text-sm font-semibold tracking-widest text-brand-red uppercase opacity-0 transition-all duration-700 ease-out">
+        Our Purpose
+      </p>
+      <p
+        data-reveal
+        class="mt-6 translate-y-8 text-2xl leading-snug font-bold text-white opacity-0 transition-all delay-150 duration-700 ease-out sm:text-3xl lg:text-4xl"
+      >
+        To help customers move and manage cargo with clear coordination, practical solutions and dependable
+        communication.
+      </p>
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden bg-white py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.4]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.1) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="max-w-2xl translate-y-8 text-center opacity-0 transition-all duration-700 ease-out mx-auto">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Our Values</p>
+        <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">What Guides Our Work</h2>
+      </div>
+
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          values.map((value, i) => (
+            <div
+              data-reveal
+              style={`transition-delay: ${i * 100}ms`}
+              class="group relative translate-y-8 overflow-hidden rounded-3xl border border-slate-100 bg-white p-7 opacity-0 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-2 hover:border-brand-blue/20 hover:shadow-[0_25px_60px_-15px_rgba(18,85,127,0.35)]"
+            >
+              <span class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-blue to-brand-blue-light shadow-lg shadow-brand-blue/25 transition-transform duration-500 group-hover:scale-105">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white" set:html={value.icon} />
+              </span>
+              <h3 class="relative mt-5 font-sans text-lg font-bold text-navy">{value.label}</h3>
+              <p class="relative mt-2 text-sm leading-relaxed text-navy/60">{value.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="leadership-team" class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.5]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.1) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Leadership &amp; Team</p>
+        <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">People Responsible for the Relationship and the Work</h2>
+        <p class="mt-5 leading-relaxed text-navy/70">
+          Alpha Star's leadership and operational teams work together across commercial coordination, freight,
+          customs and warehousing.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          leadership.map((person, i) => (
+            <div
+              data-reveal
+              style={`transition-delay: ${i * 90}ms`}
+              class="translate-y-8 rounded-3xl border border-slate-100 bg-white p-7 text-center opacity-0 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_25px_60px_-15px_rgba(18,85,127,0.25)]"
+            >
+              <span
+                class={`mx-auto flex h-20 w-20 items-center justify-center rounded-full text-xl font-semibold text-white ${avatarTints[i % avatarTints.length]}`}
+                aria-hidden="true"
+              >
+                {initialsOf(person.name)}
+              </span>
+              <p class="mt-4 font-sans text-base font-bold text-navy">{person.name}</p>
+              <p class="mt-1 text-sm text-navy/60">{person.title}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          team.map((person, i) => (
+            <div
+              data-reveal
+              style={`transition-delay: ${i * 70}ms`}
+              class="flex translate-y-8 items-center gap-4 rounded-2xl border border-slate-100 bg-white p-5 opacity-0 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-md"
+            >
+              <span
+                class={`flex h-14 w-14 flex-none items-center justify-center rounded-full text-sm font-semibold text-white ${avatarTints[i % avatarTints.length]}`}
+                aria-hidden="true"
+              >
+                {initialsOf(person.name)}
+              </span>
+              <div>
+                <p class="font-sans text-sm font-bold text-navy">{person.name}</p>
+                <p class={`mt-0.5 text-xs leading-snug ${person.titlePending ? "text-navy/40 italic" : "text-navy/60"}`}>{person.title}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>
