@@ -7,7 +7,7 @@ Drop each industry's photo here, named to match its tile:
 - `ship-spares.webp`
 - `automobiles.webp`
 - `perishables.webp`
-- `heavy-perishables.webp`
+- `retail-fmcg.webp`
 - `oil-gas.webp`
 - `project-cargo.webp`
 
