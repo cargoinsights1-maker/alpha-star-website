@@ -20,11 +20,11 @@ const menuLinks = [
 ---
 
 <div class="absolute inset-x-0 top-0 z-40">
-  <!-- white-to-transparent strip instead of a dark scrim + a pill just around the
-       logo — the new logo is full-color (no white variant exists) so it needs a
-       light backdrop to read clearly; doing that for the whole bar instead of just
-       the logo means the hamburger/Contact Us also switch to dark-on-light here -->
-  <div class="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white via-white/85 to-transparent sm:h-36" />
+  <!-- simple thin white strip covering the whole bar (logo + hamburger +
+       Contact Us) — the new logo is full-color (no white variant exists) so
+       it needs a light backdrop; keeping the whole row on one flat light
+       strip instead of a tall gradient or a localized glow -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-16 bg-white/95 shadow-sm sm:h-[4.5rem]" />
 
   <div class="relative mx-auto grid max-w-7xl grid-cols-3 items-center px-4 py-5 sm:px-6 lg:px-8">
     <div class="flex justify-start">
