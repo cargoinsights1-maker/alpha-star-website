@@ -1,0 +1,386 @@
+---
+// "Insights" page — matches nav.ts's /insights#... anchors. Only 2 of the 6
+// nav sub-sections have real content so far (Real Cargo Stories, Case
+// Studies) — built per the "don't get ahead" rule; Market/Operational
+// Updates, Customer Advisories, Logistics Guides and News aren't stubbed
+// with invented copy.
+//
+// Source: client's case-study PDF (20 items, "Publication pending
+// approval"). Items 1-15 are used here — they have no outstanding
+// redaction/approval notes. Items 16-20 (Gabon power plant, MV TEN MARS,
+// Legero Middle East Doha, GFS LETO Valencia, A330 engine Miami) were
+// explicitly excluded per the user's own decision: each carries a
+// "Production note" requiring photo redaction (clear third-party branding/
+// people/labels) that can't be done reliably here, plus two cases where
+// naming permission is explicitly not yet confirmed.
+//
+// Photos: matched against the real media handover folder
+// (05_Project_Photos_and_Video/Case_Study_Media), which numbers its files
+// by case number. Of the 6 cases with a matching photo on hand (5, 6, 7, 9,
+// 10, 14), 3 (9 girder loading, 10 module offloading, 14 dry dock handling)
+// showed the same kind of unredacted third-party branding/identifiable
+// faces that got 16-20 excluded, so the same standard was applied: those 3
+// stay text-only, and only the already-clean/pre-redacted photos (5, 6,
+// both of 7) are used.
+import Layout from "../layouts/Layout.astro";
+import ContactCTA from "../components/ContactCTA.astro";
+
+interface Quote {
+  text: string;
+  name: string;
+  role: string;
+  date: string;
+}
+
+interface CaseStudy {
+  number: string;
+  category: string;
+  title: string;
+  stats: string;
+  challenge: string;
+  approach: string;
+  outcome: string;
+  quote?: Quote;
+  photos?: string[];
+  photoCaption?: string;
+}
+
+const realCargoStories: CaseStudy[] = [
+  {
+    number: "01",
+    category: "Project Transport / Customer Appreciation",
+    title: "Six Trucks Ready at Short Notice",
+    stats: "23 BI-mattresses | 6 trucks | Hamriyah Free Zone to Mina Base",
+    challenge: "Saipem needed trailers at short notice to move 23 BI-mattresses from Hamriyah Free Zone to Mina Base for its Hail & Ghasha project.",
+    approach: "Alpha Star's transport team helped arrange the heavy-duty transport, turning the request into a coordinated six-truck movement.",
+    outcome: "All six trucks reached the delivery site on the day of dispatch. Saipem's logistics team recognised the response with a message of appreciation for the support provided at short notice.",
+    quote: {
+      text: "We sincerely appreciate your excellent support in arranging the trailers at short notice for the transfer of 23 mattresses from Sharjah Hamriyah Free Zone to Mina Base.",
+      name: "Sathish Chennappan",
+      role: "Logistics Department, Saipem S.p.A Abu Dhabi Branch",
+      date: "19 October 2026",
+    },
+  },
+  {
+    number: "02",
+    category: "Air Freight / Dubai to Conakry / Forwarding-Partner Appreciation",
+    title: "A New Route When the First Option Closed",
+    stats: "Engine shipment | Dubai to Conakry | Airport arrival confirmed",
+    challenge: "An engine shipment from Dubai to Conakry needed more than a flight booking. The original carrier option became unavailable, and the export paperwork needed further work.",
+    approach: "Alpha Star identified an alternative route and coordinated the documentation with Centrimex, then followed the shipment through warehouse handling, airway-bill preparation and departure arrangements.",
+    outcome: "The team subsequently confirmed arrival at Conakry airport.",
+    quote: {
+      text: "It was a TOP quality operation.",
+      name: "Daphnée Dessource",
+      role: "Airfreight Operations, Centrimex France",
+      date: "9 October 2026",
+    },
+  },
+  {
+    number: "03",
+    category: "Specialist Air Cargo / UAE to Nouakchott / Customer Appreciation",
+    title: "Two Consignments With One Coordinated Plan",
+    stats: "Liquid helium | 2 consignments | Nouakchott airport arrival",
+    challenge: "A liquid-helium shipment became a more complex assignment when the order was divided between two hospital consignees and additional cylinders were added.",
+    approach: "Alpha Star reorganised the move as two export consignments, coordinated the local transfers and worked through airline approvals and revised connections. The team explained the priority-service options and kept the customer updated as the cargo moved.",
+    outcome: "On 19 October, the airline confirmed that both shipments had arrived at Nouakchott airport.",
+    quote: {
+      text: "Appreciate, good job!",
+      name: "Syed Anif",
+      role: "Logistics Executive, Brothers Gas",
+      date: "19 October 2026",
+    },
+  },
+  {
+    number: "04",
+    category: "Air Import and Customs Coordination / Forwarding-Partner Appreciation",
+    title: "Persistence Through a Difficult First Clearance",
+    stats: "Food supplements | Air import | Signed receipt dated 4 August",
+    challenge: "Food-supplement documentation and permit questions complicated clearance, while a further customs inspection required an additional no-objection stamp.",
+    approach: "Alpha Star checked the paperwork, coordinated with the consignee and its forwarding partner, and sent a representative to pursue the required approval.",
+    outcome: "The shipment was ultimately delivered, with a signed receipt dated 4 August. Two days later, Pakistan Freight System recognised the team's hard work, service and patience in handling the first shipment together.",
+    quote: {
+      text: "Really appreciate all the hard work/ excellent services & your patience in handling this first shipment (we are expecting regular shipments from same shipper/ same consignee).",
+      name: "Jawad Nasim Rana",
+      role: "General Manager, Cross Border & International Agents Development, Pakistan Freight System",
+      date: "6 August 2026",
+    },
+  },
+  {
+    number: "05",
+    category: "Cross-Border Road Freight / Forwarding-Partner Appreciation",
+    title: "Two Collections and One Cross Border Delivery",
+    stats: "2 collection points | Dubai to Riyadh | Delivery notes dated 7 September",
+    challenge: "Two collection points needed to feed one cross-border delivery. For eCargoWorld's shipment to Riyadh, Alpha Star coordinated collections in Dubai Industrial City and Dubai Investments Park.",
+    approach: "The team checked the loading and border-agent arrangements and shared loading photographs, customs documents and progress through the appointment stage.",
+    outcome: "After the truck cleared Batha, signed delivery notes dated 7 September closed the delivery loop. The following day, the forwarding partner thanked the team for its efforts throughout the shipment.",
+    quote: {
+      text: "Well received with many thanks for your efforts throughout the shipment.",
+      name: "Sulyma Hakmeh",
+      role: "Sales and Marketing, eCargoWorld UAE",
+      date: "8 September 2026",
+    },
+    photos: ["/insights/case-05-riyadh-loading.webp"],
+  },
+  {
+    number: "06",
+    category: "Air Freight / UAE to Mauritius / Forwarding-Partner Appreciation",
+    title: "When Urgency Called for a Direct Flight",
+    stats: "Direct Emirates service | UAE to Mauritius | Origin departure confirmed",
+    challenge: "The brief began with price: find an economical airfreight option to Mauritius. Then the consignee's urgent requirement changed the priority.",
+    approach: "Alpha Star helped G&A Rapid Freight switch to a direct Emirates service and coordinated the free-zone export requirements, paperwork, cargo photographs and pre-alerts.",
+    outcome: "The cargo was handed over, and the team confirmed departure from origin. What stood out to the partner was the communication and teamwork as the plan changed.",
+    quote: {
+      text: "Good Job! Communication was so smooth and collaboration @ its peak!",
+      name: "Shalinee Chotoree Poonith",
+      role: "Team Leader, G&A Rapid Freight Co Ltd, Mauritius",
+      date: "1 September 2026",
+    },
+    photos: ["/insights/case-06-mauritius-cargo.webp"],
+  },
+  {
+    number: "07",
+    category: "ATA Carnet Import and Delivery / Forwarding-Partner Appreciation",
+    title: "Getting the Paperwork Right for ATA Clearance",
+    stats: "2 display packages | ATA Carnet import | Delivery on 16 October",
+    challenge: "Two marine-engineering display packages were coming into the UAE under an ATA Carnet. The cargo needed careful paperwork coordination, including corrections to authorization letters and a signature mismatch.",
+    approach: "Alpha Star's team worked between the customer and the clearance partner until customs clearance was confirmed on 15 October.",
+    outcome: "Delivery followed the next day, with a signed receipt recording the packages received in full and in good condition. The overseas partner acknowledged the clearance work while asking to be kept informed through delivery.",
+    quote: {
+      text: "Nice work. Pls let me know once delivered. Thanks.",
+      name: "Amy Zhang",
+      role: "Air Export Co-ordinator, Realogistics International (Beijing)",
+      date: "15 October 2026",
+    },
+    photos: ["/insights/case-07-ata-cases.webp", "/insights/case-07-ata-models.webp"],
+    photoCaption: "Supplier pre-shipment photographs of the display cases and packed models.",
+  },
+];
+
+const caseStudies: CaseStudy[] = [
+  {
+    number: "08",
+    category: "Sea Freight, Customs and Distribution / Operations-Backed Case",
+    title: "Five Containers and Three Site Deliveries",
+    stats: "5 containers | 3 UAE sites | Completion reported 19 October",
+    challenge: "Five containers from Thailand held material for three UAE project sites, with staggered arrivals and restricted access at one location.",
+    approach: "Alpha Star coordinated clearance, warehouse segregation and site-by-site delivery. For the Sharjah site, the transport team visited the unloading area and identified suitable smaller vehicles. The team kept the customer informed about what had arrived and what remained.",
+    outcome: "Signed delivery records document the site deliveries, with completion reported on 19 October.",
+  },
+  {
+    number: "09",
+    category: "Overlength Project Transport / JAFZA to Kuwait / Operations-Backed Case",
+    title: "A 25.2 Metre Cross Border Challenge",
+    stats: "25.2 metre girders | 8 tonnes each | JAFZA to Kuwait",
+    challenge: "A 25.2-metre crane girder is not a routine road load.",
+    approach: "For this JAFZA-to-Kuwait movement, Alpha Star coordinated transport for industrial girders recorded at eight tonnes each. Loading was documented on 5 November 2024, with the long steel cargo carefully lowered onto a trailer.",
+    outcome: "The operations team confirmed successful delivery in Kuwait on 10 November. From the loading point to the cross-border destination, the work centred on moving unusually long cargo as a specialist transport assignment.",
+  },
+  {
+    number: "10",
+    category: "Industrial Project Transport / UAE to Saudi Arabia / Operations-Backed Case",
+    title: "Three Modules Bound for a Refinery",
+    stats: "3 enclosure modules | Hamriyah to Jazan | Delivered 1 October 2025",
+    challenge: "Three enclosure-building modules formed the first lot of a project movement from Hamriyah to Jazan, Saudi Arabia.",
+    approach: "Alpha Star coordinated the transport as the modules were lifted and loaded onto trucks on 24 September 2025.",
+    outcome: "The team followed the movement through to the receiving facility, confirming successful delivery on 1 October.",
+  },
+  {
+    number: "11",
+    category: "Project Cargo / Bahrain / Operations-Backed Case",
+    title: "Four Enclosure Units With Coordinated Approvals",
+    stats: "4 enclosure units | Bahrain | Delivery update 15 December 2025",
+    challenge: "Four enclosure units needed a coordinated project transport plan for Bahrain.",
+    approach: "For four enclosure units delivered to Bahrain, Alpha Star's operations team recorded permits, safety requirements, documentation and road-traffic clearance approvals as part of the job.",
+    outcome: "The delivery update on 15 December 2025 confirmed that all four units had reached their destination.",
+  },
+  {
+    number: "12",
+    category: "Return Logistics / Vietnam to Ajman / Operations-Backed Case",
+    title: "Bringing Three Specialist Dewars Home",
+    stats: "3 empty dewars | Vietnam to Ajman | Received 14 September",
+    challenge: "Three empty dewars needed to travel from Vietnam back to a specialist gas supplier's Ajman plant. Holiday closures, tight airline space and a flight rollover complicated the return.",
+    approach: "Alpha Star escalated with the origin partner and airline, kept the customer informed about changing transport arrangements, then coordinated Dubai clearance, warehouse holding and final delivery.",
+    outcome: "The signed delivery record confirms all three packages were received in good condition on 14 September.",
+  },
+  {
+    number: "13",
+    category: "Warehousing and Customs Coordination / JAFZA / Operations-Backed Case",
+    title: "From Incoming Parts to Warehouse Release",
+    stats: "Automotive parts | Partner warehousing in JAFZA | Documented release",
+    challenge: "An automotive-parts customer needed storage while its collection plan evolved.",
+    approach: "Alpha Star coordinated partner warehousing and staged inbound handling, then worked through the paperwork for release. The team requested split invoices and reviewed the HS codes before customs processing. As the outgoing consignment changed, the team revised the transfer-of-ownership documents.",
+    outcome: "Customs declaration approval followed, and the warehouse partner confirmed loading with photographs and video. The result was a documented release that connected the revised paperwork to the physical cargo.",
+  },
+  {
+    number: "14",
+    category: "Sea Freight and Marine Logistics / China to Dubai / Operations-Backed Case",
+    title: "Four Containers for a Drydock Delivery",
+    stats: "4 twenty-foot containers | China to Dubai | Delivery 12 November 2024",
+    challenge: "An anchor-chain supply movement linked an overseas origin with a very specific receiving point: Dubai Dry Dock.",
+    approach: "The recorded operation involved four 20-foot containers from China, bringing international container transport together with a local marine-delivery requirement.",
+    outcome: "Alpha Star's operations team confirmed delivery on 12 November 2024.",
+  },
+  {
+    number: "15",
+    category: "Marine-Spares Air Freight / UAE to Qatar / Operations-Backed Case",
+    title: "The Right Marine Spares Prepared for Doha",
+    stats: "Marine spares | UAE to Qatar | Doha airport arrival 16 October",
+    challenge: "Two vessel purchase orders had arrived together on one pallet, but only one needed to travel to Qatar.",
+    approach: "Alpha Star coordinated segregation of the required stock, split the cargo to meet the airline's acceptance requirements, and prepared the invoice, packing list and airway bill with its marine-logistics partner.",
+    outcome: "A pre-alert followed, and the team confirmed arrival at Doha airport on 16 October.",
+  },
+];
+---
+
+<Layout
+  title="Insights | Alpha Star Shipping"
+  description="Real cargo stories and case studies from Alpha Star Shipping — how we plan, coordinate and deliver freight, customs and specialist logistics movements across the GCC and beyond."
+>
+  <section class="relative overflow-hidden bg-white pt-28 pb-20 sm:pt-32 sm:pb-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.4]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.12) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs font-medium text-navy/50 sm:text-sm">
+        <a href="/" class="transition-colors hover:text-brand-red">Home</a>
+        <span class="text-navy/25">/</span>
+        <span class="text-navy">Insights</span>
+      </nav>
+
+      <p class="mt-5 text-sm font-semibold tracking-widest text-brand-red uppercase">Insights</p>
+      <h1 class="mt-3 text-4xl leading-[1.05] font-bold text-navy sm:text-5xl">Real Cargo Stories and Case Studies</h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-navy/70">
+        How Alpha Star plans, coordinates and delivers freight, customs and specialist logistics movements, drawn
+        directly from real shipments and the partners who moved them with us.
+      </p>
+    </div>
+  </section>
+
+  <section id="real-cargo-stories" class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.5]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.1) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Real Cargo Stories</p>
+        <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">From Our Customers and Partners</h2>
+      </div>
+
+      <div class="mt-12 space-y-8">
+        {
+          realCargoStories.map((story, i) => (
+            <article
+              data-reveal
+              style={`transition-delay: ${Math.min(i, 4) * 80}ms`}
+              class="translate-y-8 overflow-hidden rounded-3xl border border-slate-100 bg-white p-6 opacity-0 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-700 ease-out sm:p-8"
+            >
+              <div class="flex items-start gap-4">
+                <span class="flex-none font-sans text-3xl font-black text-brand-red/80 sm:text-4xl">{story.number}</span>
+                <div class="min-w-0">
+                  <p class="text-xs font-semibold tracking-wide text-navy/50 uppercase">{story.category}</p>
+                  <h3 class="mt-1 text-xl font-bold text-navy sm:text-2xl">{story.title}</h3>
+                  <p class="mt-2 text-sm font-semibold text-brand-blue">{story.stats}</p>
+                </div>
+              </div>
+
+              <div class="mt-6 grid gap-5 sm:grid-cols-3">
+                <div>
+                  <p class="text-xs font-bold tracking-wide text-navy uppercase">Challenge</p>
+                  <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.challenge}</p>
+                </div>
+                <div>
+                  <p class="text-xs font-bold tracking-wide text-navy uppercase">Our Approach</p>
+                  <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.approach}</p>
+                </div>
+                <div>
+                  <p class="text-xs font-bold tracking-wide text-navy uppercase">Outcome</p>
+                  <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.outcome}</p>
+                </div>
+              </div>
+
+              {story.photos && (
+                <div class="mt-6">
+                  <div class={`grid gap-3 ${story.photos.length > 1 ? "sm:grid-cols-2" : ""}`}>
+                    {story.photos.map((photo) => (
+                      <img src={photo} alt="" class="aspect-[4/3] w-full rounded-2xl object-cover" />
+                    ))}
+                  </div>
+                  {story.photoCaption && <p class="mt-2 text-xs text-navy/50 italic">{story.photoCaption}</p>}
+                </div>
+              )}
+
+              {story.quote && (
+                <div class="mt-6 rounded-xl border-l-4 border-brand-red bg-slate-50 p-4 sm:p-5">
+                  <p class="text-xs font-bold tracking-wide text-brand-red uppercase">
+                    {story.category.includes("Customer") ? "Customer Appreciation" : "Forwarding-Partner Appreciation"}
+                  </p>
+                  <p class="mt-2 text-sm leading-relaxed text-navy italic sm:text-base">&ldquo;{story.quote.text}&rdquo;</p>
+                  <p class="mt-3 text-sm font-bold text-navy">{story.quote.name}</p>
+                  <p class="text-xs text-navy/60">{story.quote.role}</p>
+                  <p class="text-xs text-navy/40">{story.quote.date}</p>
+                </div>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="case-studies" class="relative overflow-hidden bg-white py-20 sm:py-24">
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.4]"
+      style="background-image: radial-gradient(rgba(18,85,127,0.1) 1px, transparent 1px); background-size: 22px 22px;"
+    >
+    </div>
+    <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+        <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Case Studies</p>
+        <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Operations, Documented</h2>
+      </div>
+
+      <div class="mt-12 space-y-6">
+        {
+          caseStudies.map((story, i) => (
+            <article
+              data-reveal
+              style={`transition-delay: ${Math.min(i, 4) * 80}ms`}
+              class="translate-y-8 overflow-hidden rounded-2xl border border-slate-100 bg-white p-6 opacity-0 shadow-sm transition-all duration-700 ease-out sm:p-7"
+            >
+              <div class="flex items-start gap-4">
+                <span class="flex-none font-sans text-2xl font-black text-navy/20 sm:text-3xl">{story.number}</span>
+                <div class="min-w-0">
+                  <p class="text-xs font-semibold tracking-wide text-navy/50 uppercase">{story.category}</p>
+                  <h3 class="mt-1 text-lg font-bold text-navy sm:text-xl">{story.title}</h3>
+                  <p class="mt-2 text-sm font-semibold text-brand-blue">{story.stats}</p>
+                </div>
+              </div>
+
+              <div class="mt-5 grid gap-4 sm:grid-cols-3">
+                <div>
+                  <p class="text-xs font-bold tracking-wide text-navy uppercase">Challenge</p>
+                  <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.challenge}</p>
+                </div>
+                <div>
+                  <p class="text-xs font-bold tracking-wide text-navy uppercase">Our Approach</p>
+                  <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.approach}</p>
+                </div>
+                <div>
+                  <p class="text-xs font-bold tracking-wide text-navy uppercase">Outcome</p>
+                  <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.outcome}</p>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ContactCTA />
+</Layout>

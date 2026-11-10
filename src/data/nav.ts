@@ -130,14 +130,13 @@ export const airlineCargoItems: DropdownItem[] = [
 ];
 
 // footer-only sections, per the client's spec — intentionally absent from
-// the header nav above.
+// the header nav above. Market/Operational Updates, Customer Advisories,
+// Logistics Guides/Useful Tools and News are removed until they have real
+// content/sections — same "don't link to anchors that don't exist" approach
+// already applied to ourTeamItems below. Add each back as it's built.
 export const insightsItems: DropdownItem[] = [
   { label: "Real Cargo Stories", href: "/insights#real-cargo-stories" },
   { label: "Case Studies", href: "/insights#case-studies" },
-  { label: "Market / Operational Updates", href: "/insights#market-operational-updates" },
-  { label: "Customer Advisories", href: "/insights#customer-advisories" },
-  { label: "Logistics Guides / Useful Tools", href: "/insights#logistics-guides-useful-tools" },
-  { label: "News", href: "/insights#news" },
 ];
 
 // Sub-sections without content/pages of their own (Technology & Visibility,
