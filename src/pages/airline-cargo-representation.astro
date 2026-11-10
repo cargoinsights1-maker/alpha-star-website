@@ -63,18 +63,25 @@ const airlinePartners = [
     </div>
     <div class="pointer-events-none absolute top-0 right-[-8%] h-[420px] w-[420px] rounded-full bg-[#009c3c]/10 blur-3xl"></div>
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div data-reveal class="max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out">
-        <div class="inline-flex items-center gap-3 rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-[#009c3c]/15">
-          <img src="/partners/turkmenistan-airlines.webp" alt="Turkmenistan Airlines" class="h-6 w-auto" />
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+          <p class="text-sm font-semibold tracking-widest text-[#009c3c] uppercase">Exclusive CSA Capability</p>
+          <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Turkmenistan Airlines Cargo Representation in the UAE</h2>
+          <p class="mt-6 leading-relaxed text-navy/70">
+            Alpha Star Shipping is the appointed Cargo Sales Agent (CSA) of Turkmenistan Airlines in the UAE. The CSA platform
+            strengthens Alpha Star's access to capacity, commercial development and Central Asia connectivity, while the wider air
+            freight team handles standard, urgent and charter movements alongside it.
+          </p>
         </div>
-        <p class="mt-5 text-sm font-semibold tracking-widest text-[#009c3c] uppercase">Exclusive CSA Capability</p>
-        <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Turkmenistan Airlines Cargo Representation in the UAE</h2>
-        <p class="mt-6 leading-relaxed text-navy/70">
-          Alpha Star Shipping is the appointed Cargo Sales Agent (CSA) of Turkmenistan Airlines in the UAE. The CSA platform
-          strengthens Alpha Star's access to capacity, commercial development and Central Asia connectivity, while the wider air
-          freight team handles standard, urgent and charter movements alongside it.
-        </p>
+
+        <div data-reveal class="relative translate-x-10 opacity-0 transition-all delay-150 duration-700 ease-out">
+          <div class="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-[#009c3c]/15 blur-2xl"></div>
+          <div class="flex aspect-[16/9] items-center justify-center rounded-3xl bg-white p-12 shadow-2xl shadow-[#009c3c]/15 ring-1 ring-[#009c3c]/10">
+            <img src="/partners/turkmenistan-airlines.webp" alt="Turkmenistan Airlines" class="h-full w-full object-contain" />
+          </div>
+        </div>
       </div>
+
       <ServiceDifferentiators items={turkmenistanCapabilities} accentFrom="#009c3c" accentTo="#4ade80" />
     </div>
   </section>
@@ -87,17 +94,23 @@ const airlinePartners = [
     </div>
     <div class="pointer-events-none absolute top-0 left-[-8%] h-[420px] w-[420px] rounded-full bg-[#e40c48]/10 blur-3xl"></div>
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div data-reveal class="max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out">
-        <div class="inline-flex items-center gap-3 rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-[#e40c48]/15">
-          <img src="/partners/air-arabia.webp" alt="Air Arabia" class="h-6 w-auto" />
+      <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div data-reveal class="relative order-2 translate-x-10 opacity-0 transition-all duration-700 ease-out lg:order-1">
+          <div class="pointer-events-none absolute -inset-4 -z-10 rounded-[2rem] bg-[#e40c48]/15 blur-2xl"></div>
+          <div class="flex aspect-[16/9] items-center justify-center rounded-3xl bg-white p-12 shadow-2xl shadow-[#e40c48]/15 ring-1 ring-[#e40c48]/10">
+            <img src="/partners/air-arabia.webp" alt="Air Arabia" class="h-full w-full object-contain" />
+          </div>
         </div>
-        <p class="mt-5 text-sm font-semibold tracking-widest text-[#e40c48] uppercase">Cargo Sales Agent</p>
-        <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Air Arabia Cargo Representation</h2>
-        <p class="mt-6 leading-relaxed text-navy/70">
-          Alpha Star Shipping is the appointed Cargo Sales Agent for Air Arabia, supporting cargo bookings and commercial
-          coordination across Air Arabia's network connecting the UAE to destinations throughout the Middle East, North Africa,
-          Central Asia and the Indian Subcontinent.
-        </p>
+
+        <div data-reveal class="order-1 translate-y-8 opacity-0 transition-all delay-150 duration-700 ease-out lg:order-2">
+          <p class="text-sm font-semibold tracking-widest text-[#e40c48] uppercase">Cargo Sales Agent</p>
+          <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Air Arabia Cargo Representation</h2>
+          <p class="mt-6 leading-relaxed text-navy/70">
+            Alpha Star Shipping is the appointed Cargo Sales Agent for Air Arabia, supporting cargo bookings and commercial
+            coordination across Air Arabia's network connecting the UAE to destinations throughout the Middle East, North Africa,
+            Central Asia and the Indian Subcontinent.
+          </p>
+        </div>
       </div>
     </div>
   </section>
