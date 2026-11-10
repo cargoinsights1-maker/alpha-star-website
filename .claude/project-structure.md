@@ -15,19 +15,17 @@ src/
     services/
       air-freight.astro          # first inner service page (more to follow the same pattern)
   styles/
-    global.css                 # Tailwind import, @theme (colors, font), Signa @font-face rules
+    global.css                 # Tailwind import, @theme (colors, font) — Outfit (display) + Poppins (sans), loaded via Google Fonts <link> in Layout.astro/index.astro, no self-hosted files
   assets/
     logos/
       main-logo.png           # full wordmark, navy text — use on light backgrounds (header)
       white-logo.png           # full wordmark, white text — use on dark backgrounds (footer)
       star-logo.png             # icon mark only — favicon source
 public/
-  favicon.ico / favicon.svg    # still Astro defaults — swap for a star-logo-derived favicon when Header is built
-  fonts/
-    README.md                  # instructions for dropping in Signa-Regular.woff2 / Signa-Bold.woff2
+  favicon.ico / favicon-16.png / favicon-32.png / apple-touch-icon.png   # real brand mark (star + alpha swoosh, cropped from main-logo.png)
 ```
 
 ## Notes
 - Logos live in `src/assets/logos/` so Astro's image optimization (`astro:assets`, the `<Image />` component) can process them — import them in components rather than referencing by raw path.
-- Signa font files go in `public/fonts/` (not `src/assets/fonts/`) deliberately: files referenced from CSS via a public-relative `url("/fonts/...")` path are served as-is and never fail the Vite build even while the files don't exist yet. `global.css` already has `@font-face` rules pointing at `/fonts/Signa-Regular.woff2` and `/fonts/Signa-Bold.woff2` — dropping files in with those exact names is all that's needed, no code changes.
-- Custom Tailwind theme colors (`navy`, `brand-blue`, `brand-blue-light`, `brand-red`) and the `font-sans` override are defined in `src/styles/global.css`'s `@theme` block — see `.claude/naming-conventions.md` for the exact key names.
+- Fonts (Outfit for headings/display, Poppins for body) are loaded from Google Fonts via `<link>` tags in `Layout.astro` and `index.astro` — no self-hosted font files, and font choice is intentionally independent of the logo (chosen after the rebrand, not tied to it).
+- Custom Tailwind theme colors (`navy`, `brand-blue`, `brand-blue-light`, `brand-red`) and the `font-sans`/`font-display` overrides are defined in `src/styles/global.css`'s `@theme` block — see `.claude/naming-conventions.md` for the exact key names. A global `h1`–`h6` rule applies `font-display` (Outfit) automatically; `font-sans` (Poppins) is the `body` default for everything else.

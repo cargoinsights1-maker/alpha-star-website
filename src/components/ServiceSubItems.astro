@@ -41,7 +41,7 @@ const { items } = Astro.props;
         <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-blue to-brand-blue-light text-white shadow-md shadow-brand-blue/25 transition-all duration-300 group-hover:from-brand-red group-hover:to-[#a3121c] group-hover:shadow-brand-red/25 group-active:from-brand-red group-active:to-[#a3121c]">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" set:html={item.icon} />
         </span>
-        <h3 class="mt-4 font-sans text-lg font-bold text-navy">{item.label}</h3>
+        <h3 class="mt-4 text-lg font-bold text-navy">{item.label}</h3>
         <p class="mt-2 text-sm leading-relaxed text-navy/60">{item.description}</p>
       </a>
     ))

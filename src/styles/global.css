@@ -8,26 +8,8 @@
   --color-brand-blue-light: #2f8fc9;
   --color-brand-red: #d81f2a;
 
-  --font-sans: "Signa", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Oswald", ui-sans-serif, system-ui, sans-serif;
-}
-
-/* Signa files aren't supplied yet — see public/fonts/README.md. Until they're
-   added these 404 silently and the fallback stack above is used instead. */
-@font-face {
-  font-family: "Signa";
-  src: url("/fonts/Signa-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Signa";
-  src: url("/fonts/Signa-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
 }
 
 html {
@@ -39,6 +21,18 @@ body {
   /* fallback for before BackgroundTransition.astro's script runs, or if JS is disabled —
      matches About's resting color so there's no flash on load */
   background-color: #f8fafc;
+}
+
+/* All headings use the display face (Outfit); body/paragraph/UI text stays
+   on font-sans (Poppins) via the body rule above. Font choice is independent
+   of the logo per request — replaces the never-supplied Signa/Oswald pairing. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
 }
 
 /* shared entrance animation: Hero uses it directly on load (animate-fade-up),

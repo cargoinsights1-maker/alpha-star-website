@@ -23,7 +23,7 @@ const { items } = Astro.props;
         <div class="relative z-10 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-brand-red to-[#a3121c] text-base font-bold text-white shadow-lg shadow-black/20 transition-transform duration-300 group-hover:scale-110">
           {String(i + 1).padStart(2, "0")}
         </div>
-        <h3 class="mt-4 font-sans text-lg font-bold text-navy">{step.title}</h3>
+        <h3 class="mt-4 text-lg font-bold text-navy">{step.title}</h3>
         <p class="mt-2 text-sm leading-relaxed text-navy/60">{step.description}</p>
       </div>
     ))
