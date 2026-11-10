@@ -20,10 +20,9 @@ const menuLinks = [
 ---
 
 <div class="absolute inset-x-0 top-0 z-40">
-  <!-- back to the original pre-logo-swap treatment: dark scrim only, no
-       white background anywhere — just the new (full-color) logo dropped
-       into the same spot the old white logo sat, with a soft dark ambient
-       glow behind it for depth/contrast against the video -->
+  <!-- dark scrim for the hamburger/Contact Us (white-on-dark), plus a white
+       pill behind just the logo — the new logo is full-color, so it needs a
+       light backdrop to read clearly against the video -->
   <div class="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/75 via-black/40 to-transparent" />
 
   <div class="relative mx-auto grid max-w-7xl grid-cols-3 items-center px-4 py-5 sm:px-6 lg:px-8">
@@ -42,9 +41,10 @@ const menuLinks = [
       </button>
     </div>
 
-    <a href="/" class="relative flex justify-center">
-      <span class="logo-glow pointer-events-none absolute inset-0" />
-      <Image src={mainLogo} alt="Alpha Star Shipping" width={220} class="relative h-6 w-auto sm:h-9 md:h-10" />
+    <a href="/" class="flex justify-center">
+      <span class="flex items-center rounded-full bg-white/95 px-4 py-1.5 shadow-lg backdrop-blur-sm">
+        <Image src={mainLogo} alt="Alpha Star Shipping" width={220} class="h-6 w-auto sm:h-9 md:h-10" />
+      </span>
     </a>
 
     <div class="flex justify-end">
@@ -120,12 +120,3 @@ const menuLinks = [
   toggle?.addEventListener("click", openMenu);
   closeBtn?.addEventListener("click", closeMenu);
 </script>
-
-<style>
-  /* soft dark ambient shadow behind the logo, same as the original
-     pre-logo-swap treatment — just contrast/depth against the video, not a
-     light backdrop */
-  .logo-glow {
-    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
-  }
-</style>
