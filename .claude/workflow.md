@@ -215,6 +215,8 @@
 
 57. ✅ **6 of 7 Certifications & Memberships logos replaced with higher-resolution real sources** (`C:\Users\kohli\Downloads\Alpha Star Clients\Members`), per feedback that the previously-added ones were low-res — only FIATA's was confirmed fine and left untouched. TIACA (3222×3222 source, up from 460×380), NAFL (1000×1000, up from 380×280), JCtrans (444×250, up from 490×530 but noticeably sharper), ISO 9001:2015 (replaced the generic ISO wordmark with the real "ERS Certified" badge actually used on the certificate), ISO 45001:2018 (replaced with a cleaner ISO globe badge). **G7's logo also corrected**: the real supplied logo reads "G7 Logistics Networks," not "G7 Signature" as previously labeled — renamed the membership entry and its asset (`g7-logistics-networks.webp`) to match, old `g7-signature.webp` deleted. All processed the same way (trimmed, flattened onto white, capped at 700px, webp quality 92) as the original Certifications.astro set. **Verified**: `npm run build` (63 pages, 0 errors); dev-server checks confirmed all 7 logos (6 replaced + FIATA) return 200 and render on the home page's Certifications section.
 
+58. ✅ **IATA logo added to Certifications & Memberships**, bringing the grid to 8 real marks. Source was only 150×150, so sized the card conservatively (`resize` capped at 700 with `withoutEnlargement`, same pipeline as the other member logos) rather than upscale it past its native resolution. `npm run build` (63 pages, 0 errors); dev-server check confirmed it returns 200 and renders alongside the other 7 on the home page.
+
 Other pages (About) are out of scope until the user explicitly asks for them.
 
 ## Ground rules
