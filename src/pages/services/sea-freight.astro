@@ -10,6 +10,13 @@ import PartnerLogos from "../../components/PartnerLogos.astro";
 import RelatedServiceCards from "../../components/RelatedServiceCards.astro";
 import ContactCTA from "../../components/ContactCTA.astro";
 import { seaFreight } from "../../data/services";
+
+const shippingLinePartners = [
+  { name: "Maersk", src: "/partners/maersk.webp" },
+  { name: "MSC", src: "/partners/msc.webp" },
+  { name: "Hapag-Lloyd", src: "/partners/hapag-lloyd.webp" },
+  { name: "Ocean Network Express", src: "/partners/one-line.webp" },
+];
 ---
 
 <Layout title={seaFreight.metaTitle} description={seaFreight.metaDescription}>
@@ -79,7 +86,11 @@ import { seaFreight } from "../../data/services";
     </div>
   </section>
 
-  <PartnerLogos heading="Our Shipping Line Partners" intro="Logos coming soon." count={8} />
+  <PartnerLogos
+    heading="Our Shipping Line Partners"
+    intro="Working relationships with major global carriers across FCL, LCL and breakbulk."
+    logos={shippingLinePartners}
+  />
 
   <section class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
     <div

@@ -10,6 +10,15 @@ import PartnerLogos from "../../components/PartnerLogos.astro";
 import RelatedServiceCards from "../../components/RelatedServiceCards.astro";
 import ContactCTA from "../../components/ContactCTA.astro";
 import { airFreight } from "../../data/services";
+
+const airlinePartners = [
+  { name: "Emirates SkyCargo", src: "/partners/emirates-skycargo.webp" },
+  { name: "flydubai", src: "/partners/flydubai.webp" },
+  { name: "Etihad Cargo", src: "/partners/etihad-cargo.webp" },
+  { name: "Air Arabia", src: "/partners/air-arabia.webp" },
+  { name: "Turkish Airlines", src: "/partners/turkish-airlines.webp" },
+  { name: "Turkmenistan Airlines", src: "/partners/turkmenistan-airlines.webp" },
+];
 ---
 
 <Layout title={airFreight.metaTitle} description={airFreight.metaDescription}>
@@ -82,7 +91,7 @@ import { airFreight } from "../../data/services";
     </div>
   </section>
 
-  <PartnerLogos heading="Our Air Freight Partners" intro="Logos coming soon." count={8} />
+  <PartnerLogos heading="Our Airline Partners" intro="Trusted cargo and representation partnerships across major carriers." logos={airlinePartners} />
 
   <section class="relative overflow-hidden bg-slate-50 py-20 sm:py-24">
     <div
