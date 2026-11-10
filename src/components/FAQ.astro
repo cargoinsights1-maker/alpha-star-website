@@ -1,0 +1,147 @@
+---
+// Home page FAQ, placed right before the closing Contact CTA. SEO-focused:
+// real, site-grounded answers (no invented SLAs/guarantees) plus a
+// schema.org FAQPage JSON-LD block so the questions are eligible for a
+// Google rich-result snippet. <details>/<summary> accordion reuses the
+// same native disclosure pattern already used in Header.astro's mobile
+// nav, rather than a JS-driven one.
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const faqs: FaqItem[] = [
+  {
+    question: "What services does Alpha Star Shipping offer?",
+    answer:
+      "Alpha Star Shipping provides air, sea and road freight, multimodal and cross-trade routing, customs clearance, and bonded and mainland warehousing and 3PL, alongside specialist services for ship spares, AOG and aerospace logistics, and project, dangerous goods and perishable cargo.",
+  },
+  {
+    question: "Where is Alpha Star Shipping based, and which regions do you serve?",
+    answer:
+      "We are based in Dubai, UAE, and have been operating since 2007. From there we serve shipments across the GCC and connect to markets in Europe, Asia, Africa, the Americas and beyond.",
+  },
+  {
+    question: "Does Alpha Star Shipping handle customs clearance?",
+    answer:
+      "Yes. We support import, export, transit, free-zone and mainland customs clearance across the UAE, including re-export and importer/exporter of record support, handled alongside the physical cargo movement.",
+  },
+  {
+    question: "Can you handle urgent or time-critical shipments?",
+    answer:
+      "Yes. Our air freight desk covers time-critical and next-flight-out bookings, on-board courier handling, AOG parts coordination, and charter assessment where scheduled services aren't suitable.",
+  },
+  {
+    question: "Do you provide warehousing and storage services?",
+    answer:
+      "Yes. We offer bonded and mainland warehousing in Dubai, including JAFZA-based storage, inventory management, pick and pack, cross-stuffing and e-commerce fulfilment through our Warehousing & 3PL services.",
+  },
+  {
+    question: "Is Alpha Star Shipping certified?",
+    answer:
+      "Yes. We hold ISO 9001:2015 and ISO 45001:2018 certification, and are members of FIATA, NAFL, JCtrans, TIACA and the G7 Signature network.",
+  },
+  {
+    question: "Can you move dangerous goods or hazardous cargo?",
+    answer:
+      "Yes, subject to commodity review and carrier acceptance. Dangerous goods are packed, labelled and declared to IATA and IMDG standards across air, sea and road routing.",
+  },
+  {
+    question: "How do I request a quote from Alpha Star Shipping?",
+    answer:
+      "Use the contact form on our Contact page, or call or email our team directly. Share your cargo details and we'll come back with a tailored routing and quote.",
+  },
+];
+
+const initialCount = 3;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<section class="relative overflow-hidden bg-white py-20 sm:py-24">
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.4]"
+    style="background-image: radial-gradient(rgba(18,85,127,0.1) 1px, transparent 1px); background-size: 22px 22px;"
+  >
+  </div>
+
+  <div class="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+    <div data-reveal class="translate-y-8 text-center opacity-0 transition-all duration-700 ease-out">
+      <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">FAQ</p>
+      <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Frequently Asked Questions</h2>
+    </div>
+
+    <div data-reveal class="mt-12 translate-y-8 space-y-3 opacity-0 transition-all delay-150 duration-700 ease-out">
+      {
+        faqs.map((faq, i) => (
+          <details class={`faq-item group rounded-2xl border border-slate-100 bg-white px-5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] open:shadow-[0_8px_30px_rgb(0,0,0,0.06)] sm:px-6 ${i >= initialCount ? "hidden opacity-0" : ""}`}>
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-sm font-semibold text-navy marker:content-none sm:text-base">
+              {faq.question}
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-5 w-5 flex-none text-brand-red transition-transform duration-300 group-open:rotate-45"
+              >
+                <path d="M12 5v14M5 12h14" />
+              </svg>
+            </summary>
+            <p class="pb-5 text-sm leading-relaxed text-navy/70 sm:text-base">{faq.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+
+    {
+      faqs.length > initialCount && (
+        <div class="mt-8 text-center">
+          <button
+            id="faq-view-more"
+            type="button"
+            class="group inline-flex items-center gap-2 rounded-full border border-navy/15 px-7 py-3.5 text-sm font-semibold text-navy transition-colors hover:bg-navy/5"
+          >
+            View More
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 transition-transform duration-300 group-hover:translate-y-0.5">
+              <path d="M12 5v14m0 0-6-6m6 6 6-6" />
+            </svg>
+          </button>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<script>
+  const button = document.getElementById("faq-view-more");
+  const hiddenItems = Array.from(document.querySelectorAll<HTMLElement>(".faq-item.hidden"));
+
+  if (button) {
+    if (hiddenItems.length === 0) {
+      button.remove();
+    } else {
+      button.addEventListener("click", () => {
+        hiddenItems.forEach((item) => {
+          item.classList.remove("hidden");
+          requestAnimationFrame(() => item.classList.remove("opacity-0"));
+        });
+        button.remove();
+      });
+    }
+  }
+</script>
