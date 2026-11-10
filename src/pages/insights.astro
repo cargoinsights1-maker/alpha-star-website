@@ -300,8 +300,10 @@ const caseStudies: CaseStudy[] = [
   },
 ];
 
-const totalShipments = realCargoStories.length + caseStudies.length;
-const totalAppreciations = realCargoStories.length;
+// Photo-backed stories featured first, per feedback — sorted at render time
+// rather than reordering the array literal, so each story's own "number"
+// still reflects its original case number from the source PDF.
+const sortedRealCargoStories = [...realCargoStories].sort((a, b) => (b.photos ? 1 : 0) - (a.photos ? 1 : 0));
 ---
 
 <Layout
@@ -326,21 +328,6 @@ const totalAppreciations = realCargoStories.length;
         How Alpha Star plans, coordinates and delivers freight, customs and specialist logistics movements, drawn
         directly from real shipments and the partners who moved them with us.
       </p>
-
-      <div class="mt-8 flex flex-wrap gap-8">
-        <div>
-          <p class="bg-gradient-to-br from-white to-white/70 bg-clip-text text-3xl font-extrabold text-transparent sm:text-4xl">{totalShipments}</p>
-          <p class="mt-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Shipments Documented</p>
-        </div>
-        <div>
-          <p class="bg-gradient-to-br from-white to-white/70 bg-clip-text text-3xl font-extrabold text-transparent sm:text-4xl">{totalAppreciations}</p>
-          <p class="mt-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Partner Appreciations</p>
-        </div>
-        <div>
-          <p class="bg-gradient-to-br from-white to-white/70 bg-clip-text text-3xl font-extrabold text-transparent sm:text-4xl">6</p>
-          <p class="mt-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Modes &amp; Services Covered</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -358,7 +345,7 @@ const totalAppreciations = realCargoStories.length;
 
       <div class="mt-12 space-y-10">
         {
-          realCargoStories.map((story, i) => (
+          sortedRealCargoStories.map((story, i) => (
             <article
               data-reveal
               style={`transition-delay: ${Math.min(i, 4) * 80}ms`}

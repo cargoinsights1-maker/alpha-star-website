@@ -20,10 +20,11 @@ const menuLinks = [
 ---
 
 <div class="absolute inset-x-0 top-0 z-40">
-  <!-- scrim so the nav stays legible over bright footage, independent of video/image content —
-       strengthened after real bright-sky frames in the current video still washed out the logo
-       even with its own drop-shadow below -->
-  <div class="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/75 via-black/40 to-transparent" />
+  <!-- white-to-transparent strip instead of a dark scrim + a pill just around the
+       logo — the new logo is full-color (no white variant exists) so it needs a
+       light backdrop to read clearly; doing that for the whole bar instead of just
+       the logo means the hamburger/Contact Us also switch to dark-on-light here -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white via-white/85 to-transparent sm:h-36" />
 
   <div class="relative mx-auto grid max-w-7xl grid-cols-3 items-center px-4 py-5 sm:px-6 lg:px-8">
     <div class="flex justify-start">
@@ -33,7 +34,7 @@ const menuLinks = [
         aria-expanded="false"
         aria-controls="hero-menu"
         aria-label="Open menu"
-        class="flex items-center gap-2 text-sm font-medium text-white"
+        class="flex items-center gap-2 text-sm font-medium text-navy"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
           <path d="M3 6h18M3 12h18M3 18h18" />
@@ -41,19 +42,14 @@ const menuLinks = [
       </button>
     </div>
 
-    <a href="/" class="relative flex justify-center">
-      <!-- the new logo is full-color (no white variant exists), so it sits on a
-           small white pill here instead of relying on a glow for contrast against
-           the video/dark hero background -->
-      <span class="flex items-center rounded-full bg-white/95 px-4 py-1.5 shadow-lg backdrop-blur-sm sm:px-5 sm:py-2">
-        <Image src={mainLogo} alt="Alpha Star Shipping" width={220} class="h-6 w-auto sm:h-9 md:h-10" />
-      </span>
+    <a href="/" class="flex justify-center">
+      <Image src={mainLogo} alt="Alpha Star Shipping" width={220} class="h-8 w-auto sm:h-11 md:h-12" />
     </a>
 
     <div class="flex justify-end">
       <a
         href="/contact"
-        class="group inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/10 px-3 py-2 text-sm font-semibold whitespace-nowrap text-white backdrop-blur transition-colors hover:bg-white/20 sm:px-5"
+        class="group inline-flex items-center gap-1.5 rounded-full border border-navy/15 bg-white/70 px-3 py-2 text-sm font-semibold whitespace-nowrap text-navy backdrop-blur transition-colors hover:bg-white sm:px-5"
       >
         Contact Us
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden h-3.5 w-3.5 transition-transform group-hover:translate-x-1 sm:inline">
@@ -123,13 +119,3 @@ const menuLinks = [
   toggle?.addEventListener("click", openMenu);
   closeBtn?.addEventListener("click", closeMenu);
 </script>
-
-<style>
-  /* soft dark ellipse right behind the logo, blurred so it reads as ambient
-     shadow rather than a visible shape — extra insurance under the brightest
-     frames on top of the full-width scrim and the logo's own drop-shadow */
-  .logo-glow {
-    background: radial-gradient(ellipse 70% 100% at center, rgba(0, 0, 0, 0.55) 0%, transparent 75%);
-    filter: blur(6px);
-  }
-</style>
