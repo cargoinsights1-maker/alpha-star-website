@@ -20,11 +20,11 @@ const menuLinks = [
 ---
 
 <div class="absolute inset-x-0 top-0 z-40">
-  <!-- simple thin white strip covering the whole bar (logo + hamburger +
-       Contact Us) — the new logo is full-color (no white variant exists) so
-       it needs a light backdrop; keeping the whole row on one flat light
-       strip instead of a tall gradient or a localized glow -->
-  <div class="pointer-events-none absolute inset-x-0 top-0 h-16 bg-white/95 shadow-sm sm:h-[4.5rem]" />
+  <!-- back to the original pre-logo-swap treatment: dark scrim only, no
+       white background anywhere — just the new (full-color) logo dropped
+       into the same spot the old white logo sat, with a soft dark ambient
+       glow behind it for depth/contrast against the video -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/75 via-black/40 to-transparent" />
 
   <div class="relative mx-auto grid max-w-7xl grid-cols-3 items-center px-4 py-5 sm:px-6 lg:px-8">
     <div class="flex justify-start">
@@ -34,7 +34,7 @@ const menuLinks = [
         aria-expanded="false"
         aria-controls="hero-menu"
         aria-label="Open menu"
-        class="flex items-center gap-2 text-sm font-medium text-navy"
+        class="flex items-center gap-2 text-sm font-medium text-white"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
           <path d="M3 6h18M3 12h18M3 18h18" />
@@ -42,14 +42,15 @@ const menuLinks = [
       </button>
     </div>
 
-    <a href="/" class="flex justify-center">
-      <Image src={mainLogo} alt="Alpha Star Shipping" width={220} class="h-8 w-auto sm:h-11 md:h-12" />
+    <a href="/" class="relative flex justify-center">
+      <span class="logo-glow pointer-events-none absolute inset-0" />
+      <Image src={mainLogo} alt="Alpha Star Shipping" width={220} class="relative h-6 w-auto sm:h-9 md:h-10" />
     </a>
 
     <div class="flex justify-end">
       <a
         href="/contact"
-        class="group inline-flex items-center gap-1.5 rounded-full border border-navy/15 bg-white/70 px-3 py-2 text-sm font-semibold whitespace-nowrap text-navy backdrop-blur transition-colors hover:bg-white sm:px-5"
+        class="group inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/10 px-3 py-2 text-sm font-semibold whitespace-nowrap text-white backdrop-blur transition-colors hover:bg-white/20 sm:px-5"
       >
         Contact Us
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden h-3.5 w-3.5 transition-transform group-hover:translate-x-1 sm:inline">
@@ -119,3 +120,12 @@ const menuLinks = [
   toggle?.addEventListener("click", openMenu);
   closeBtn?.addEventListener("click", closeMenu);
 </script>
+
+<style>
+  /* soft dark ambient shadow behind the logo, same as the original
+     pre-logo-swap treatment — just contrast/depth against the video, not a
+     light backdrop */
+  .logo-glow {
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
+  }
+</style>
