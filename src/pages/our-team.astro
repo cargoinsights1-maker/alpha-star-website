@@ -4,12 +4,15 @@
 // Leadership & Team) — built per the "don't get ahead of the current step"
 // rule, not stubbed with invented copy for Offices & Facilities, Global
 // Network, Technology & Visibility, Sustainability/Compliance or Careers.
-// Team photos are all placeholders (colored-initials avatars, same
-// established convention as Testimonials.astro for named real people with
-// no photo on hand) — user is supplying real portraits in a follow-up.
+// Team cards use a large aspect-[4/5] photo area (real photo via object-cover,
+// or a gradient + large centered initials placeholder for anyone without a
+// photo yet) rather than a small circular avatar — the circle read as cheap
+// at this size per feedback. Placeholder and real-photo cards share the same
+// frame so swapping a photo in later is a same-size, same-shape replacement.
 import { Image } from "astro:assets";
 import starLogo from "../assets/logos/star-logo.png";
 import Layout from "../layouts/Layout.astro";
+import TeamGallery from "../components/TeamGallery.astro";
 import ContactCTA from "../components/ContactCTA.astro";
 
 interface Value {
@@ -51,22 +54,27 @@ interface TeamMember {
 const leadership: TeamMember[] = [
   { name: "Noorul Ameen", title: "Chairman", photo: "/team/noorul-ameen.webp" },
   { name: "Mustufa Dharodia", title: "Managing Director", photo: "/team/mustufa-dharodia.webp" },
-  { name: "Muneeb Arif", title: "Director" },
-  { name: "Abdul Mateen", title: "Director" },
+  { name: "Muneeb Arif", title: "Director", photo: "/team/muneeb-arif.webp" },
+  { name: "Abdul Mateen", title: "Director", photo: "/team/abdul-mateen.webp" },
 ];
 
 const team: TeamMember[] = [
   { name: "Pratheesh Gopalan", title: "Manager, Operations and Sales" },
   { name: "Nabeel Shahzad", title: "Manager, Land Freight Operations and Sales" },
-  { name: "Nawaz Shaikh", title: "Manager, Sea Freight Operations" },
+  { name: "Nawaz Shaikh", title: "Manager, Sea Freight Operations", photo: "/team/nawaz-shaikh.webp" },
   { name: "Karan Poojary", title: "Manager, Air Operations" },
-  { name: "Jilani Londhe", title: "Senior Manager, Ship Spares Operations" },
-  { name: "Jince Samuel", title: "Title Pending Confirmation", titlePending: true },
+  { name: "Jilani Londhe", title: "Senior Manager, Ship Spares Operations", photo: "/team/jilani-londhe.webp" },
+  { name: "Jince Samuel", title: "Title Pending Confirmation", titlePending: true, photo: "/team/jince-samuel.webp" },
   { name: "Shiraz", title: "Government Relations and Customs" },
   { name: "Shafeekh Kuruvatte", title: "Head of Accounts" },
 ];
 
-const avatarTints = ["bg-navy", "bg-brand-blue", "bg-brand-red"];
+const avatarGradients = [
+  "linear-gradient(135deg, #152056, #12557f)",
+  "linear-gradient(135deg, #12557f, #2f8fc9)",
+  "linear-gradient(135deg, #152056, #d81f2a)",
+  "linear-gradient(135deg, #2f8fc9, #12557f)",
+];
 const initialsOf = (name: string) =>
   name
     .split(" ")
@@ -234,20 +242,30 @@ const initialsOf = (name: string) =>
             <div
               data-reveal
               style={`transition-delay: ${i * 90}ms`}
-              class="translate-y-8 rounded-3xl border border-slate-100 bg-white p-7 text-center opacity-0 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_25px_60px_-15px_rgba(18,85,127,0.25)]"
+              class="group translate-y-8 overflow-hidden rounded-3xl bg-white opacity-0 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_25px_60px_-15px_rgba(18,85,127,0.25)]"
             >
-              {person.photo ? (
-                <img src={person.photo} alt={person.name} class="mx-auto h-20 w-20 rounded-full object-cover shadow-md" />
-              ) : (
-                <span
-                  class={`mx-auto flex h-20 w-20 items-center justify-center rounded-full text-xl font-semibold text-white ${avatarTints[i % avatarTints.length]}`}
-                  aria-hidden="true"
-                >
-                  {initialsOf(person.name)}
-                </span>
-              )}
-              <p class="mt-4 font-sans text-base font-bold text-navy">{person.name}</p>
-              <p class="mt-1 text-sm text-navy/60">{person.title}</p>
+              <div class="relative aspect-[4/5] w-full overflow-hidden">
+                {person.photo ? (
+                  <img
+                    src={person.photo}
+                    alt={person.name}
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div
+                    style={`background: ${avatarGradients[i % avatarGradients.length]};`}
+                    class="flex h-full w-full items-center justify-center"
+                  >
+                    <span class="font-sans text-5xl font-bold text-white/90" aria-hidden="true">
+                      {initialsOf(person.name)}
+                    </span>
+                  </div>
+                )}
+              </div>
+              <div class="px-6 py-5 text-center">
+                <p class="font-sans text-lg font-bold text-navy">{person.name}</p>
+                <p class="mt-1 text-sm text-navy/60">{person.title}</p>
+              </div>
             </div>
           ))
         }
@@ -259,15 +277,27 @@ const initialsOf = (name: string) =>
             <div
               data-reveal
               style={`transition-delay: ${i * 70}ms`}
-              class="flex translate-y-8 items-center gap-4 rounded-2xl border border-slate-100 bg-white p-5 opacity-0 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-md"
+              class="group overflow-hidden rounded-2xl bg-white opacity-0 translate-y-8 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-md"
             >
-              <span
-                class={`flex h-14 w-14 flex-none items-center justify-center rounded-full text-sm font-semibold text-white ${avatarTints[i % avatarTints.length]}`}
-                aria-hidden="true"
-              >
-                {initialsOf(person.name)}
-              </span>
-              <div>
+              <div class="relative aspect-[4/5] w-full overflow-hidden">
+                {person.photo ? (
+                  <img
+                    src={person.photo}
+                    alt={person.name}
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div
+                    style={`background: ${avatarGradients[i % avatarGradients.length]};`}
+                    class="flex h-full w-full items-center justify-center"
+                  >
+                    <span class="font-sans text-4xl font-bold text-white/90" aria-hidden="true">
+                      {initialsOf(person.name)}
+                    </span>
+                  </div>
+                )}
+              </div>
+              <div class="px-4 py-4 text-center">
                 <p class="font-sans text-sm font-bold text-navy">{person.name}</p>
                 <p class={`mt-0.5 text-xs leading-snug ${person.titlePending ? "text-navy/40 italic" : "text-navy/60"}`}>{person.title}</p>
               </div>
@@ -277,6 +307,8 @@ const initialsOf = (name: string) =>
       </div>
     </div>
   </section>
+
+  <TeamGallery />
 
   <ContactCTA />
 </Layout>

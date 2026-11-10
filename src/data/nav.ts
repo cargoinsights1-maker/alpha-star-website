@@ -140,14 +140,13 @@ export const insightsItems: DropdownItem[] = [
   { label: "News", href: "/insights#news" },
 ];
 
+// Only the sub-sections that actually exist on /our-team — the rest
+// (Offices & Facilities, Global Network, Certifications & Memberships,
+// Technology & Visibility, Sustainability / Compliance, Careers) are removed
+// until their content/sections are built, so the footer doesn't link to
+// anchors that don't exist. Add them back here once each section ships.
 export const ourTeamItems: DropdownItem[] = [
   { label: "Our Story", href: "/our-team#our-story" },
   { label: "Leadership / Team", href: "/our-team#leadership-team" },
-  { label: "Offices & Facilities", href: "/our-team#offices-facilities" },
-  { label: "Global Network", href: "/our-team#global-network" },
-  { label: "Certifications & Memberships", href: "/our-team#certifications-memberships" },
-  { label: "Technology & Visibility", href: "/our-team#technology-visibility" },
-  { label: "Sustainability / Compliance", href: "/our-team#sustainability-compliance" },
-  { label: "Careers", href: "/our-team#careers" },
   { label: "Contact", href: "/contact" },
 ];

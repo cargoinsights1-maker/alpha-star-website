@@ -1,0 +1,104 @@
+---
+// "Team at work" photo gallery with a lightbox — same interaction pattern
+// (fixed overlay, prev/next, Escape/arrow-key navigation) already proven
+// elsewhere on the site for photo collections. Grid tiles are a uniform
+// aspect-[4/3] with object-cover regardless of each source photo's native
+// orientation (the source set mixes portrait and landscape), simpler and
+// more reliable than a masonry layout for a set this size.
+const photoCount = 9;
+const photos = Array.from({ length: photoCount }, (_, i) => `/team/group/team-${String(i + 1).padStart(2, "0")}.webp`);
+---
+
+<section class="relative overflow-hidden bg-white py-20 sm:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div data-reveal class="max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out">
+      <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Our Team</p>
+      <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Team at Work</h2>
+    </div>
+
+    <div data-reveal class="mt-10 grid translate-y-8 grid-cols-2 gap-3 opacity-0 transition-all delay-150 duration-700 ease-out sm:grid-cols-3 sm:gap-4">
+      {
+        photos.map((photo, i) => (
+          <button
+            type="button"
+            class="team-gallery-trigger group relative aspect-[4/3] overflow-hidden rounded-2xl"
+            data-index={i}
+            aria-label={`Open team photo ${i + 1} of ${photoCount}`}
+          >
+            <img src={photo} alt="" loading="lazy" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <div class="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <div id="team-lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-4 sm:p-8">
+    <button id="team-lightbox-close" type="button" aria-label="Close" class="absolute top-5 right-5 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+        <path d="M18 6 6 18M6 6l12 12" />
+      </svg>
+    </button>
+
+    <button id="team-lightbox-prev" type="button" aria-label="Previous photo" class="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 sm:left-6">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+        <path d="M15 18l-6-6 6-6" />
+      </svg>
+    </button>
+    <button id="team-lightbox-next" type="button" aria-label="Next photo" class="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 sm:right-6">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5">
+        <path d="M9 18l6-6-6-6" />
+      </svg>
+    </button>
+
+    <img id="team-lightbox-image" src="" alt="" class="max-h-[85vh] max-w-full rounded-lg object-contain shadow-2xl" />
+  </div>
+</section>
+
+<script define:vars={{ photos }}>
+  const triggers = Array.from(document.querySelectorAll(".team-gallery-trigger"));
+  const lightbox = document.getElementById("team-lightbox");
+  const lightboxImage = document.getElementById("team-lightbox-image");
+  const closeBtn = document.getElementById("team-lightbox-close");
+  const prevBtn = document.getElementById("team-lightbox-prev");
+  const nextBtn = document.getElementById("team-lightbox-next");
+
+  let currentIndex = 0;
+
+  const show = (index) => {
+    currentIndex = (index + photos.length) % photos.length;
+    if (lightboxImage) lightboxImage.src = photos[currentIndex];
+  };
+
+  const open = (index) => {
+    show(index);
+    lightbox?.classList.remove("hidden");
+    lightbox?.classList.add("flex");
+    document.body.style.overflow = "hidden";
+  };
+
+  const close = () => {
+    lightbox?.classList.add("hidden");
+    lightbox?.classList.remove("flex");
+    document.body.style.overflow = "";
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => open(Number(trigger.getAttribute("data-index"))));
+  });
+
+  closeBtn?.addEventListener("click", close);
+  prevBtn?.addEventListener("click", () => show(currentIndex - 1));
+  nextBtn?.addEventListener("click", () => show(currentIndex + 1));
+
+  lightbox?.addEventListener("click", (event) => {
+    if (event.target === lightbox) close();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (lightbox?.classList.contains("hidden")) return;
+    if (event.key === "Escape") close();
+    if (event.key === "ArrowLeft") show(currentIndex - 1);
+    if (event.key === "ArrowRight") show(currentIndex + 1);
+  });
+</script>
