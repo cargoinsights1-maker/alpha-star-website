@@ -238,6 +238,8 @@
 
 62. ✅ **Home page "Trusted Across Industries" tile: Heavy Perishables replaced with Retail and FMCG**, with a real photo (`public/industries/retail-fmcg.webp`, converted from the user-supplied `FMCG.jpeg`, native 600×450 resolution, no upscaling). Heavy Perishables never had a photo on file and was falling back to its gradient-only placeholder; the user chose to replace the slot entirely rather than source a Heavy Perishables photo. Updated `Industries.astro`'s data array and `public/industries/README.md`'s file list to match. `npm run build` (64 pages, 0 errors); dev-server check confirmed the new label and photo render, photo returns 200.
 
+63. ✅ **Insights page numbering fixed: sequential 01, 02, 03... in each section**, per explicit request. Previously the on-page number badge rendered each story's own `number` field (the original PDF case number), which read out of order in "Real Cargo Stories" after item 54's reorder (photo-backed cases 5/6/7 moved first, so the badges showed 05, 06, 07, 01, 02, 03, 04). Both sections now compute the badge from the render-loop index (`i + 1`, zero-padded) instead, so it always reads 01 upward with no gaps in whichever order the cards actually display. The data's own `number` field is kept (documents each story's real source-PDF case number) but is no longer rendered; commented accordingly. `npm run build` (64 pages, 0 errors); dev-server check confirmed Real Cargo Stories now reads 01-07 and Case Studies reads 01-08, both in display order.
+
 Other pages (About) are out of scope until the user explicitly asks for them.
 
 ## Ground rules

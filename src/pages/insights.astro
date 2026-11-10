@@ -42,6 +42,10 @@ interface Quote {
 }
 
 interface CaseStudy {
+  // kept for provenance (the original PDF's case number) but no longer
+  // rendered — the on-page badge is now a plain 1-based display-order index,
+  // computed at render time, so it always reads 01, 02, 03... with no gaps
+  // even after sortedRealCargoStories reorders photo-backed entries first.
   number: string;
   mode: Mode;
   highlight: string;
@@ -369,7 +373,7 @@ const sortedRealCargoStories = [...realCargoStories].sort((a, b) => (b.photos ? 
 
               <div class="p-6 sm:p-8">
                 <div class="flex items-start gap-4">
-                  <span class="flex-none font-sans text-3xl font-black text-brand-red/80 sm:text-4xl">{story.number}</span>
+                  <span class="flex-none font-sans text-3xl font-black text-brand-red/80 sm:text-4xl">{String(i + 1).padStart(2, "0")}</span>
                   <div class="min-w-0">
                     <p class="text-xs font-semibold tracking-wide text-navy/50 uppercase">{story.category}</p>
                     <h3 class="mt-1 text-xl font-bold text-navy sm:text-2xl">{story.title}</h3>
@@ -446,7 +450,7 @@ const sortedRealCargoStories = [...realCargoStories].sort((a, b) => (b.photos ? 
 
               <div class="p-6 sm:p-7">
                 <div class="flex items-start gap-3">
-                  <span class="flex-none font-sans text-2xl font-black text-navy/20 sm:text-3xl">{story.number}</span>
+                  <span class="flex-none font-sans text-2xl font-black text-navy/20 sm:text-3xl">{String(i + 1).padStart(2, "0")}</span>
                   <div class="min-w-0">
                     <p class="text-xs font-semibold tracking-wide text-navy/50 uppercase">{modeLabels[story.mode]}</p>
                     <h3 class="mt-1 text-lg font-bold text-navy sm:text-xl">{story.title}</h3>
