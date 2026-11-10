@@ -45,11 +45,12 @@ interface TeamMember {
   name: string;
   title: string;
   titlePending?: boolean;
+  photo?: string;
 }
 
 const leadership: TeamMember[] = [
-  { name: "Noorul Ameen", title: "Chairman" },
-  { name: "Mustufa Dharodia", title: "Managing Director" },
+  { name: "Noorul Ameen", title: "Chairman", photo: "/team/noorul-ameen.webp" },
+  { name: "Mustufa Dharodia", title: "Managing Director", photo: "/team/mustufa-dharodia.webp" },
   { name: "Muneeb Arif", title: "Director" },
   { name: "Abdul Mateen", title: "Director" },
 ];
@@ -235,12 +236,16 @@ const initialsOf = (name: string) =>
               style={`transition-delay: ${i * 90}ms`}
               class="translate-y-8 rounded-3xl border border-slate-100 bg-white p-7 text-center opacity-0 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_25px_60px_-15px_rgba(18,85,127,0.25)]"
             >
-              <span
-                class={`mx-auto flex h-20 w-20 items-center justify-center rounded-full text-xl font-semibold text-white ${avatarTints[i % avatarTints.length]}`}
-                aria-hidden="true"
-              >
-                {initialsOf(person.name)}
-              </span>
+              {person.photo ? (
+                <img src={person.photo} alt={person.name} class="mx-auto h-20 w-20 rounded-full object-cover shadow-md" />
+              ) : (
+                <span
+                  class={`mx-auto flex h-20 w-20 items-center justify-center rounded-full text-xl font-semibold text-white ${avatarTints[i % avatarTints.length]}`}
+                  aria-hidden="true"
+                >
+                  {initialsOf(person.name)}
+                </span>
+              )}
               <p class="mt-4 font-sans text-base font-bold text-navy">{person.name}</p>
               <p class="mt-1 text-sm text-navy/60">{person.title}</p>
             </div>
