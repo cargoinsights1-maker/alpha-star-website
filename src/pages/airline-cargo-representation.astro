@@ -117,15 +117,38 @@ const airlinePartners = [
 
   <div id="cargo-sales-representation">
     <section class="relative overflow-hidden bg-white pt-20 sm:pt-24">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div data-reveal class="max-w-2xl translate-y-8 opacity-0 transition-all duration-700 ease-out">
-          <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Cargo Sales and Representation</p>
-          <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Commercial Access Across the Air Cargo Network</h2>
-          <p class="mt-6 leading-relaxed text-navy/70">
-            Beyond its CSA appointments, Alpha Star holds Airway Bill stock for Emirates SkyCargo, Etihad Cargo, flydubai, Turkish
-            Airlines and Qatar Airways, with commercial access and operational execution across more than 90 international airlines
-            and 130 destinations worldwide.
-          </p>
+      <div class="pointer-events-none absolute top-0 right-[-8%] h-[420px] w-[420px] rounded-full bg-brand-blue-light/10 blur-3xl"></div>
+      <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div data-reveal class="translate-y-8 opacity-0 transition-all duration-700 ease-out">
+            <p class="text-sm font-semibold tracking-widest text-brand-red uppercase">Cargo Sales and Representation</p>
+            <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Commercial Access Across the Air Cargo Network</h2>
+            <p class="mt-6 leading-relaxed text-navy/70">
+              Beyond its CSA appointments, Alpha Star holds Airway Bill stock for Emirates SkyCargo, Etihad Cargo, flydubai,
+              Turkish Airlines and Qatar Airways, with commercial access and operational execution across more than 90
+              international airlines and 130 destinations worldwide.
+            </p>
+          </div>
+
+          <div data-reveal class="translate-x-10 opacity-0 transition-all delay-150 duration-700 ease-out">
+            <div class="grid grid-cols-2 gap-4 rounded-3xl border border-brand-blue/10 bg-white p-8 shadow-2xl shadow-brand-blue/10 sm:p-10">
+              {
+                [
+                  { value: "90+", label: "International Airlines" },
+                  { value: "130+", label: "Destinations Worldwide" },
+                  { value: "5", label: "Airway Bill Stock Carriers" },
+                  { value: "2", label: "Exclusive CSA Partnerships" },
+                ].map((stat) => (
+                  <div class="rounded-2xl bg-slate-50 p-5 text-center">
+                    <p class="bg-gradient-to-br from-brand-blue to-brand-blue-light bg-clip-text text-4xl font-extrabold text-transparent sm:text-5xl">
+                      {stat.value}
+                    </p>
+                    <p class="mt-2 text-xs leading-snug font-semibold tracking-wide text-navy/60 uppercase">{stat.label}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
         </div>
       </div>
     </section>
