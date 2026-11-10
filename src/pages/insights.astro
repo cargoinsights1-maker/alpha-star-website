@@ -22,8 +22,17 @@
 // faces that got 16-20 excluded, so the same standard was applied: those 3
 // stay text-only, and only the already-clean/pre-redacted photos (5, 6,
 // both of 7) are used.
+//
+// Visual pass (per feedback the page read as too flat/empty): every card now
+// gets a strong visual anchor at the top — the real photo where one exists,
+// otherwise a mode-coloured gradient band with an icon and a large pulled-out
+// stat, so cards without a photo still carry real visual weight instead of
+// just being plain text. Hero reuses the site's existing real ship photo
+// rather than a flat color, for a more "the essence of moving cargo" feel.
 import Layout from "../layouts/Layout.astro";
 import ContactCTA from "../components/ContactCTA.astro";
+
+type Mode = "air" | "sea" | "road" | "project" | "customs" | "warehousing";
 
 interface Quote {
   text: string;
@@ -34,6 +43,8 @@ interface Quote {
 
 interface CaseStudy {
   number: string;
+  mode: Mode;
+  highlight: string;
   category: string;
   title: string;
   stats: string;
@@ -45,9 +56,38 @@ interface CaseStudy {
   photoCaption?: string;
 }
 
+const modeIcons: Record<Mode, string> = {
+  air: '<path d="M3 12l18-7-7 18-2-8-8-2Z" />',
+  sea: '<circle cx="12" cy="5" r="2" /><path d="M12 7v13M6 13H3a9 9 0 0 0 9 7 9 9 0 0 0 9-7h-3M8 10l-2 3M16 10l2 3" />',
+  road: '<rect x="2" y="9" width="12" height="8" rx="1" /><path d="M14 11h4l3 3v3h-3" /><circle cx="6" cy="18" r="1.6" /><circle cx="17" cy="18" r="1.6" />',
+  project: '<path d="M4 4h6M4 4v6M4 4l7 7M20 20h-6M20 20v-6M20 20l-7-7" />',
+  customs: '<rect x="4" y="3" width="16" height="18" rx="1.5" /><path d="M8 8h8M8 12h8M8 16h5" />',
+  warehousing: '<path d="M3 11l9-6 9 6v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9Z" /><path d="M9 21v-7h6v7" />',
+};
+
+const modeGradients: Record<Mode, string> = {
+  air: "linear-gradient(135deg, #152056, #12557f)",
+  sea: "linear-gradient(135deg, #12557f, #2f8fc9)",
+  road: "linear-gradient(135deg, #152056, #d81f2a)",
+  project: "linear-gradient(135deg, #d81f2a, #7a0f17)",
+  customs: "linear-gradient(135deg, #2f8fc9, #12557f)",
+  warehousing: "linear-gradient(135deg, #2f8fc9, #152056)",
+};
+
+const modeLabels: Record<Mode, string> = {
+  air: "Air Freight",
+  sea: "Sea Freight",
+  road: "Road Freight",
+  project: "Project Cargo",
+  customs: "Customs",
+  warehousing: "Warehousing",
+};
+
 const realCargoStories: CaseStudy[] = [
   {
     number: "01",
+    mode: "road",
+    highlight: "6 Trucks",
     category: "Project Transport / Customer Appreciation",
     title: "Six Trucks Ready at Short Notice",
     stats: "23 BI-mattresses | 6 trucks | Hamriyah Free Zone to Mina Base",
@@ -63,6 +103,8 @@ const realCargoStories: CaseStudy[] = [
   },
   {
     number: "02",
+    mode: "air",
+    highlight: "Dubai → Conakry",
     category: "Air Freight / Dubai to Conakry / Forwarding-Partner Appreciation",
     title: "A New Route When the First Option Closed",
     stats: "Engine shipment | Dubai to Conakry | Airport arrival confirmed",
@@ -78,6 +120,8 @@ const realCargoStories: CaseStudy[] = [
   },
   {
     number: "03",
+    mode: "air",
+    highlight: "2 Consignments",
     category: "Specialist Air Cargo / UAE to Nouakchott / Customer Appreciation",
     title: "Two Consignments With One Coordinated Plan",
     stats: "Liquid helium | 2 consignments | Nouakchott airport arrival",
@@ -93,6 +137,8 @@ const realCargoStories: CaseStudy[] = [
   },
   {
     number: "04",
+    mode: "customs",
+    highlight: "First Shipment, Delivered",
     category: "Air Import and Customs Coordination / Forwarding-Partner Appreciation",
     title: "Persistence Through a Difficult First Clearance",
     stats: "Food supplements | Air import | Signed receipt dated 4 August",
@@ -108,6 +154,8 @@ const realCargoStories: CaseStudy[] = [
   },
   {
     number: "05",
+    mode: "road",
+    highlight: "Dubai → Riyadh",
     category: "Cross-Border Road Freight / Forwarding-Partner Appreciation",
     title: "Two Collections and One Cross Border Delivery",
     stats: "2 collection points | Dubai to Riyadh | Delivery notes dated 7 September",
@@ -124,6 +172,8 @@ const realCargoStories: CaseStudy[] = [
   },
   {
     number: "06",
+    mode: "air",
+    highlight: "Direct to Mauritius",
     category: "Air Freight / UAE to Mauritius / Forwarding-Partner Appreciation",
     title: "When Urgency Called for a Direct Flight",
     stats: "Direct Emirates service | UAE to Mauritius | Origin departure confirmed",
@@ -140,6 +190,8 @@ const realCargoStories: CaseStudy[] = [
   },
   {
     number: "07",
+    mode: "customs",
+    highlight: "ATA Carnet Cleared",
     category: "ATA Carnet Import and Delivery / Forwarding-Partner Appreciation",
     title: "Getting the Paperwork Right for ATA Clearance",
     stats: "2 display packages | ATA Carnet import | Delivery on 16 October",
@@ -160,6 +212,8 @@ const realCargoStories: CaseStudy[] = [
 const caseStudies: CaseStudy[] = [
   {
     number: "08",
+    mode: "sea",
+    highlight: "5 Containers",
     category: "Sea Freight, Customs and Distribution / Operations-Backed Case",
     title: "Five Containers and Three Site Deliveries",
     stats: "5 containers | 3 UAE sites | Completion reported 19 October",
@@ -169,6 +223,8 @@ const caseStudies: CaseStudy[] = [
   },
   {
     number: "09",
+    mode: "project",
+    highlight: "25.2m Girders",
     category: "Overlength Project Transport / JAFZA to Kuwait / Operations-Backed Case",
     title: "A 25.2 Metre Cross Border Challenge",
     stats: "25.2 metre girders | 8 tonnes each | JAFZA to Kuwait",
@@ -178,6 +234,8 @@ const caseStudies: CaseStudy[] = [
   },
   {
     number: "10",
+    mode: "project",
+    highlight: "3 Modules",
     category: "Industrial Project Transport / UAE to Saudi Arabia / Operations-Backed Case",
     title: "Three Modules Bound for a Refinery",
     stats: "3 enclosure modules | Hamriyah to Jazan | Delivered 1 October 2025",
@@ -187,6 +245,8 @@ const caseStudies: CaseStudy[] = [
   },
   {
     number: "11",
+    mode: "project",
+    highlight: "4 Enclosure Units",
     category: "Project Cargo / Bahrain / Operations-Backed Case",
     title: "Four Enclosure Units With Coordinated Approvals",
     stats: "4 enclosure units | Bahrain | Delivery update 15 December 2025",
@@ -196,6 +256,8 @@ const caseStudies: CaseStudy[] = [
   },
   {
     number: "12",
+    mode: "air",
+    highlight: "3 Dewars Returned",
     category: "Return Logistics / Vietnam to Ajman / Operations-Backed Case",
     title: "Bringing Three Specialist Dewars Home",
     stats: "3 empty dewars | Vietnam to Ajman | Received 14 September",
@@ -205,6 +267,8 @@ const caseStudies: CaseStudy[] = [
   },
   {
     number: "13",
+    mode: "warehousing",
+    highlight: "Warehouse Release",
     category: "Warehousing and Customs Coordination / JAFZA / Operations-Backed Case",
     title: "From Incoming Parts to Warehouse Release",
     stats: "Automotive parts | Partner warehousing in JAFZA | Documented release",
@@ -214,6 +278,8 @@ const caseStudies: CaseStudy[] = [
   },
   {
     number: "14",
+    mode: "sea",
+    highlight: "4 Containers",
     category: "Sea Freight and Marine Logistics / China to Dubai / Operations-Backed Case",
     title: "Four Containers for a Drydock Delivery",
     stats: "4 twenty-foot containers | China to Dubai | Delivery 12 November 2024",
@@ -223,6 +289,8 @@ const caseStudies: CaseStudy[] = [
   },
   {
     number: "15",
+    mode: "air",
+    highlight: "2 Vessel Orders",
     category: "Marine-Spares Air Freight / UAE to Qatar / Operations-Backed Case",
     title: "The Right Marine Spares Prepared for Doha",
     stats: "Marine spares | UAE to Qatar | Doha airport arrival 16 October",
@@ -231,31 +299,48 @@ const caseStudies: CaseStudy[] = [
     outcome: "A pre-alert followed, and the team confirmed arrival at Doha airport on 16 October.",
   },
 ];
+
+const totalShipments = realCargoStories.length + caseStudies.length;
+const totalAppreciations = realCargoStories.length;
 ---
 
 <Layout
   title="Insights | Alpha Star Shipping"
   description="Real cargo stories and case studies from Alpha Star Shipping — how we plan, coordinate and deliver freight, customs and specialist logistics movements across the GCC and beyond."
 >
-  <section class="relative overflow-hidden bg-white pt-28 pb-20 sm:pt-32 sm:pb-24">
-    <div
-      class="pointer-events-none absolute inset-0 opacity-[0.4]"
-      style="background-image: radial-gradient(rgba(18,85,127,0.12) 1px, transparent 1px); background-size: 22px 22px;"
-    >
-    </div>
-    <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs font-medium text-navy/50 sm:text-sm">
-        <a href="/" class="transition-colors hover:text-brand-red">Home</a>
-        <span class="text-navy/25">/</span>
-        <span class="text-navy">Insights</span>
+  <section class="relative flex min-h-[55vh] items-end overflow-hidden bg-navy pb-16 sm:min-h-[60vh] sm:pb-20">
+    <img src="/how-it-works/ship-aerial.webp" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/75 to-navy/30" />
+    <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/15 to-transparent" />
+
+    <div class="relative z-10 mx-auto w-full max-w-4xl px-4 pt-28 sm:px-6 sm:pt-32 lg:px-8">
+      <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-2 text-xs font-medium text-white/70 sm:text-sm">
+        <a href="/" class="transition-colors hover:text-white">Home</a>
+        <span class="text-white/40">/</span>
+        <span>Insights</span>
       </nav>
 
       <p class="mt-5 text-sm font-semibold tracking-widest text-brand-red uppercase">Insights</p>
-      <h1 class="mt-3 text-4xl leading-[1.05] font-bold text-navy sm:text-5xl">Real Cargo Stories and Case Studies</h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-navy/70">
+      <h1 class="mt-3 max-w-2xl text-4xl leading-[1.05] font-bold text-white sm:text-5xl">Real Cargo Stories and Case Studies</h1>
+      <p class="mt-5 max-w-xl text-lg leading-relaxed text-white/80">
         How Alpha Star plans, coordinates and delivers freight, customs and specialist logistics movements, drawn
         directly from real shipments and the partners who moved them with us.
       </p>
+
+      <div class="mt-8 flex flex-wrap gap-8">
+        <div>
+          <p class="bg-gradient-to-br from-white to-white/70 bg-clip-text text-3xl font-extrabold text-transparent sm:text-4xl">{totalShipments}</p>
+          <p class="mt-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Shipments Documented</p>
+        </div>
+        <div>
+          <p class="bg-gradient-to-br from-white to-white/70 bg-clip-text text-3xl font-extrabold text-transparent sm:text-4xl">{totalAppreciations}</p>
+          <p class="mt-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Partner Appreciations</p>
+        </div>
+        <div>
+          <p class="bg-gradient-to-br from-white to-white/70 bg-clip-text text-3xl font-extrabold text-transparent sm:text-4xl">6</p>
+          <p class="mt-1 text-xs font-semibold tracking-wide text-white/60 uppercase">Modes &amp; Services Covered</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -271,60 +356,72 @@ const caseStudies: CaseStudy[] = [
         <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">From Our Customers and Partners</h2>
       </div>
 
-      <div class="mt-12 space-y-8">
+      <div class="mt-12 space-y-10">
         {
           realCargoStories.map((story, i) => (
             <article
               data-reveal
               style={`transition-delay: ${Math.min(i, 4) * 80}ms`}
-              class="translate-y-8 overflow-hidden rounded-3xl border border-slate-100 bg-white p-6 opacity-0 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-700 ease-out sm:p-8"
+              class="translate-y-8 overflow-hidden rounded-3xl border border-slate-100 bg-white opacity-0 shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all duration-700 ease-out"
             >
-              <div class="flex items-start gap-4">
-                <span class="flex-none font-sans text-3xl font-black text-brand-red/80 sm:text-4xl">{story.number}</span>
-                <div class="min-w-0">
-                  <p class="text-xs font-semibold tracking-wide text-navy/50 uppercase">{story.category}</p>
-                  <h3 class="mt-1 text-xl font-bold text-navy sm:text-2xl">{story.title}</h3>
-                  <p class="mt-2 text-sm font-semibold text-brand-blue">{story.stats}</p>
+              {story.photos ? (
+                <div class={`grid gap-0.5 ${story.photos.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
+                  {story.photos.map((photo) => (
+                    <img src={photo} alt="" class="aspect-[16/9] w-full object-cover" />
+                  ))}
                 </div>
-              </div>
+              ) : (
+                <div style={`background: ${modeGradients[story.mode]};`} class="relative flex items-center justify-between overflow-hidden px-6 py-7 sm:px-8 sm:py-8">
+                  <div class="pointer-events-none absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
+                  <span class="flex h-12 w-12 flex-none items-center justify-center rounded-xl bg-white/15 text-white backdrop-blur">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" set:html={modeIcons[story.mode]} />
+                  </span>
+                  <p class="relative text-right font-sans text-2xl leading-tight font-extrabold text-white sm:text-3xl">{story.highlight}</p>
+                </div>
+              )}
 
-              <div class="mt-6 grid gap-5 sm:grid-cols-3">
-                <div>
-                  <p class="text-xs font-bold tracking-wide text-navy uppercase">Challenge</p>
-                  <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.challenge}</p>
-                </div>
-                <div>
-                  <p class="text-xs font-bold tracking-wide text-navy uppercase">Our Approach</p>
-                  <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.approach}</p>
-                </div>
-                <div>
-                  <p class="text-xs font-bold tracking-wide text-navy uppercase">Outcome</p>
-                  <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.outcome}</p>
-                </div>
-              </div>
-
-              {story.photos && (
-                <div class="mt-6">
-                  <div class={`grid gap-3 ${story.photos.length > 1 ? "sm:grid-cols-2" : ""}`}>
-                    {story.photos.map((photo) => (
-                      <img src={photo} alt="" class="aspect-[4/3] w-full rounded-2xl object-cover" />
-                    ))}
+              <div class="p-6 sm:p-8">
+                <div class="flex items-start gap-4">
+                  <span class="flex-none font-sans text-3xl font-black text-brand-red/80 sm:text-4xl">{story.number}</span>
+                  <div class="min-w-0">
+                    <p class="text-xs font-semibold tracking-wide text-navy/50 uppercase">{story.category}</p>
+                    <h3 class="mt-1 text-xl font-bold text-navy sm:text-2xl">{story.title}</h3>
+                    <p class="mt-2 text-sm font-semibold text-brand-blue">{story.stats}</p>
                   </div>
-                  {story.photoCaption && <p class="mt-2 text-xs text-navy/50 italic">{story.photoCaption}</p>}
                 </div>
-              )}
 
-              {story.quote && (
-                <div class="mt-6 rounded-xl border-l-4 border-brand-red bg-slate-50 p-4 sm:p-5">
-                  <p class="text-xs font-bold tracking-wide text-brand-red uppercase">
-                    {story.category.includes("Customer") ? "Customer Appreciation" : "Forwarding-Partner Appreciation"}
-                  </p>
-                  <p class="mt-2 text-sm leading-relaxed text-navy italic sm:text-base">&ldquo;{story.quote.text}&rdquo;</p>
-                  <p class="mt-3 text-sm font-bold text-navy">{story.quote.name}</p>
-                  <p class="text-xs text-navy/60">{story.quote.role}</p>
-                  <p class="text-xs text-navy/40">{story.quote.date}</p>
+                <div class="mt-6 grid gap-5 sm:grid-cols-3">
+                  <div>
+                    <p class="text-xs font-bold tracking-wide text-navy uppercase">Challenge</p>
+                    <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.challenge}</p>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold tracking-wide text-navy uppercase">Our Approach</p>
+                    <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.approach}</p>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold tracking-wide text-navy uppercase">Outcome</p>
+                    <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.outcome}</p>
+                  </div>
                 </div>
-              )}
+
+                {story.photoCaption && <p class="mt-4 text-xs text-navy/50 italic">{story.photoCaption}</p>}
+
+                {story.quote && (
+                  <div class="relative mt-6 overflow-hidden rounded-xl border-l-4 border-brand-red bg-slate-50 p-4 sm:p-5">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="pointer-events-none absolute top-3 right-3 h-10 w-10 text-brand-red/10">
+                      <path d="M9.5 7C6.5 7 4 9.5 4 12.5S6.5 18 9.5 18c0 2-1.5 3-3.5 3v2c4 0 6-2.5 6-6v-5c0-2.8-2.2-5-5-5v-.5c0-.3.2-.5.5-.5H9.5V7Zm10 0c-3 0-5.5 2.5-5.5 5.5S16.5 18 19.5 18c0 2-1.5 3-3.5 3v2c4 0 6-2.5 6-6v-5c0-2.8-2.2-5-5-5v-.5c0-.3.2-.5.5-.5h1.5V7Z" />
+                    </svg>
+                    <p class="relative text-xs font-bold tracking-wide text-brand-red uppercase">
+                      {story.category.includes("Customer") ? "Customer Appreciation" : "Forwarding-Partner Appreciation"}
+                    </p>
+                    <p class="relative mt-2 text-sm leading-relaxed text-navy italic sm:text-base">&ldquo;{story.quote.text}&rdquo;</p>
+                    <p class="relative mt-3 text-sm font-bold text-navy">{story.quote.name}</p>
+                    <p class="relative text-xs text-navy/60">{story.quote.role}</p>
+                    <p class="relative text-xs text-navy/40">{story.quote.date}</p>
+                  </div>
+                )}
+              </div>
             </article>
           ))
         }
@@ -344,35 +441,45 @@ const caseStudies: CaseStudy[] = [
         <h2 class="mt-4 text-3xl leading-tight font-bold text-navy sm:text-4xl">Operations, Documented</h2>
       </div>
 
-      <div class="mt-12 space-y-6">
+      <div class="mt-12 grid gap-6 sm:grid-cols-2">
         {
           caseStudies.map((story, i) => (
             <article
               data-reveal
               style={`transition-delay: ${Math.min(i, 4) * 80}ms`}
-              class="translate-y-8 overflow-hidden rounded-2xl border border-slate-100 bg-white p-6 opacity-0 shadow-sm transition-all duration-700 ease-out sm:p-7"
+              class="translate-y-8 overflow-hidden rounded-2xl border border-slate-100 bg-white opacity-0 shadow-sm transition-all duration-700 ease-out"
             >
-              <div class="flex items-start gap-4">
-                <span class="flex-none font-sans text-2xl font-black text-navy/20 sm:text-3xl">{story.number}</span>
-                <div class="min-w-0">
-                  <p class="text-xs font-semibold tracking-wide text-navy/50 uppercase">{story.category}</p>
-                  <h3 class="mt-1 text-lg font-bold text-navy sm:text-xl">{story.title}</h3>
-                  <p class="mt-2 text-sm font-semibold text-brand-blue">{story.stats}</p>
-                </div>
+              <div style={`background: ${modeGradients[story.mode]};`} class="relative flex items-center justify-between overflow-hidden px-5 py-5 sm:px-6">
+                <div class="pointer-events-none absolute -top-8 -right-8 h-28 w-28 rounded-full bg-white/10 blur-2xl" />
+                <span class="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-white/15 text-white backdrop-blur">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" set:html={modeIcons[story.mode]} />
+                </span>
+                <p class="relative text-right font-sans text-lg leading-tight font-extrabold text-white sm:text-xl">{story.highlight}</p>
               </div>
 
-              <div class="mt-5 grid gap-4 sm:grid-cols-3">
-                <div>
-                  <p class="text-xs font-bold tracking-wide text-navy uppercase">Challenge</p>
-                  <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.challenge}</p>
+              <div class="p-6 sm:p-7">
+                <div class="flex items-start gap-3">
+                  <span class="flex-none font-sans text-2xl font-black text-navy/20 sm:text-3xl">{story.number}</span>
+                  <div class="min-w-0">
+                    <p class="text-xs font-semibold tracking-wide text-navy/50 uppercase">{modeLabels[story.mode]}</p>
+                    <h3 class="mt-1 text-lg font-bold text-navy sm:text-xl">{story.title}</h3>
+                    <p class="mt-2 text-sm font-semibold text-brand-blue">{story.stats}</p>
+                  </div>
                 </div>
-                <div>
-                  <p class="text-xs font-bold tracking-wide text-navy uppercase">Our Approach</p>
-                  <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.approach}</p>
-                </div>
-                <div>
-                  <p class="text-xs font-bold tracking-wide text-navy uppercase">Outcome</p>
-                  <p class="mt-1.5 text-sm leading-relaxed text-navy/70">{story.outcome}</p>
+
+                <div class="mt-5 space-y-3.5">
+                  <div>
+                    <p class="text-xs font-bold tracking-wide text-navy uppercase">Challenge</p>
+                    <p class="mt-1 text-sm leading-relaxed text-navy/70">{story.challenge}</p>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold tracking-wide text-navy uppercase">Our Approach</p>
+                    <p class="mt-1 text-sm leading-relaxed text-navy/70">{story.approach}</p>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold tracking-wide text-navy uppercase">Outcome</p>
+                    <p class="mt-1 text-sm leading-relaxed text-navy/70">{story.outcome}</p>
+                  </div>
                 </div>
               </div>
             </article>
