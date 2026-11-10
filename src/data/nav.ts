@@ -140,13 +140,19 @@ export const insightsItems: DropdownItem[] = [
   { label: "News", href: "/insights#news" },
 ];
 
-// Only the sub-sections that actually exist on /our-team — the rest
-// (Offices & Facilities, Global Network, Certifications & Memberships,
-// Technology & Visibility, Sustainability / Compliance, Careers) are removed
-// until their content/sections are built, so the footer doesn't link to
-// anchors that don't exist. Add them back here once each section ships.
+// Sub-sections without content/pages of their own (Technology & Visibility,
+// Sustainability / Compliance, Careers) are removed until they're built, so
+// the footer doesn't link to anchors that don't exist — add them back here
+// once each ships. Offices & Facilities, Global Network and Certifications &
+// Memberships point at the closest existing real content instead of their
+// own (not-yet-built) /our-team anchor: the Contact page's address/map, the
+// home page's About/globe section, and the home page's real Certifications
+// & Memberships logo wall, respectively.
 export const ourTeamItems: DropdownItem[] = [
   { label: "Our Story", href: "/our-team#our-story" },
   { label: "Leadership / Team", href: "/our-team#leadership-team" },
+  { label: "Offices & Facilities", href: "/contact" },
+  { label: "Global Network", href: "/#about-section" },
+  { label: "Certifications & Memberships", href: "/#certifications-section" },
   { label: "Contact", href: "/contact" },
 ];
